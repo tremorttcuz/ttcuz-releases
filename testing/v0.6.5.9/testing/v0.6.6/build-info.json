@@ -1,0 +1,9 @@
+{
+  "version": "0.6.6",
+  "channel": "testing",
+  "apk": "ttcuz.apk",
+  "source": "ttcuz-project-v0.6.6.zip",
+  "apk_sha256": "1662df613afa74525ee69c88d9979558bd201fecee6a3095807e3d44063dc773",
+  "source_sha256": "b0598e7492fa51c47134eafd3cde01b3d708e1b7528624662040b5975faf05ae",
+  "notes": "Исправленная сборка native-ui-fixed; использован совместимый DEX-кэш."
+}
