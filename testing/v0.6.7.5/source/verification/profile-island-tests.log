@@ -1,0 +1,280 @@
+test_native_icon_tint_preserves_large_heart_and_neutral_icons (test_accent_coverage_runtime.AccentCoverageTest.test_native_icon_tint_preserves_large_heart_and_neutral_icons) ... ok
+test_shapes_and_state_lists (test_accent_coverage_runtime.AccentCoverageTest.test_shapes_and_state_lists) ... ok
+test_typed_setters_have_matching_hooks (test_accent_coverage_runtime.AccentCoverageTest.test_typed_setters_have_matching_hooks) ... ok
+test_two_accounts_and_logout (test_account_appearance_runtime.AppearanceRuntimeTest.test_two_accounts_and_logout) ... ok
+test_filter_preserves_organic_posts_and_native_list (test_ad_filter_runtime.AdFilterTest.test_filter_preserves_organic_posts_and_native_list) ... ok
+test_real_models_and_formats (test_archive_features_runtime.ArchiveFeaturesTest.test_real_models_and_formats) ... ok
+test_verified_hooks_are_scoped_and_idempotent (test_archive_features_runtime.ArchiveFeaturesTest.test_verified_hooks_are_scoped_and_idempotent) ... ok
+test_streams_and_pending_cleanup (test_archive_media_runtime.ArchiveMediaTest.test_streams_and_pending_cleanup) ... ok
+test_native_categories_and_explicit_permission_action (test_archive_notifications_runtime.ArchiveNotificationsTest.test_native_categories_and_explicit_permission_action) ... ok
+test_account_resume_seek_and_cancellation (test_archive_player_runtime.ArchivePlayerTest.test_account_resume_seek_and_cancellation) ... ok
+test_relative_placement_and_live_revision (test_badge_placement_runtime.BadgePlacementRuntimeTest.test_relative_placement_and_live_revision) ... ok
+test_badge_taps_and_native_gestures (test_badge_touch_runtime.BadgeTouchRuntimeTest.test_badge_taps_and_native_gestures) ... ok
+test_transaction_restoration_and_recovery (test_bio_proof_runtime.BioProofRuntimeTest.test_transaction_restoration_and_recovery) ... ok
+test_eye_replaces_live_and_restores_on_navigation (test_burn_eye_runtime.BurnEyeRuntimeTest.test_eye_replaces_live_and_restores_on_navigation) ... ok
+test_unreadable_art_falls_back_to_vector_eye (test_burn_eye_runtime.BurnEyeRuntimeTest.test_unreadable_art_falls_back_to_vector_eye) ... ok
+test_tagged_comment_count (test_comment_like_runtime.CommentLikeRuntimeTest.test_tagged_comment_count) ... ok
+test_actual_selection_and_native_forwarding (test_comment_selection_runtime.CommentSelectionTest.test_actual_selection_and_native_forwarding) ... ok
+test_hook_is_scoped_and_idempotent (test_comment_selection_runtime.CommentSelectionTest.test_hook_is_scoped_and_idempotent) ... ok
+test_language_is_initialized_before_new_labels (test_comment_selection_runtime.CommentSelectionTest.test_language_is_initialized_before_new_labels) ... ok
+test_every_consent_string_has_three_languages (test_crash_consent_runtime.CrashConsentRuntimeTest.test_every_consent_string_has_three_languages) ... ok
+test_question_flow (test_crash_consent_runtime.CrashConsentRuntimeTest.test_question_flow) ... ok
+test_switch_in_settings_counts_as_asked (test_crash_consent_runtime.CrashConsentRuntimeTest.test_switch_in_settings_counts_as_asked) ... ok
+test_reporting_failure_never_suppresses_native_handler (test_crash_handler_runtime.CrashHandlerTest.test_reporting_failure_never_suppresses_native_handler) ... ok
+test_long_stack_is_trimmed_to_the_limit_the_server_accepts (test_crash_payload_runtime.CrashPayloadTest.test_long_stack_is_trimmed_to_the_limit_the_server_accepts) ... ok
+test_dimmed_date_is_stable_and_restores_host_alpha (test_date_dim_runtime.DateDimTest.test_dimmed_date_is_stable_and_restores_host_alpha) ... ok
+test_visible_caption_date (test_date_overlay_runtime.DateOverlayRuntimeTest.test_visible_caption_date) ... ok
+test_background_resume_disable_and_reload (test_dim_lifecycle_runtime.DimLifecycleTest.test_background_resume_disable_and_reload) ... ok
+test_import_reset_and_activity_pause_reach_dimmer (test_dim_lifecycle_runtime.DimLifecycleTest.test_import_reset_and_activity_pause_reach_dimmer) ... ok
+test_media_recycling_comments_chat_and_host_alpha (test_dim_mixed_runtime.DimMixedTest.test_media_recycling_comments_chat_and_host_alpha) ... ok
+test_burn_protection_follows_its_switch (test_dim_runtime.DimRuntimeTest.test_burn_protection_follows_its_switch) ... ok
+test_feed_stays_active_and_private_screens_stay_clean (test_dim_screens_runtime.DimScreensTest.test_feed_stays_active_and_private_screens_stay_clean) ... ok
+test_native_model_and_recycled_save_dialog (test_download_choice_runtime.DownloadChoiceRuntimeTest.test_native_model_and_recycled_save_dialog) ... ok
+test_installer_provider_metadata_and_mime (test_download_compat_runtime.DownloadCompatibilityTest.test_installer_provider_metadata_and_mime) ... ok
+test_package_version_sdk_and_signing_rotation (test_download_compat_runtime.DownloadCompatibilityTest.test_package_version_sdk_and_signing_rotation) ... ok
+test_permission_coalescing_grant_denial_and_modern_bypass (test_download_compat_runtime.DownloadCompatibilityTest.test_permission_coalescing_grant_denial_and_modern_bypass) ... ok
+test_expansion_reversal_and_cleanup (test_download_island_runtime.IslandRuntimeTest.test_expansion_reversal_and_cleanup) ... ok
+test_surface_and_contour (test_download_morph_runtime.DownloadMorphRuntimeTest.test_surface_and_contour) ... ok
+test_registry_cancel_retry_and_atomic_output (test_download_tasks_runtime.DownloadTasksRuntimeTest.test_registry_cancel_retry_and_atomic_output) ... ok
+test_shapes_groups_and_press (test_expressive_runtime.ExpressiveRuntimeTest.test_shapes_groups_and_press) ... ok
+test_publication_heart_and_ads (test_features_024_runtime.FeatureRuntimeTest.test_publication_heart_and_ads) ... ok
+test_caption_position_and_speed_label (test_feed_captions_runtime.CaptionRuntimeTest.test_caption_position_and_speed_label) ... ok
+test_current_models_native_modes_and_date_safety (test_feed_features_runtime.FeedFeaturesRuntimeTest.test_current_models_native_modes_and_date_safety) ... ok
+test_all_four_hooks_and_native_setter (test_feed_rail_runtime.FeedRailTest.test_all_four_hooks_and_native_setter) ... ok
+test_visibility_and_account_isolation (test_feed_rail_runtime.FeedRailTest.test_visibility_and_account_isolation) ... ok
+test_comments_marked_at_item_binding (test_fixes_0211_hooks.FixesHookTest.test_comments_marked_at_item_binding) ... ok
+test_native_text_listener_wrapped (test_fixes_0211_hooks.FixesHookTest.test_native_text_listener_wrapped) ... ok
+test_native_tux_variants (test_fixes_0211_hooks.FixesHookTest.test_native_tux_variants) ... ok
+test_real_font_application (test_font_coverage_runtime.FontCoverageTest.test_real_font_application) ... ok
+test_resource_and_hint_hooks (test_font_coverage_runtime.FontCoverageTest.test_resource_and_hint_hooks) ... ok
+test_burn_in_fade_walks_mixed_video_and_chrome_subtrees (test_margyt.AccentSourceTest.test_burn_in_fade_walks_mixed_video_and_chrome_subtrees) ... ok
+test_changed_selections_rebuild_the_rows_that_show_their_current_value (test_margyt.AccentSourceTest.test_changed_selections_rebuild_the_rows_that_show_their_current_value) ... ok
+test_changing_the_accent_invalidates_the_last_colour_translation (test_margyt.AccentSourceTest.test_changing_the_accent_invalidates_the_last_colour_translation) ... ok
+test_feed_and_comment_likes_repaint_after_accent_change (test_margyt.AccentSourceTest.test_feed_and_comment_likes_repaint_after_accent_change) ... ok
+test_feed_heart_pngs_are_embedded_after_tinting (test_margyt.AccentSourceTest.test_feed_heart_pngs_are_embedded_after_tinting) ... ok
+test_feed_like_assets_are_recoloured_at_the_asset_manager_hook (test_margyt.AccentSourceTest.test_feed_like_assets_are_recoloured_at_the_asset_manager_hook) ... ok
+test_feed_lottie_animation_names_are_recoloured_before_loading (test_margyt.AccentSourceTest.test_feed_lottie_animation_names_are_recoloured_before_loading) ... ok
+test_full_accent_picker_covers_the_marked_tiktok_controls (test_margyt.AccentSourceTest.test_full_accent_picker_covers_the_marked_tiktok_controls) ... ok
+test_icon_and_badge_controls_are_visible_in_the_appearance_section (test_margyt.AccentSourceTest.test_icon_and_badge_controls_are_visible_in_the_appearance_section) ... ok
+test_profile_capture_uses_real_account_model_and_is_throttled (test_margyt.AccentSourceTest.test_profile_capture_uses_real_account_model_and_is_throttled) ... ok
+test_profile_preview_uses_the_same_inline_renderer_as_real_profiles (test_margyt.AccentSourceTest.test_profile_preview_uses_the_same_inline_renderer_as_real_profiles) ... ok
+test_profile_sharing_is_enabled_by_default (test_margyt.AccentSourceTest.test_profile_sharing_is_enabled_by_default) ... ok
+test_remote_profile_styles_refresh_visible_names_and_keep_stale_cache (test_margyt.AccentSourceTest.test_remote_profile_styles_refresh_visible_names_and_keep_stale_cache) ... ok
+test_settings_entry_uses_the_default_mod_icon (test_margyt.AccentSourceTest.test_settings_entry_uses_the_default_mod_icon) ... ok
+test_settings_rebuild_restores_scroll_and_keeps_icon_columns_aligned (test_margyt.AccentSourceTest.test_settings_rebuild_restores_scroll_and_keeps_icon_columns_aligned) ... ok
+test_the_like_animation_accent_is_recoloured_without_touching_packs (test_margyt.AccentSourceTest.test_the_like_animation_accent_is_recoloured_without_touching_packs) ... ok
+test_theme_reset_and_accent_role_share_the_actual_accent_preference (test_margyt.AccentSourceTest.test_theme_reset_and_accent_role_share_the_actual_accent_preference) ... ok
+test_theme_role_list_is_collapsed_and_sections_use_grouped_surfaces (test_margyt.AccentSourceTest.test_theme_role_list_is_collapsed_and_sections_use_grouped_surfaces) ... ok
+test_ttcuz_is_the_first_default_icon_in_settings_and_launcher (test_margyt.AccentSourceTest.test_ttcuz_is_the_first_default_icon_in_settings_and_launcher) ... ok
+test_a_colour_resource_is_repainted_where_it_lies (test_margyt.AccentTest.test_a_colour_resource_is_repainted_where_it_lies) ... ok
+test_a_vector_fill_is_repainted_too (test_margyt.AccentTest.test_a_vector_fill_is_repainted_too) ... ok
+test_nothing_happens_when_the_colour_is_already_the_one (test_margyt.AccentTest.test_nothing_happens_when_the_colour_is_already_the_one) ... ok
+test_a_rewrite_keeps_every_entry (test_margyt.ApkZipTest.test_a_rewrite_keeps_every_entry) ... ok
+test_edits_land_and_stored_entries_stay_aligned (test_margyt.ApkZipTest.test_edits_land_and_stored_entries_stay_aligned) ... ok
+test_the_old_signature_is_dropped (test_margyt.ApkZipTest.test_the_old_signature_is_dropped) ... ok
+test_a_different_length_string_is_refused (test_margyt.ArscTest.test_a_different_length_string_is_refused) ... ok
+test_a_same_length_string_can_be_swapped_in_place (test_margyt.ArscTest.test_a_same_length_string_can_be_swapped_in_place) ... ok
+test_a_value_can_be_repainted_without_moving_a_byte (test_margyt.ArscTest.test_a_value_can_be_repainted_without_moving_a_byte) ... ok
+test_densities_come_out_of_the_config (test_margyt.ArscTest.test_densities_come_out_of_the_config) ... ok
+test_the_icon_resolves_to_files_in_the_apk (test_margyt.ArscTest.test_the_icon_resolves_to_files_in_the_apk) ... ok
+test_a_launcher_activity_gets_a_task_of_its_own (test_margyt.AxmlTest.test_a_launcher_activity_gets_a_task_of_its_own)
+Asked for an entry on the home screen, it comes with what that needs. ... ok
+test_a_provider_can_be_declared (test_margyt.AxmlTest.test_a_provider_can_be_declared) ... ok
+test_added_activity_survives_a_rebuild (test_margyt.AxmlTest.test_added_activity_survives_a_rebuild)
+The mod's screen: declared, exported, and off the home screen. ... ok
+test_an_adaptive_icon_reads_back (test_margyt.AxmlTest.test_an_adaptive_icon_reads_back) ... ok
+test_inserting_a_string_moves_every_index_that_follows (test_margyt.AxmlTest.test_inserting_a_string_moves_every_index_that_follows)
+The bug this test exists for: a pool insert renumbers the pool. ... ok
+test_label_becomes_an_inline_string (test_margyt.AxmlTest.test_label_becomes_an_inline_string) ... ok
+test_min_sdk_comes_from_the_manifest (test_margyt.AxmlTest.test_min_sdk_comes_from_the_manifest) ... ok
+test_only_the_authorities_the_package_does_not_cover_move (test_margyt.AxmlTest.test_only_the_authorities_the_package_does_not_cover_move) ... ok
+test_reading_the_manifest (test_margyt.AxmlTest.test_reading_the_manifest) ... ok
+test_round_trip_is_byte_for_byte (test_margyt.AxmlTest.test_round_trip_is_byte_for_byte) ... ok
+test_the_launcher_entry_is_found_through_the_alias (test_margyt.AxmlTest.test_the_launcher_entry_is_found_through_the_alias) ... ok
+test_the_screen_the_row_goes_on_is_the_one_the_mod_looks_for (test_margyt.AxmlTest.test_the_screen_the_row_goes_on_is_the_one_the_mod_looks_for)
+The build refuses an apk whose settings screen has been renamed. ... ok
+test_backup_is_allowlisted_and_never_exports_account_tokens (test_margyt.BackupSourceTest.test_backup_is_allowlisted_and_never_exports_account_tokens) ... ok
+test_import_requires_a_review_before_preferences_are_applied (test_margyt.BackupSourceTest.test_import_requires_a_review_before_preferences_are_applied) ... ok
+test_reset_uses_explicit_groups_not_a_preferences_clear (test_margyt.BackupSourceTest.test_reset_uses_explicit_groups_not_a_preferences_clear) ... ok
+test_custom_colour_hearts_never_build_on_the_ui_thread (test_margyt.CustomColourReadyTest.test_custom_colour_hearts_never_build_on_the_ui_thread) ... D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1481: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_an_ordinary_diary_keeps_its_size (test_margyt.DeveloperModeSourceTest.test_an_ordinary_diary_keeps_its_size) ... ok
+test_five_taps_on_the_heading_switch_it_on (test_margyt.DeveloperModeSourceTest.test_five_taps_on_the_heading_switch_it_on) ... ok
+test_the_full_report_never_carries_the_account (test_margyt.DeveloperModeSourceTest.test_the_full_report_never_carries_the_account) ... ok
+test_a_renamed_authority_moves_in_the_bytecode_too (test_margyt.DexPatchTest.test_a_renamed_authority_moves_in_the_bytecode_too) ... ok
+test_every_target_has_a_method_to_land_in (test_margyt.DexPatchTest.test_every_target_has_a_method_to_land_in) ... ok
+test_feed_lottie_call_is_rewritten_without_telephony_reference (test_margyt.DexPatchTest.test_feed_lottie_call_is_rewritten_without_telephony_reference) ... ok
+test_the_calls_that_should_move_move (test_margyt.DexPatchTest.test_the_calls_that_should_move_move) ... ok
+test_the_calls_that_should_not_move_stay (test_margyt.DexPatchTest.test_the_calls_that_should_not_move_stay) ... ok
+test_a_recreated_top_bar_is_searched_for_again (test_margyt.DimSourceTest.test_a_recreated_top_bar_is_searched_for_again) ... ok
+test_both_navigation_rails_are_dimmed_but_player_subtrees_are_not (test_margyt.DimSourceTest.test_both_navigation_rails_are_dimmed_but_player_subtrees_are_not) ... ok
+test_dimmed_views_return_to_their_original_alpha (test_margyt.DimSourceTest.test_dimmed_views_return_to_their_original_alpha) ... ok
+test_only_a_player_under_the_screen_centre_is_dimmed (test_margyt.DimSourceTest.test_only_a_player_under_the_screen_centre_is_dimmed) ... ok
+test_pixel_shift_is_removed_including_saved_preferences (test_margyt.DimSourceTest.test_pixel_shift_is_removed_including_saved_preferences) ... ok
+test_manifest_maps_nested_font_to_ttcuz_asset (test_margyt.EmojiAssetManifestTest.test_manifest_maps_nested_font_to_ttcuz_asset) ... ok
+test_manifest_rejects_traversal (test_margyt.EmojiAssetManifestTest.test_manifest_rejects_traversal) ... ok
+test_a_colour_asked_of_the_framework_is_redirected (test_margyt.FeedSpeedLockSourceTest.test_a_colour_asked_of_the_framework_is_redirected) ... ok
+test_a_colour_being_applied_is_redirected_too (test_margyt.FeedSpeedLockSourceTest.test_a_colour_being_applied_is_redirected_too)
+Reading a colour is half of it; the other half is using one. ... ok
+test_a_dex_holding_a_renamed_authority_is_taken_apart (test_margyt.FeedSpeedLockSourceTest.test_a_dex_holding_a_renamed_authority_is_taken_apart) ... ok
+test_a_dex_without_telephony_is_left_alone (test_margyt.FeedSpeedLockSourceTest.test_a_dex_without_telephony_is_left_alone) ... ok
+test_a_dex_without_the_marker_is_left_alone (test_margyt.FeedSpeedLockSourceTest.test_a_dex_without_the_marker_is_left_alone) ... ok
+test_a_dex_without_the_model_is_left_alone (test_margyt.FeedSpeedLockSourceTest.test_a_dex_without_the_model_is_left_alone) ... ok
+test_a_field_read_becomes_a_call_and_a_move (test_margyt.FeedSpeedLockSourceTest.test_a_field_read_becomes_a_call_and_a_move)
+allowDownload is a field, so one instruction has to become two. ... ok
+test_a_forced_method_keeps_its_modifiers_and_loses_its_body (test_margyt.FeedSpeedLockSourceTest.test_a_forced_method_keeps_its_modifiers_and_loses_its_body) ... ok
+test_a_forced_method_that_moved_stops_the_build (test_margyt.FeedSpeedLockSourceTest.test_a_forced_method_that_moved_stops_the_build) ... ok
+test_a_synthetic_reference_to_the_comment_cell_is_not_an_anchor (test_margyt.FeedSpeedLockSourceTest.test_a_synthetic_reference_to_the_comment_cell_is_not_an_anchor) ... ok
+test_badge_assignments_are_distinct_by_stable_id (test_margyt.FeedSpeedLockSourceTest.test_badge_assignments_are_distinct_by_stable_id) ... ok
+test_comment_long_press_is_wrapped_only_in_its_anchored_cell (test_margyt.FeedSpeedLockSourceTest.test_comment_long_press_is_wrapped_only_in_its_anchored_cell) ... ok
+test_feed_speed_hook_is_inserted_only_at_the_single_pointer_touch_entry (test_margyt.FeedSpeedLockSourceTest.test_feed_speed_hook_is_inserted_only_at_the_single_pointer_touch_entry) ... ok
+test_swipe_down_does_not_rewrite_a_different_listener (test_margyt.FeedSpeedLockSourceTest.test_swipe_down_does_not_rewrite_a_different_listener) ... ok
+test_swipe_lock_uses_the_real_47241_stop_method_and_consumes_hold (test_margyt.FeedSpeedLockSourceTest.test_swipe_lock_uses_the_real_47241_stop_method_and_consumes_hold) ... ok
+test_the_accent_constant_becomes_a_call (test_margyt.FeedSpeedLockSourceTest.test_the_accent_constant_becomes_a_call) ... ok
+test_the_dex_format_is_read_off_the_header (test_margyt.FeedSpeedLockSourceTest.test_the_dex_format_is_read_off_the_header) ... ok
+test_the_dex_holding_a_forced_class_is_taken_apart (test_margyt.FeedSpeedLockSourceTest.test_the_dex_holding_a_forced_class_is_taken_apart) ... ok
+test_the_feed_page_comes_through_the_mod (test_margyt.FeedSpeedLockSourceTest.test_the_feed_page_comes_through_the_mod)
+The ads are dropped where the page is read, not hidden per screen. ... ok
+test_the_new_dex_continues_the_run (test_margyt.FeedSpeedLockSourceTest.test_the_new_dex_continues_the_run) ... ok
+test_the_pink_is_looked_for_as_an_instruction (test_margyt.FeedSpeedLockSourceTest.test_the_pink_is_looked_for_as_an_instruction) ... ok
+test_the_save_button_is_pointed_at_the_clean_address (test_margyt.FeedSpeedLockSourceTest.test_the_save_button_is_pointed_at_the_clean_address)
+Both names are TikTok's own, and both return the same type. ... ok
+test_the_stamp_is_only_dropped_in_the_class_that_draws_it (test_margyt.FeedSpeedLockSourceTest.test_the_stamp_is_only_dropped_in_the_class_that_draws_it)
+Every drawBitmap in the apk is not ours to touch -- one of them is. ... ok
+test_every_file_behind_the_icon_is_replaced (test_margyt.IconTest.test_every_file_behind_the_icon_is_replaced) ... ok
+test_the_resource_table_is_not_disturbed (test_margyt.IconTest.test_the_resource_table_is_not_disturbed) ... ok
+test_a_lighter_member_stays_lighter (test_margyt.PaletteTest.test_a_lighter_member_stays_lighter)
+Gradients have two ends, and they have to still have two. ... ok
+test_alpha_is_kept_and_the_rest_follows (test_margyt.PaletteTest.test_alpha_is_kept_and_the_rest_follows)
+Half-transparent pink is the same pink: the first build missed all of it. ... ok
+test_asking_for_the_colour_it_already_is_changes_nothing (test_margyt.PaletteTest.test_asking_for_the_colour_it_already_is_changes_nothing) ... ok
+test_flat_mapping_leaves_other_colours_alone (test_margyt.PaletteTest.test_flat_mapping_leaves_other_colours_alone) ... ok
+test_hot_and_pastel_pink_are_mapped_without_losing_alpha (test_margyt.PaletteTest.test_hot_and_pastel_pink_are_mapped_without_losing_alpha) ... ok
+test_pale_tints_and_dark_shades_keep_their_step (test_margyt.PaletteTest.test_pale_tints_and_dark_shades_keep_their_step) ... ok
+test_solid_colours_of_the_family_become_one_accent (test_margyt.PaletteTest.test_solid_colours_of_the_family_become_one_accent)
+A typed colour is the accent itself, not a lighter or darker cousin. ... ok
+test_the_java_side_was_given_the_same_numbers (test_margyt.PaletteTest.test_the_java_side_was_given_the_same_numbers)
+Two implementations of one formula, and a seam if they disagree. ... ok
+test_the_neighbours_of_the_family_come_along (test_margyt.PaletteTest.test_the_neighbours_of_the_family_come_along) ... ok
+test_the_reference_lands_exactly_on_the_accent (test_margyt.PaletteTest.test_the_reference_lands_exactly_on_the_accent) ... ok
+test_what_is_not_the_family_is_not_touched (test_margyt.PaletteTest.test_what_is_not_the_family_is_not_touched) ... ok
+test_recoloured_art_is_kept_on_disk (test_margyt.PersistentRecolourCacheTest.test_recoloured_art_is_kept_on_disk) ... D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1430: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/RecolourCache.java' mode='r' encoding='utf-8'>
+  cache = open(base + "RecolourCache.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1431: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  accent = open(base + "Accent.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1432: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Textures.java' mode='r' encoding='utf-8'>
+  textures = open(base + "Textures.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_encode_decode_is_lossless (test_margyt.PngTest.test_encode_decode_is_lossless) ... ok
+test_resizing_keeps_the_transparent_edge_and_light_glyph (test_margyt.PngTest.test_resizing_keeps_the_transparent_edge_and_light_glyph) ... ok
+test_size_without_decoding (test_margyt.PngTest.test_size_without_decoding) ... ok
+test_the_master_is_what_it_claims (test_margyt.PngTest.test_the_master_is_what_it_claims) ... ok
+test_heart_is_recoloured_for_every_colour (test_margyt.PrerecolouredAtBuildTest.test_heart_is_recoloured_for_every_colour) ... D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1472: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_palette_matches_the_app (test_margyt.PrerecolouredAtBuildTest.test_palette_matches_the_app) ... D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1444: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_like_animations_are_cached_and_prewarmed_off_the_ui_thread (test_margyt.PrerecolouredLikeAnimationTest.test_like_animations_are_cached_and_prewarmed_off_the_ui_thread) ... D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1419: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  java = open(os.path.join(ROOT, "inject/java/cat/narezany/margyt/Accent.java"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\profile-island-fix-0.6.7.3\ttcuz-project-v0.6.6.3\tests\test_margyt.py:1423: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\profile-island-fix-0.6.7.3\\ttcuz-project-v0.6.6.3\\inject/java/cat/narezany/margyt/Margy.java' mode='r' encoding='utf-8'>
+  margy = open(os.path.join(ROOT, "inject/java/cat/narezany/margyt/Margy.java"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_gradient_animation_is_live_and_has_a_speed_control (test_margyt.ProfileAnimationSourceTest.test_gradient_animation_is_live_and_has_a_speed_control) ... ok
+test_a_failed_recheck_never_undoes_an_accepted_proof (test_margyt.ProfileVerificationSourceTest.test_a_failed_recheck_never_undoes_an_accepted_proof) ... ok
+test_a_verified_person_is_not_asked_again (test_margyt.ProfileVerificationSourceTest.test_a_verified_person_is_not_asked_again) ... ok
+test_badge_pictures_are_only_fetched_from_the_servers_badge_folder (test_margyt.ProfileVerificationSourceTest.test_badge_pictures_are_only_fetched_from_the_servers_badge_folder) ... ok
+test_only_the_server_asking_again_takes_the_proof_back (test_margyt.ProfileVerificationSourceTest.test_only_the_server_asking_again_takes_the_proof_back) ... ok
+test_switches_follow_the_card_so_on_is_never_white_on_white (test_margyt.ProfileVerificationSourceTest.test_switches_follow_the_card_so_on_is_never_white_on_white) ... ok
+test_the_bio_is_rechecked_in_the_background_with_a_ceiling (test_margyt.ProfileVerificationSourceTest.test_the_bio_is_rechecked_in_the_background_with_a_ceiling) ... ok
+test_the_creator_picks_a_badge_from_pictures_and_types_who (test_margyt.ProfileVerificationSourceTest.test_the_creator_picks_a_badge_from_pictures_and_types_who) ... ok
+test_the_nickname_is_only_asked_when_the_app_has_not_seen_it (test_margyt.ProfileVerificationSourceTest.test_the_nickname_is_only_asked_when_the_app_has_not_seen_it) ... ok
+test_semver_build_code_is_increasing_and_install_code_stays_numeric (test_margyt.ReleaseVersionTest.test_semver_build_code_is_increasing_and_install_code_stays_numeric) ... ok
+test_the_whole_series_is_ordered_by_one_numbering (test_margyt.ReleaseVersionTest.test_the_whole_series_is_ordered_by_one_numbering)
+Every release installs over the one before it, corrections included. ... ok
+test_search_cuts_the_whole_page_down_to_matching_rows (test_margyt.SettingsSearchSourceTest.test_search_cuts_the_whole_page_down_to_matching_rows) ... ok
+test_settings_wait_for_a_switch_transition_before_rebuilding (test_margyt.SwitchSourceTest.test_settings_wait_for_a_switch_transition_before_rebuilding) ... ok
+test_switch_keeps_its_interpolated_position_when_tapped_again (test_margyt.SwitchSourceTest.test_switch_keeps_its_interpolated_position_when_tapped_again) ... ok
+test_a_generated_vector_parses_as_one (test_margyt.VectorTest.test_a_generated_vector_parses_as_one) ... ok
+test_the_attribute_ids_are_the_ones_the_platform_uses (test_margyt.VectorTest.test_the_attribute_ids_are_the_ones_the_platform_uses) ... ok
+test_touch_cancellation_and_navigation (test_motion_runtime.MotionRuntimeTest.test_touch_cancellation_and_navigation) ... ok
+test_failed_save_retry_and_delayed_restore (test_music_cloud_runtime.MusicCloudTest.test_failed_save_retry_and_delayed_restore) ... ok
+test_cover_cache_and_account_isolation (test_music_covers_runtime.MusicCoversRuntimeTest.test_cover_cache_and_account_isolation) ... ok
+test_playback_account_changes_and_public_queue (test_music_engine_runtime.MusicEngineTest.test_playback_account_changes_and_public_queue) ... ok
+test_tracks_links_and_account_isolation (test_music_library_runtime.MusicLibraryTest.test_tracks_links_and_account_isolation) ... ok
+test_logic (test_music_logic_runtime.MusicLogicTest.test_logic) ... ok
+test_real_session_and_tiktok_output_mix (test_music_spectrum_runtime.MusicSpectrumRuntimeTest.test_real_session_and_tiktok_output_mix) ... ok
+test_feed_heart_tint_uses_heart_hook_before_generic_accent (test_native_flags_runtime.NativeFlagsTests.test_feed_heart_tint_uses_heart_hook_before_generic_accent) ... ok
+test_literal_readers_are_scoped_and_idempotent (test_native_flags_runtime.NativeFlagsTests.test_literal_readers_are_scoped_and_idempotent) ... ok
+test_native_fallback_and_each_enabled_group (test_native_flags_runtime.NativeFlagsTests.test_native_fallback_and_each_enabled_group) ... ok
+test_windows_case_collision_suffix_is_patched (test_native_flags_runtime.NativeFlagsTests.test_windows_case_collision_suffix_is_patched) ... ok
+test_standard_and_release_gson (test_native_json_runtime.NativeJsonRuntimeTest.test_standard_and_release_gson) ... ok
+test_archive_and_native_pagination (test_offline_comments_runtime.OfflineCommentsRuntime.test_archive_and_native_pagination) ... ok
+test_download_count_is_not_reset_to_sixty (test_offline_native.OfflineNativeTest.test_download_count_is_not_reset_to_sixty) ... ok
+test_native_comments_keep_annotations_and_are_idempotent (test_offline_native.OfflineNativeTest.test_native_comments_keep_annotations_and_are_idempotent) ... ok
+test_offline_counts_hook_survives_debug_lines (test_offline_native.OfflineNativeTest.test_offline_counts_hook_survives_debug_lines) ... ok
+test_java_and_python_for_custom_colours (test_palette_parity.PaletteParity.test_java_and_python_for_custom_colours) ... ok
+test_lifecycle_and_bounded_work (test_plexus_runtime.PlexusRuntimeTest.test_lifecycle_and_bounded_work) ... ok
+test_inspector_archive_and_catalog_boundaries (test_plugin_audit_runtime.PluginAuditRuntimeTest.test_inspector_archive_and_catalog_boundaries) ... ok
+test_concealment_rejected (test_plugin_publication.PublicationTest.test_concealment_rejected) ... ok
+test_native_method_rejected_before_publication (test_plugin_publication.PublicationTest.test_native_method_rejected_before_publication) ... ok
+test_readable_plugin_and_package_digest (test_plugin_publication.PublicationTest.test_readable_plugin_and_package_digest) ... ok
+test_rejected_upload_has_no_side_effects (test_plugin_publication.PublicationTest.test_rejected_upload_has_no_side_effects) ... ok
+test_wrong_entry_and_extra_file_rejected (test_plugin_publication.PublicationTest.test_wrong_entry_and_extra_file_rejected) ... ok
+test_prepared_pixels_reused_without_live_filters (test_prepared_heart_runtime.PreparedHeartTest.test_prepared_pixels_reused_without_live_filters) ... ok
+test_original_and_patched_profile_readers (test_profile_compatibility_runtime.ProfileCompatibilityTest.test_original_and_patched_profile_readers) ... ok
+test_patched_badge_parsers_keep_full_worker_catalog (test_profile_compatibility_runtime.ProfileCompatibilityTest.test_patched_badge_parsers_keep_full_worker_catalog) ... ok
+test_profile_only_in_foreground_with_current_identity (test_profile_music_runtime.ProfileMusicRuntimeTest.test_profile_only_in_foreground_with_current_identity) ... ok
+test_native_reset_repaired_without_loops_or_recycled_view_changes (test_profile_reset_runtime.ProfileResetTest.test_native_reset_repaired_without_loops_or_recycled_view_changes) ... ok
+test_cached_profile_is_not_visible_after_return (test_profile_visibility_runtime.ProfileVisibilityTest.test_cached_profile_is_not_visible_after_return) ... ok
+test_hit_rgb_key_and_six_colour_lru (test_recolour_cache_runtime.RecolourCacheRuntime.test_hit_rgb_key_and_six_colour_lru) ... ok
+test_native_information_and_icon_restore (test_repost_runtime.RepostRegressionTest.test_native_information_and_icon_restore) ... ok
+test_navigation_and_downloads (test_screen_runtime.ScreenRuntimeTest.test_navigation_and_downloads) ... ok
+test_approval_required_and_updates_are_separate (test_script_publication.ScriptPublicationTest.test_approval_required_and_updates_are_separate) ... ok
+test_invalid_commands_schema_and_unknown_fields (test_script_publication.ScriptPublicationTest.test_invalid_commands_schema_and_unknown_fields) ... ok
+test_limits_and_idempotence (test_script_publication.ScriptPublicationTest.test_limits_and_idempotence) ... ok
+test_modified_approved_source_is_excluded (test_script_publication.ScriptPublicationTest.test_modified_approved_source_is_excluded) ... ok
+test_names_and_colours_validate (test_script_publication.ScriptPublicationTest.test_names_and_colours_validate) ... ok
+test_real_http_routes_require_admin_and_review_token (test_script_publication.ScriptPublicationTest.test_real_http_routes_require_admin_and_review_token) ... ok
+test_rejected_source_is_never_public (test_script_publication.ScriptPublicationTest.test_rejected_source_is_never_public) ... ok
+test_actual_validation_and_compiled_colour_commands (test_script_runtime.ScriptRuntimeTest.test_actual_validation_and_compiled_colour_commands) ... ok
+test_native_loading_dots_keep_the_two_colour_animation (test_secondary_accent_runtime.SecondaryAccentTest.test_native_loading_dots_keep_the_two_colour_animation) ... ok
+test_secondary_zones_measured_from_the_screens (test_secondary_accent_runtime.SecondaryAccentTest.test_secondary_zones_measured_from_the_screens) ... ok
+test_sourced_moves_cyan_and_green_only_for_a_chosen_accent (test_secondary_accent_runtime.SecondaryAccentTest.test_sourced_moves_cyan_and_green_only_for_a_chosen_accent) ... ok
+test_span_colours_follow_the_accent_and_restore (test_secondary_accent_runtime.SecondaryAccentTest.test_span_colours_follow_the_accent_and_restore) ... ok
+test_identity_key_is_shared_across_provider_instances (test_settings_safety_runtime.SafetyRuntimeTest.test_identity_key_is_shared_across_provider_instances) ... ok
+test_nullable_slider_drawables (test_settings_safety_runtime.SafetyRuntimeTest.test_nullable_slider_drawables) ... ok
+test_sticker_sender_only_populates_native_arguments (test_settings_safety_runtime.SafetyRuntimeTest.test_sticker_sender_only_populates_native_arguments) ... ok
+test_drag_thresholds (test_sheet_drag_runtime.SheetDragRuntimeTest.test_drag_thresholds) ... ok
+test_close_cancel_reopen_and_activity_cleanup (test_sheet_runtime.SheetRuntimeTest.test_close_cancel_reopen_and_activity_cleanup) ... ok
+test_pages_callbacks_account_and_stale_response (test_social_library_runtime.SocialLibraryTest.test_pages_callbacks_account_and_stale_response) ... ok
+test_social_card_kept_but_explicit_author_block_honored (test_social_repost_filter_runtime.RepostFilterTest.test_social_card_kept_but_explicit_author_block_honored) ... ok
+test_actual_edge_entry_is_required_and_patched_once (test_speed_runtime.NativeSpeedPatchTest.test_actual_edge_entry_is_required_and_patched_once) ... ok
+test_native_and_lazy_hold_lock_release (test_speed_runtime.SpeedRuntimeTest.test_native_and_lazy_hold_lock_release) ... ok
+test_bitmap_negative_cache_and_native_original_art (test_stable_accent_runtime.StableAccentTest.test_bitmap_negative_cache_and_native_original_art) ... ok
+test_native_icon_binding_and_text_recycling_hooks (test_stable_accent_runtime.StableAccentTest.test_native_icon_binding_and_text_recycling_hooks) ... ok
+test_native_streak_factory_is_scoped_and_idempotent (test_stable_accent_runtime.StableAccentTest.test_native_streak_factory_is_scoped_and_idempotent) ... ok
+test_native_favorites_and_fresh_state (test_streak_repository_runtime.StreakRepositoryRuntimeTest.test_native_favorites_and_fresh_state) ... ok
+test_chosen_minute_is_the_moment_the_alarm_fires (test_streak_schedule_edges.ScheduleTest.test_chosen_minute_is_the_moment_the_alarm_fires) ... ok
+test_calendar_schedule (test_streak_schedule_runtime.ScheduleTest.test_calendar_schedule) ... ok
+test_next_alarm (test_streak_schedule_runtime.ScheduleTest.test_next_alarm) ... ok
+test_native_request_and_response_contract (test_tiktok_music_runtime.TikTokMusicRuntimeTest.test_native_request_and_response_contract) ... ok
+test_first_run_skip_replay_and_pause (test_tutorial_runtime.TutorialRuntimeTest.test_first_run_skip_replay_and_pause) ... ok
+test_dark_controls_light_restoration_and_media_exclusion (test_ui_contrast_runtime.UiContrastRuntimeTest.test_dark_controls_light_restoration_and_media_exclusion) ... ok
+test_heart_sweeps_do_not_block_predraw_or_repeat_for_a_burst (test_ui_performance_runtime.UiPerformanceTest.test_heart_sweeps_do_not_block_predraw_or_repeat_for_a_burst) ... ok
+test_layout_bursts_are_deferred_and_final_layout_is_kept (test_ui_performance_runtime.UiPerformanceTest.test_layout_bursts_are_deferred_and_final_layout_is_kept) ... ok
+test_owned_spans_do_not_rewrite_text_until_accent_changes (test_ui_performance_runtime.UiPerformanceTest.test_owned_spans_do_not_rewrite_text_until_accent_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 237 tests in 199.384s
+
+OK

@@ -1,0 +1,13 @@
+{
+  "input_dex_sha256": "0b7e5cf8074b4da095c299fee2db683ceaf0331e93d4c2bc51671cdb65fcf911",
+  "patched_dex_sha256": "8713795b677a68a60512efad7931f1a83a35a7a9ac9f4659b3319118b54d72f2",
+  "api": 23,
+  "input_bytes": 8092256,
+  "patched_bytes": 9667120,
+  "full_native_dex_assembly_verified": true,
+  "hook_survives_roundtrip": true,
+  "profile_hook_counts": {
+    "native profile layout": 1,
+    "native profile header create": 1
+  }
+}

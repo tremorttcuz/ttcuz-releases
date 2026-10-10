@@ -1,0 +1,78 @@
+{
+  "createdAt": "2026-10-10T08:19:18.127877+00:00",
+  "sourceArchive": "ttcuz-project-v0.6.7.1-profile-island-fixed.zip",
+  "sourceSha256": "1d871b9f95e8e4c65c0a69cab5042d3962b75284334c8c36a942f629d74509d2",
+  "versionMetadataPreserved": true,
+  "VERSION": "0.6.6.1",
+  "pythonTests": {
+    "total": 236,
+    "passed": 236,
+    "failed": 0
+  },
+  "serverTests": {
+    "total": 45,
+    "passed": 45,
+    "failed": 0
+  },
+  "javaAndD8": {
+    "result": "passed",
+    "minApi": 23,
+    "dexSha256": "21560869030e7921a065332456bee051165373da9ebb476942f567b8693955a8"
+  },
+  "fixes": [
+    "Periodic work stops when disabled or in the background; resume coalesces one task, with weak screen references.",
+    "A replaced ViewTreeObserver is reconnected without duplicate timers.",
+    "Import/reset invalidates cached master/strength and clears the temporary eye pause.",
+    "Eye labels and alpha refresh when settings change.",
+    "A hidden LIVE ancestor hides its eye overlay.",
+    "Placement changes restore the previous native LIVE anchor.",
+    "Detaching the eye restores LIVE, cancels its animation and removes its frame observer.",
+    "Date alpha composes with dimming, captures host alpha and avoids repeated writes or double dimming."
+  ],
+  "beforeAfterRegressions": [
+    {
+      "test": "test_dimmed_date_is_stable_and_restores_host_alpha",
+      "beforeFix": "failed as expected",
+      "error": "Exception in thread \"main\" java.lang.AssertionError: date remains dimmed: 0.6",
+      "afterFix": "passed"
+    },
+    {
+      "test": "test_background_resume_disable_and_reload",
+      "beforeFix": "failed as expected",
+      "error": "Exception in thread \"main\" java.lang.AssertionError: disabled feature must not poll every second",
+      "afterFix": "passed"
+    }
+  ],
+  "verifiedScopes": [
+    "video/photo media remain unchanged",
+    "comments/chat/profile exclusion",
+    "host alpha restored",
+    "no cumulative dimming",
+    "quiet frame has no repeated alpha writes",
+    "recycled media restored before draw",
+    "master and eye switches",
+    "import/reset",
+    "background/resume",
+    "observer replacement",
+    "profile island fix retained"
+  ],
+  "antiBurnAvailable": true,
+  "enabledByDefault": false,
+  "pixelShiftEnabled": false,
+  "serverFilesUnchanged": true,
+  "apkBuilt": false,
+  "physicalAndroidTested": false,
+  "fpsOnPhysicalDeviceMeasured": false,
+  "changedOriginalFiles": [
+    "README.md",
+    "tests/test_burn_eye_runtime.py",
+    "tests/test_date_overlay_runtime.py",
+    "inject/java/cat/narezany/margyt/BurnEye.java",
+    "inject/java/cat/narezany/margyt/SettingsRow.java",
+    "inject/java/cat/narezany/margyt/Dim.java",
+    "inject/java/cat/narezany/margyt/DateOverlay.java",
+    "inject/java/cat/narezany/margyt/Backup.java",
+    "docs/release-0.6.6.1.md"
+  ],
+  "allOtherOriginalFileContentsIdentical": true
+}

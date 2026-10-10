@@ -1,0 +1,74 @@
+[1;36m==>[0m Opening the apk
+    26250 entries
+    package com.zhiliaoapp.musically, staying as it is
+    application class com.ss.android.ugc.aweme.app.host.AwemeHostApplication
+    ttcuz 0.6.7.5, Android versionCode 2030709415
+    minSdk 23, dex 035
+[1;36m==>[0m The accent colour
+    #FE2C55
+    the accent is TikTok's own, nothing to bake
+    79 in the table and 338 in 234 compiled xml files stay as they are
+    those are pictures rather than code -- the palette in the settings cannot reach them; --accent is what moves them
+    emblem: 21443 bytes of png in the code
+    25 icons in the code
+    ttcuz 0.6.7.5 on TikTok 47.2.41
+    comment sticker tapped: LX/0IKI;->LIZ
+    comment sticker sheet: LX/0IKC;->LJ
+    465 colours belong to the theme; 394 of them mean nothing else anywhere
+    19 icons to choose from
+[1;36m==>[0m Building the mod's own dex
+    1332184 bytes, dex 035, every rewrite has somewhere to land
+[1;36m==>[0m Name and icon
+    label on application
+    cat.narezany.margyt.SettingsActivity declared, reached from TikTok's own settings
+    cat.narezany.margyt.StoreActivity declared, the plugin store
+    asking for REQUEST_INSTALL_PACKAGES: the mod installs its own updates
+    cat.narezany.margyt.StreakAlarm declared: streak sends wake on the system clock
+    cat.narezany.margyt.MargyProvider declared: the mod starts with the app
+    the ttcuz row goes on top of SettingContainerActivity
+[1;36m==>[0m Provider authorities
+    com.zhiliaoapp.musically.WsChannelMultiProcessSharedProvider;com.zhiliaoapp.musically.ttlive_provider;com.ss.android.common.multiprocess.SHARE_PROVIDER_AUTHORITY1233.margyt;com.zhiliaoapp.musically.push.SHARE_PROVIDER_AUTHORITY;com.zhiliaoapp.musically.bdinstall.provider;com.zhiliaoapp.musically.push.settings;com.zhiliaoapp.musically.auth_token.SHARE_PROVIDER_AUTHORITY;com.zhiliaoapp.musically.dynamic.provider;com.zhiliaoapp.musically.resources.AndroidContextProvider;com.zhiliaoapp.musically.mlkitinitprovider
+    com.facebook.app.FacebookContentProvider597615686992125.margyt
+    2 the package name does not cover, now ours alone
+    icon resource 0x7f0e0002
+    res/ap/a.png: 56x56 bitmap
+    res/am/b.png: 84x84 bitmap
+    res/an/b.png: 112x112 bitmap
+    res/ao/b.png: 168x168 bitmap
+    res/aq/a.png: 224x224 bitmap
+    res/ar/a.xml: adaptive icon, following its layers
+    res/a/apr.xml: vector (background)
+    res/a/aps.xml: vector (foreground)
+[1;36m==>[0m Preserving legacy launcher aliases
+    17 legacy aliases hidden for update compatibility
+    18 new launcher icons from assets/icons/manifest.json
+    MD3 dot animation assets: 15 (including raw resources)
+    assets/margyt/twemoji.ttf: 1439 kB
+    assets/margyt/noto.ttf: 10423 kB
+    assets/margyt/blobmoji.ttf: 12891 kB
+    assets/margyt/emoji/packs.json: 0 kB
+    assets/margyt/meow.ogg: 19 kB
+    assets/margyt/bat.png: 140 kB
+    assets/margyt/bat_hit.mp3: 8 kB
+    assets/margyt/burn_eye_open.png: 4 kB
+    assets/margyt/burn_eye_closed.png: 5 kB
+    11 like animations ready for 8 colours (1198 kB), 0 left to the app
+[1;36m==>[0m Rewriting the bytecode
+[1;36m==>[0m Rebuilding native loading classes in classes5.dex
+    native MD3 loader Lcom/bytedance/tux/status/loading/TuxSpinner;, native MD3 loader LX/0DZv;, native MD3 loader LX/0DZw;
+[1;36m==>[0m Rebuilding native loading classes in classes7.dex
+    native MD3 loader LX/0GdO;
+[1;36m==>[0m Rebuilding native loading classes in classes18.dex
+    native MD3 loader LX/0fzn;
+[1;36m==>[0m Rebuilding native loading classes in classes23.dex
+    native MD3 loader LX/0pWh;
+[1;36m==>[0m Rebuilding native loading classes in classes37.dex
+    native MD3 loader LX/1HkT;
+    the mod's classes go in as classes54.dex
+[1;36m==>[0m Writing the apk
+    dropped META-INF/BNDLTOOL.SF
+    dropped META-INF/BNDLTOOL.RSA
+    dropped META-INF/MANIFEST.MF
+    393 MB
+[1;36m==>[0m Signing
+[1;36m==>[0m Done in 686 s: D:\MargyT\outputs\ttcuz-0.6.7.5.apk

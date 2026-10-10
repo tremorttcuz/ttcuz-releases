@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS custom_badges (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  png TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);

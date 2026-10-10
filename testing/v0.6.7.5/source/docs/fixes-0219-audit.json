@@ -1,0 +1,21 @@
+{
+  "version": "0.2.19",
+  "tiktok": "47.2.41",
+  "rewrite_counts": {
+    "User->getUniqueId": 3,
+    "User->getNickname": 9,
+    "TextView->setText": 11,
+    "View->setOnTouchListener": 2
+  },
+  "native_UID_hook_reassembled": true,
+  "hook_idempotent": true,
+  "python_java_tests": 132,
+  "server_node_tests": 19,
+  "vectors_visually_reviewed": 40,
+  "stable_frame_resource_scans": 0,
+  "stable_frames_checked": 60,
+  "phone_FPS_measured": false,
+  "worker_deployed": false,
+  "java_dex_compiled": true,
+  "injected_targets_verified": true
+}

@@ -1,0 +1,26 @@
+{
+  "apk": "tiktok-47-2-41.apk",
+  "dex": "classes35.dex",
+  "api": 23,
+  "original_dex_sha256": "e5e0e3b73c5e5d9d765acc809b356dba3aa1c14ece3ce8f0ab0d0f503ba1f65f",
+  "patched_dex_sha256": "dbae6c8403c2cbfe8dcbcd1b3b5ff1077ff3ee6db78539850209af6e6b8913f6",
+  "input_bytes": 8814116,
+  "output_bytes": 10453448,
+  "native_policy_counts": {
+    "setSeekBarShowType (any owner)": 18,
+    "native seekbar eligibility": 1,
+    "native seekbar progress policy": 2
+  },
+  "hooks_survive_full_dex_assembly": [
+    {
+      "file": "X/1Cda.3.smali",
+      "hooks": 1
+    },
+    {
+      "file": "X/1D3n.1.smali",
+      "hooks": 2
+    }
+  ],
+  "idempotent": true,
+  "native_content_and_lifecycle_guards_preserved": true
+}

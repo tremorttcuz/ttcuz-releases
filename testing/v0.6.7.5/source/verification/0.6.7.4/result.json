@@ -1,0 +1,28 @@
+{
+  "version": "0.6.7.4",
+  "tests": {
+    "run": 241,
+    "result": "OK"
+  },
+  "dex_format": "035",
+  "min_sdk": 23,
+  "sdk_platform": 35,
+  "required_static_methods": 216,
+  "missing_methods": [],
+  "native_loading_hook": 1,
+  "signature_schemes": [
+    "v1",
+    "v2",
+    "v3"
+  ],
+  "alignment_verified": true,
+  "same_signing_certificate_as_0.6.7.3": true,
+  "certificate_sha256": "d5526e54fcf04d5e31a502e09179e521d427e588c61eb0c8ece7449abdfaffaa",
+  "version_code": 2030709414,
+  "apk_sha256": "60284c496a03f62cb606b13e87cc242c05bd870f53ad6058d8115bd49de664c0",
+  "download_island_source_unchanged": true,
+  "old_player_classes_absent": true,
+  "unchanged_native_dex_reused": 52,
+  "official_unchanged_dex_match_prior_apk": 13,
+  "device_verified": false
+}

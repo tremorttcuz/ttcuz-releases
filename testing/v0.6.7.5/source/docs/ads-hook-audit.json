@@ -1,0 +1,11 @@
+{
+  "apk": "TikTok 47.2.41",
+  "rewritten_calls": {
+    "0N2W": 2,
+    "0N5B": 1,
+    "0N5C": 2
+  },
+  "assembled": true,
+  "coverage": "FeedItemList.getItems paths only; not all ad surfaces",
+  "device_tested": false
+}

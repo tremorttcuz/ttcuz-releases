@@ -1,0 +1,29 @@
+...................................................................................................D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1481: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+....................................................D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1430: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/RecolourCache.java' mode='r' encoding='utf-8'>
+  cache = open(base + "RecolourCache.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1431: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  accent = open(base + "Accent.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1432: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Textures.java' mode='r' encoding='utf-8'>
+  textures = open(base + "Textures.java", encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.....D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1472: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1444: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1419: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Accent.java' mode='r' encoding='utf-8'>
+  java = open(os.path.join(ROOT, "inject/java/cat/narezany/margyt/Accent.java"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\MargyT\work\fixes-0.6.7.4\ttcuz-project-v0.6.7.3\tests\test_margyt.py:1423: ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\MargyT\\work\\fixes-0.6.7.4\\ttcuz-project-v0.6.7.3\\inject/java/cat/narezany/margyt/Margy.java' mode='r' encoding='utf-8'>
+  margy = open(os.path.join(ROOT, "inject/java/cat/narezany/margyt/Margy.java"), encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...................................................................................
+----------------------------------------------------------------------
+Ran 241 tests in 122.410s
+
+OK

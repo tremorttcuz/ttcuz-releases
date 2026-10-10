@@ -1,0 +1,26 @@
+{
+  "mode": "incremental native reuse; all changed native dex, resources and injected mod rebuilt",
+  "baseline_apk_sha256": "822126814e0033a8946b6c80cf2e22c8a142ab568ce9252e632f94b043b01605",
+  "official_apk_sha256": "4bcad2a15ac82da68d373629a9520f855781c3ec46f0e2937e605040285ba75c",
+  "baseline_rules_match_incoming_zip": true,
+  "reused_native_dex": 48,
+  "rebuilt_native_dex": [
+    "classes5.dex",
+    "classes7.dex",
+    "classes18.dex",
+    "classes23.dex",
+    "classes37.dex"
+  ],
+  "new_hooks": {
+    "native MD3 loader Lcom/bytedance/tux/status/loading/TuxSpinner;": 1,
+    "native MD3 loader LX/0DZv;": 1,
+    "native MD3 loader LX/0DZw;": 1,
+    "native MD3 loader LX/0GdO;": 1,
+    "native MD3 loader LX/0fzn;": 1,
+    "native MD3 loader LX/0pWh;": 1,
+    "native MD3 loader LX/1HkT;": 1
+  },
+  "old_injected_dex_excluded": true,
+  "sdk_android_jar_sha256": "4566663c3876e022b4fa4ced8c8697c4ab1688267f090114fd92d027b32e619b",
+  "min_api": 23
+}

@@ -1,0 +1,11 @@
+{
+  "apk": "TikTok 47.2.41",
+  "native_copy_action": "LX/0ogp;",
+  "formatter": "LX/0oir;->LIZ(String,String,List)ClipData",
+  "body_argument": "Comment.getText()",
+  "rewritten_calls": {
+    "0oir->LIZ (in the class marked LX/0oir;)": 1
+  },
+  "assembled": true,
+  "device_tested": false
+}

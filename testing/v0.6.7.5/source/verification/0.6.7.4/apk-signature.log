@@ -1,0 +1,22 @@
+source:
+	D:\MargyT\outputs
+binary-lib/windows-33_0_2/libwinpthread-1.dll
+C:\Users\user\AppData\Local\Temp\uapksigner-9548251883207138893
+zipalign location: BUILT_IN 
+	C:\Users\user\AppData\Local\Temp\uapksigner-9548251883207138893\win-zipalign_33_0_2.exe2976878707849756454.tmp
+
+01. ttcuz-0.6.7.4.apk
+
+	VERIFY
+	file: D:\MargyT\outputs\ttcuz-0.6.7.4.apk (376.77 MiB)
+	checksum: 60284c496a03f62cb606b13e87cc242c05bd870f53ad6058d8115bd49de664c0 (sha256)
+	- zipalign verified
+	- signature verified [v1, v2, v3]
+		146 warnings
+		Subject: C=US, O=Android, CN=Android Debug
+		SHA256: d5526e54fcf04d5e31a502e09179e521d427e588c61eb0c8ece7449abdfaffaa / SHA256withRSA
+		Expires: Sun Aug 27 22:48:12 QYZT 2056
+	- verify with provided hash successful (d5526e54)
+
+[Sat Oct 10 22:21:42 QYZT 2026][v1.3.0]
+Successfully processed 1 APKs and 0 errors in 13.17 seconds.

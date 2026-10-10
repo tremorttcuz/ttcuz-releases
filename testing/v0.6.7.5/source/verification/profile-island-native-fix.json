@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-10",
+  "version": "0.6.7.3",
+  "tests_passed": 237,
+  "input_zip_sha256": "4bb55da2c3a6001aea8634c4b9bde965d818e9f8b0e0da91923de5fbdb86b446",
+  "native_apk_analysis": {
+    "apk": "D:/MargyT/apks/tiktok-47-2-41.apk",
+    "apk_sha256": "4bcad2a15ac82da68d373629a9520f855781c3ec46f0e2937e605040285ba75c",
+    "dex": "classes25.dex",
+    "classes": [
+      "base/component/BaseContainerComponent",
+      "business/header/base/HeaderBaseContainerComponent",
+      "business/header/business/info/assemble/ProfileHeaderInfoBaseComponent",
+      "business/header/business/info/assemble/ProfileHeaderInfoComponent",
+      "business/header/business/info/assemble/ProfileHeaderInfoComponentV2",
+      "business/header/business/info/business/basicinfo/container/ProfileHeaderUserBasicInfoContainer",
+      "business/header/business/info/business/basicinfo/container/ProfileHeaderUserBasicInfoComponentV2",
+      "base/viewmodel/ProfilePlatformViewModel"
+    ],
+    "previous_hook_counts": {
+      "native profile layout": 1
+    },
+    "fixed_hook_counts": {
+      "native profile layout": 1,
+      "native profile header create": 1
+    },
+    "old_header_creation_hook_missing": true,
+    "onCreate_uses_real_header_LLLFFI": true,
+    "b43_returns_self_or_visitor_user": true,
+    "t43_is_visitor_parameter": true,
+    "idempotent": true,
+    "api23_assembly_and_disassembly": true,
+    "patched_sample_dex_sha256": "8498c08fa64ab706f49c0da5f2389b4a1f248e09927ed6bdf566558787a525ea"
+  },
+  "full_native_dex_check": {
+    "input_dex_sha256": "0b7e5cf8074b4da095c299fee2db683ceaf0331e93d4c2bc51671cdb65fcf911",
+    "patched_dex_sha256": "8713795b677a68a60512efad7931f1a83a35a7a9ac9f4659b3319118b54d72f2",
+    "api": 23,
+    "input_bytes": 8092256,
+    "patched_bytes": 9667120,
+    "full_native_dex_assembly_verified": true,
+    "hook_survives_roundtrip": true,
+    "profile_hook_counts": {
+      "native profile layout": 1,
+      "native profile header create": 1
+    }
+  },
+  "regression_before_fix": {
+    "original_fails_new_regression": true,
+    "error": "Exception in thread \"main\" java.lang.AssertionError: actual LLLFFI header and b43 self User work without onViewCreated or badge\r\n\tat cat.narezany.margyt.Access.check(Access.java:23)\r\n\tat cat.narezany.margyt.Access.run(Access.java:57)\r\n\tat Test.main(Test.java:1)"
+  },
+  "injected_dex_bytes": 1475784,
+  "injected_dex_sha256": "8417518e951f5116f3eb7e7db807e983839ca508d3d64732302e32c54ba98d08",
+  "missing_rewrite_targets": [],
+  "physical_device_tested": false
+}

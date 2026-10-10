@@ -1,0 +1,351 @@
+{
+  "createdAt": "2026-10-09T17:46:00.286198+00:00",
+  "version": "0.6.6.1",
+  "originalArchiveCount": 15,
+  "legacyArchiveCount": 14,
+  "uniqueLegacyFullBuilds": 13,
+  "currentJavaAndD8": "passed",
+  "minApi": 23,
+  "originalAndPatchedReaderFamilies": 6,
+  "patchedBadgeParserFamilies": 2,
+  "fullCatalogTest": {
+    "awardedTypes": 200,
+    "creatorCrown": true,
+    "clientCapacity": 256
+  },
+  "pythonTests": {
+    "total": 229,
+    "passed": 229
+  },
+  "serverTests": {
+    "total": 55,
+    "passed": 55
+  },
+  "legacyArchives": [
+    {
+      "sourceArchive": "ttcuz-project-v0.1.1.zip",
+      "version": "0.1.1",
+      "sourceSha256": "187f477172884391fffd8af69bf38d3df113131b77db6f2dc69bc0ebd6e7552b",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.1.1-profile-compatible.zip",
+      "sha256": "3d7b6ee4fa9ad90714356e5e84e9754322ba532446f12e0b3d0a7a6357fb6b3f",
+      "bytes": 28638891,
+      "sourceDigest": "89ab3acdf266774ea256eea99bf2e6e10f48ab5911716a76ef4a80533cb228ac",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.1.2.zip",
+      "version": "0.1.2",
+      "sourceSha256": "5d466e6d51e8787c22533726fde6854314f9892b23ea794583b21350b0ae1b5a",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.1.2-profile-compatible.zip",
+      "sha256": "08f086c6db9c1594e4217e6d330caca17c67dd5eb515aa6ba0843e220e7fd8d7",
+      "bytes": 28643054,
+      "sourceDigest": "86c61c6d2f8da7f15d1027b9b877d69f70acde716dd4326b3a747e234290a501",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project.zip",
+      "version": "0.1.1",
+      "sourceSha256": "de459f6a915a022db70cc820d93a437009ef901960e14e3a24619b060fce7259",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-profile-compatible.zip",
+      "sha256": "50208e34068c9a909ffebe33fe6b84b24dc38629a5ac3f3f78287e56908fe6a3",
+      "bytes": 28638817,
+      "sourceDigest": "89ab3acdf266774ea256eea99bf2e6e10f48ab5911716a76ef4a80533cb228ac",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-black-elements-fixed.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "78757c1353bb0eaa115244b794d4e1582113e2c320172ab269017fab3c3f3257",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-black-elements-fixed-profile-compatible.zip",
+      "sha256": "1cde0f537111dfd9f0b1d2cc3b1278c5616e0ddc573738f2d9404678d235693b",
+      "bytes": 26665372,
+      "sourceDigest": "06849ca890868be720dd4835243a0d3d9a968c79bae511063f2268a3149dc519",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-dm-search-fixed.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "81497d418c3ed75a37f5032b42ac0181574b0ea69d0b9fa7a1a27d7a1bf97f58",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-dm-search-fixed-profile-compatible.zip",
+      "sha256": "c2e68743f7a4f4a2b2a085fde802630a6b4ffbd7ed9ab5eb8d08fb0dfe7b1557",
+      "bytes": 26640912,
+      "sourceDigest": "3a9405a6e7fe85bfaae709556d5113969f38ba14a9d6185faafebe4783060a9f",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-download-compatible.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "315180ba552929ed2037a3da88877e973a85e6a45f249530fb3db61437809d9c",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-download-compatible-profile-compatible.zip",
+      "sha256": "0a317f13a5083fed4df86f0ab0bab00fd5dde6126ee9966decfc84ee5dac60fd",
+      "bytes": 26657790,
+      "sourceDigest": "6e465129980443c528e813494a832c8e48473337f8cb9f7e8d6ce5c8e3f0d336",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-fixed.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "1cf2ea2c5585b79fb741b5f7124204853551468fc2df0f8b6d0c8ce636ddb70f",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-fixed-profile-compatible.zip",
+      "sha256": "100535c888ea32ffe4a534d9cd9e6463257943d485df3d00e5e3b6b73cf68135",
+      "bytes": 26639891,
+      "sourceDigest": "81eb7e61c32179135ab04f0b205ce40829950f26769950a31dc01453bca1b1b1",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-native-ui-fixed.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "1a87912f2095cc82b6769875d32ae63a333f09e15d9cdda6c48b3ace9273d8e4",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-native-ui-fixed-profile-compatible.zip",
+      "sha256": "d8e7f8e7a72d78bfdd556451b0a79c1d82aa8c457155fa842fa20b869201eb25",
+      "bytes": 26677541,
+      "sourceDigest": "247390ab6ddb4c758d61ee7792b10816ff22959d70e805e831c2e0a3d2dfed6c",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-optimized.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "a734d2b22a41c1160e477f4b4f81626a7c294f59511d045cc82be502d3c0b99a",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-optimized-profile-compatible.zip",
+      "sha256": "7bc1b68efffa8af7cfd9c6d8c2c45a1ef3fd84630de4b04ae4796baa47458fd0",
+      "bytes": 26646230,
+      "sourceDigest": "30fd77ef503ce32b42ae7a2ace98f80be7e9736eaeb83f0f44635c8ea13ac7bc",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10-stable-accent-fixed.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "c32e1555fec65b20129b517de66321ba27d152bce30a1e56ce682a67288690b5",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-stable-accent-fixed-profile-compatible.zip",
+      "sha256": "95b434f78c264aaddc281fb9ed720df9b53894c7e6ff4660af3b5e4de90934c3",
+      "bytes": 26671544,
+      "sourceDigest": "7936be3f7f79ebceec528210ac48a0800673296fa40dfa4e8bf2e23c5709e9f9",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.10.zip",
+      "version": "0.6.5.10",
+      "sourceSha256": "f8eeb69a9f911472137c38faa98474158ec792caba742dafaf10a4d309b431cc",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.10-profile-compatible.zip",
+      "sha256": "686d4dcafd78fc99767c4eb77f1e08e08736315ab16141876a3e0bea4755ab78",
+      "bytes": 53121275,
+      "sourceDigest": "5e296f67bf9fdd67fdb2c47b63977bee60bd0582b0073200525dafd2dfe1eabb",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.5.11.zip",
+      "version": "0.6.5.11",
+      "sourceSha256": "28f6987a14de20f4ccedc460e7aba50a07b9e0c953a8e9d0b90dd151d21cfd5a",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.5.11-profile-compatible.zip",
+      "sha256": "ffa8b56dce8a3a2ed99582ef6ae4841863b47b0cfd439ba214625f495861a9ef",
+      "bytes": 26646809,
+      "sourceDigest": "00f4e212652165a7d98ed8788c13fa2fa7f90de834f34839cb2e5cb9dd3d4a40",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.6.zip",
+      "version": "0.6.6",
+      "sourceSha256": "b0598e7492fa51c47134eafd3cde01b3d708e1b7528624662040b5975faf05ae",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.6-profile-compatible.zip",
+      "sha256": "d634b4e84a206a09689fe1b43c6feac072322d27fe8cf78d3ac115b48b7cacf7",
+      "bytes": 26675707,
+      "sourceDigest": "11a48061586f290f7d611b2baacebb2429603efbe406b2f75a0d9c9df7b58d83",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    },
+    {
+      "sourceArchive": "ttcuz-project-v0.6.7.zip",
+      "version": "0.6.7",
+      "sourceSha256": "73edbf2288639a16f59845084ffbe768fc112044fcb1c88124be780e9d9f8ec7",
+      "archive": "D:\\MargyT\\outputs\\profile-compatible\\ttcuz-project-v0.6.7-profile-compatible.zip",
+      "sha256": "823b3d1a5be703ba82654ea05910aed0fc6989f051f831e9a1af9874413b0942",
+      "bytes": 26643910,
+      "sourceDigest": "b53e3fc0bcb8606ba712c925df72d29923d4510ffa38689abb8582e40587e481",
+      "changes": [
+        "CloudProfileProvider.java",
+        "Badges.java",
+        "docs/profile-compatibility.md"
+      ],
+      "allOtherFilesIdentical": true,
+      "javaAndD8": "passed",
+      "apkBuilt": false
+    }
+  ],
+  "backportBuilds": [
+    {
+      "sourceDigest": "89ab3acdf266774ea256eea99bf2e6e10f48ab5911716a76ef4a80533cb228ac",
+      "archive": "D:\\MargyT\\ttcuz-project-v0.1.1.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.1.1\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "86c61c6d2f8da7f15d1027b9b877d69f70acde716dd4326b3a747e234290a501",
+      "archive": "D:\\MargyT\\ttcuz-project-v0.1.2.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.1.2\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "06849ca890868be720dd4835243a0d3d9a968c79bae511063f2268a3149dc519",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-black-elements-fixed.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-black-elements-fixed\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "3a9405a6e7fe85bfaae709556d5113969f38ba14a9d6185faafebe4783060a9f",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-dm-search-fixed.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-dm-search-fixed\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "6e465129980443c528e813494a832c8e48473337f8cb9f7e8d6ce5c8e3f0d336",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-download-compatible.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-download-compatible\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "81eb7e61c32179135ab04f0b205ce40829950f26769950a31dc01453bca1b1b1",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-fixed.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-fixed\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "247390ab6ddb4c758d61ee7792b10816ff22959d70e805e831c2e0a3d2dfed6c",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-native-ui-fixed.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-native-ui-fixed\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "30fd77ef503ce32b42ae7a2ace98f80be7e9736eaeb83f0f44635c8ea13ac7bc",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-optimized.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-optimized\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "7936be3f7f79ebceec528210ac48a0800673296fa40dfa4e8bf2e23c5709e9f9",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10-stable-accent-fixed.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10-stable-accent-fixed\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "5e296f67bf9fdd67fdb2c47b63977bee60bd0582b0073200525dafd2dfe1eabb",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.10.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.10\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "00f4e212652165a7d98ed8788c13fa2fa7f90de834f34839cb2e5cb9dd3d4a40",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.5.11.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.5.11\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "11a48061586f290f7d611b2baacebb2429603efbe406b2f75a0d9c9df7b58d83",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.6.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.6\\dex\\classes.dex"
+    },
+    {
+      "sourceDigest": "b53e3fc0bcb8606ba712c925df72d29923d4510ffa38689abb8582e40587e481",
+      "archive": "D:\\MargyT\\outputs\\ttcuz-project-v0.6.7.zip",
+      "result": "passed",
+      "dex": "D:\\MargyT\\work\\profile-compat-0.6.6.1\\compile-backports\\ttcuz-project-v0.6.7\\dex\\classes.dex"
+    }
+  ],
+  "workerDeployed": false,
+  "apkBuilt": false,
+  "testedOnPhysicalAndroid": false,
+  "musicIntegrationPreserved": true,
+  "otherModClientsRequireV1ReaderAndRenderer": true,
+  "officialTikTokSupported": false,
+  "guide": "docs/profile-compatibility.md"
+}

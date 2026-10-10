@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-10T07:57:02.004658+00:00",
+  "sourceArchive": "ttcuz-project-v0_6_7_1.zip",
+  "sourceSha256": "f93e1696d90e0dc1f64c99ec0cbf4568fa4a4b17b789348666a421395d41111e",
+  "sourceVersionFile": "0.6.6.1",
+  "sourceVersionPreserved": true,
+  "changedFiles": [
+    "inject/java/cat/narezany/margyt/ProfileMusic.java",
+    "inject/java/cat/narezany/margyt/ProfileLayout.java",
+    "tests/test_profile_music_runtime.py"
+  ],
+  "allOtherOriginalFileContentsIdentical": true,
+  "regressionReproducedBeforeFix": "hidden preloaded header replaces visible header",
+  "profileCoordinatorRuntime": "passed: plain native UID, V1/V2, hidden preloaded header, activity/context, feed, privacy, settings, background/resume",
+  "targetedTests": {
+    "passed": 5,
+    "failed": 0,
+    "modules": [
+      "test_profile_music_runtime",
+      "test_profile_visibility_runtime",
+      "test_archive_features_runtime",
+      "test_music_logic_runtime"
+    ]
+  },
+  "javaAndD8": {
+    "result": "passed",
+    "minApi": 23,
+    "dexSha256": "9ff363598d2672084d64d852dce39016b695e3f896cbcdfddae998dc2dd1dab8"
+  },
+  "apkBuilt": false,
+  "physicalAndroidTested": false,
+  "serverChanged": false
+}

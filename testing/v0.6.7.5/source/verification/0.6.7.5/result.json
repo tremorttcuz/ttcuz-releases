@@ -1,0 +1,60 @@
+{
+  "version": "0.6.7.5",
+  "tests": {
+    "run": 243,
+    "result": "OK"
+  },
+  "sdk_platform": 35,
+  "min_sdk": 23,
+  "dex_format": "035",
+  "required_static_methods": 218,
+  "missing_methods": [],
+  "native_loading_hooks": {
+    "native MD3 loader Lcom/bytedance/tux/status/loading/TuxSpinner;": 1,
+    "native MD3 loader LX/0GdO;": 1,
+    "native MD3 loader LX/0DZv;": 1,
+    "native MD3 loader LX/0DZw;": 1,
+    "native MD3 loader LX/0fzn;": 1,
+    "native MD3 loader LX/0pWh;": 1,
+    "native MD3 loader LX/1HkT;": 1
+  },
+  "dot_lottie_files_replaced": [
+    "assets/loading.json",
+    "assets/lottie_double_points_loading.json",
+    "assets/lottie_video_loading.json",
+    "assets/photo_search_loading_anim.json",
+    "assets/search_tako_dots_loading_darkmode_tux_lottie.json",
+    "assets/search_tako_dots_loading_lightmode_tux_lottie.json",
+    "assets/social_dm_input_loading_dark_tux_lottie.json",
+    "assets/social_dm_input_loading_light_tux_lottie.json",
+    "assets/social_story_upload_loading_tux_lottie.json",
+    "res/n/bmu.json",
+    "res/n/bnq.json",
+    "res/n/bnr.json",
+    "res/n/bod.json",
+    "res/n/boe.json",
+    "res/n/d.json"
+  ],
+  "signature_schemes": [
+    "v1",
+    "v2",
+    "v3"
+  ],
+  "alignment_verified": true,
+  "certificate_sha256": "d5526e54fcf04d5e31a502e09179e521d427e588c61eb0c8ece7449abdfaffaa",
+  "same_signing_certificate_as_0.6.7.3": true,
+  "version_code": 2030709415,
+  "apk_sha256": "d2c6e2616ec92ed9a0f2591581d4d46d6610443514368b2ccdc2d1949b41c354",
+  "native_dex_rebuilt": [
+    "classes5.dex",
+    "classes7.dex",
+    "classes18.dex",
+    "classes23.dex",
+    "classes37.dex"
+  ],
+  "native_dex_reused": 48,
+  "download_island_source_unchanged": true,
+  "old_player_classes_absent": true,
+  "device_verified": false,
+  "test_fixture_in_source_zip": true
+}

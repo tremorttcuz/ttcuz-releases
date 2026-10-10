@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-10",
+  "version": "0.6.7.3",
+  "tests_passed": 243,
+  "input_zip_sha256": "f4e92285fcefe5d0b45482059f197fed164c220341dfbf801da88583758c3b16",
+  "native": {
+    "apk": "tiktok-47-2-41.apk",
+    "api": 23,
+    "counts": {
+      "native hashtag maximum": 1,
+      "native hashtag gate": 1,
+      "native comment limit": 1,
+      "native repost limit": 3,
+      "native long comment limit": 8,
+      "native repost note limit": 1,
+      "native repost note fallback": 1
+    },
+    "changed_classes": [
+      {
+        "tree": "full15",
+        "file": "w3j/e.smali",
+        "counts": {
+          "native hashtag maximum": 1,
+          "native hashtag gate": 1
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "X/0onX.smali",
+        "counts": {
+          "native comment limit": 1
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "X/0oq2.1.smali",
+        "counts": {
+          "native repost limit": 1
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "X/0q66.smali",
+        "counts": {
+          "native long comment limit": 2
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/upvote/detail/input/RepostInputFragment.smali",
+        "counts": {
+          "native repost limit": 2
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/feed/adapter/widget/repost/RepostAddNoteInputFragment.smali",
+        "counts": {
+          "native repost note limit": 1
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/comment/keyboard/keyboardv2/refactor/CommentMentionAssem.smali",
+        "counts": {
+          "native long comment limit": 1
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/comment/keyboard/keyboardv2/refactor/CommentOldStyleEmojiPanelAssem.smali",
+        "counts": {
+          "native long comment limit": 2
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/comment/keyboard/keyboardv2/refactor/HorizontalEmojiMiniPanelAssem.smali",
+        "counts": {
+          "native long comment limit": 2
+        }
+      },
+      {
+        "tree": "full23",
+        "file": "com/ss/android/ugc/aweme/comment/keyboard/keyboardv2/refactor/PortraitInputKeyboard.smali",
+        "counts": {
+          "native long comment limit": 1
+        }
+      },
+      {
+        "tree": "filters",
+        "file": "X/0H5v.smali",
+        "counts": {
+          "native repost note fallback": 1
+        }
+      }
+    ],
+    "full_dex_assembled": [
+      "classes15.dex",
+      "classes23.dex"
+    ],
+    "filter_classes_assembled": true,
+    "roundtrip_hooks_preserved": true,
+    "idempotent": true,
+    "physical_device_tested": false,
+    "server_acceptance_tested": false
+  },
+  "injected_dex_bytes": 1481032,
+  "required_targets": 215,
+  "missing_targets": [],
+  "physical_device_tested": false,
+  "server_acceptance_tested": false
+}

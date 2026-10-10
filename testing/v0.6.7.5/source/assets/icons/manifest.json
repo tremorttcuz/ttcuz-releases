@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "icons": [
+    {
+      "id": "ttcuz",
+      "label": "ttcuz",
+      "default": true,
+      "icon": "ttcuz/icon.png",
+      "adaptive": {
+        "foreground": "ttcuz/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "ttcuz/monochrome.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    {
+      "id": "relief",
+      "label": "Relief",
+      "default": false,
+      "icon": "relief/icon.png",
+      "adaptive": {
+        "foreground": "relief/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "relief/monochrome.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    {
+      "id": "violet",
+      "label": "Violet",
+      "default": false,
+      "icon": "violet/icon.png",
+      "adaptive": {
+        "foreground": "violet/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "violet/monochrome.png",
+        "backgroundColor": "#572F89"
+      }
+    },
+    {
+      "id": "pixels",
+      "label": "Pixels",
+      "default": false,
+      "icon": "pixels/icon.png",
+      "adaptive": {
+        "foreground": "pixels/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "pixels/monochrome.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    {
+      "id": "glitch",
+      "label": "Glitch",
+      "default": false,
+      "icon": "glitch/icon.png",
+      "adaptive": {
+        "foreground": "glitch/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "glitch/monochrome.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    {
+      "id": "accent",
+      "label": "Accent",
+      "default": false,
+      "hue": 270,
+      "icon": "accent/icon.png",
+      "adaptive": {
+        "foreground": "accent/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent/monochrome.png",
+        "backgroundColor": "#5E2F8E"
+      }
+    },
+    {
+      "id": "accent_h00",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 0,
+      "icon": "accent_h00/icon.png",
+      "adaptive": {
+        "foreground": "accent_h00/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h00/monochrome.png",
+        "backgroundColor": "#8E2F2F"
+      }
+    },
+    {
+      "id": "accent_h01",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 30,
+      "icon": "accent_h01/icon.png",
+      "adaptive": {
+        "foreground": "accent_h01/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h01/monochrome.png",
+        "backgroundColor": "#8E5E2F"
+      }
+    },
+    {
+      "id": "accent_h02",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 60,
+      "icon": "accent_h02/icon.png",
+      "adaptive": {
+        "foreground": "accent_h02/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h02/monochrome.png",
+        "backgroundColor": "#8E8E2F"
+      }
+    },
+    {
+      "id": "accent_h03",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 90,
+      "icon": "accent_h03/icon.png",
+      "adaptive": {
+        "foreground": "accent_h03/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h03/monochrome.png",
+        "backgroundColor": "#5E8E2F"
+      }
+    },
+    {
+      "id": "accent_h04",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 120,
+      "icon": "accent_h04/icon.png",
+      "adaptive": {
+        "foreground": "accent_h04/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h04/monochrome.png",
+        "backgroundColor": "#2F8E2F"
+      }
+    },
+    {
+      "id": "accent_h05",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 150,
+      "icon": "accent_h05/icon.png",
+      "adaptive": {
+        "foreground": "accent_h05/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h05/monochrome.png",
+        "backgroundColor": "#2F8E5E"
+      }
+    },
+    {
+      "id": "accent_h06",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 180,
+      "icon": "accent_h06/icon.png",
+      "adaptive": {
+        "foreground": "accent_h06/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h06/monochrome.png",
+        "backgroundColor": "#2F8E8E"
+      }
+    },
+    {
+      "id": "accent_h07",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 210,
+      "icon": "accent_h07/icon.png",
+      "adaptive": {
+        "foreground": "accent_h07/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h07/monochrome.png",
+        "backgroundColor": "#2F5E8E"
+      }
+    },
+    {
+      "id": "accent_h08",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 240,
+      "icon": "accent_h08/icon.png",
+      "adaptive": {
+        "foreground": "accent_h08/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h08/monochrome.png",
+        "backgroundColor": "#2F2F8E"
+      }
+    },
+    {
+      "id": "accent_h09",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 270,
+      "icon": "accent_h09/icon.png",
+      "adaptive": {
+        "foreground": "accent_h09/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h09/monochrome.png",
+        "backgroundColor": "#5E2F8E"
+      }
+    },
+    {
+      "id": "accent_h10",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 300,
+      "icon": "accent_h10/icon.png",
+      "adaptive": {
+        "foreground": "accent_h10/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h10/monochrome.png",
+        "backgroundColor": "#8E2F8E"
+      }
+    },
+    {
+      "id": "accent_h11",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": 330,
+      "icon": "accent_h11/icon.png",
+      "adaptive": {
+        "foreground": "accent_h11/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_h11/monochrome.png",
+        "backgroundColor": "#8E2F5E"
+      }
+    },
+    {
+      "id": "accent_gray",
+      "label": "Accent",
+      "default": false,
+      "auto": true,
+      "hue": -1,
+      "icon": "accent_gray/icon.png",
+      "adaptive": {
+        "foreground": "accent_gray/foreground.png",
+        "foregroundFullBleed": true,
+        "monochrome": "accent_gray/monochrome.png",
+        "backgroundColor": "#645959"
+      }
+    }
+  ]
+}

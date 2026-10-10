@@ -1,0 +1,98 @@
+{
+  "version": "0.6.6.1",
+  "pythonTests": {
+    "total": 229,
+    "passed": 229
+  },
+  "serverTests": {
+    "total": 55,
+    "passed": 55
+  },
+  "javaCompile": "passed",
+  "androidDex": {
+    "result": "passed",
+    "minApi": 23
+  },
+  "demo": {
+    "browser": "Microsoft Edge headless",
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "pageErrors": 0,
+    "testedPerElementToggles": true,
+    "savedPreferences": true,
+    "pausedGradient": "stopped",
+    "mobileViewport": [
+      390,
+      1000
+    ],
+    "reducedMotion": "tested",
+    "profileOnly": true,
+    "ownerPlacementPersists": true,
+    "visitorDragLocked": true,
+    "sliderChoicesTested": 5,
+    "buttonAndCoverShapesTested": 5,
+    "gradientInPill": "audio reactive",
+    "accentPropagation": "tested",
+    "geometryMorph": "opening and closing intermediate bounds tested",
+    "musicMenu": "real recommendations explicitly available inside native TikTok only"
+  },
+  "nativeFixesPreservedFrom066": [
+    "inject/java/cat/narezany/margyt/Accent.java",
+    "inject/java/cat/narezany/margyt/UiContrast.java",
+    "margyt/build.py",
+    "margyt/dexpatch.py"
+  ],
+  "apkBuilt": false,
+  "testedOnAndroidDevice": false,
+  "workerDeployed": false,
+  "serverAudioStorage": false,
+  "serverStores": "validated plain text references only",
+  "deploymentGuide": "docs/release-0.6.6.1.md",
+  "playerCustomization": {
+    "gradient": "FFT from own player or Android output mix; requires permission and device support",
+    "pause": "movement stops",
+    "reducedMotion": "respected",
+    "svgAssets": 15,
+    "savedPerAccount": true,
+    "audioStorageChanged": false,
+    "icons": "Official Material Symbols Rounded",
+    "shapes": "MaterialShapes cubic outlines: Circle, Square, Cookie4, Cookie9, Sunny",
+    "slider": "M3 geometry on native SeekBar, plus four visual variants",
+    "profileOnly": true,
+    "positionShared": true,
+    "visitorMoveAllowed": false,
+    "nativeVisibilityRuntimeTest": "passed"
+  },
+  "nativeMusic": {
+    "base": "TikTok 47.2.41",
+    "recommendations": "native ChooseMusicApi, signed-in account client",
+    "detail": "native MusicApi.queryMusic",
+    "contracts": "verified against base DEX and runtime doubles",
+    "liveAccountNetworkTested": false,
+    "realCovers": true,
+    "generatedCoverFallback": false,
+    "cacheIsolationTest": "passed",
+    "textFormat": "v3: id, title, artist, audio HTTPS, cover HTTPS; reads v1/v2",
+    "serverMediaStorage": false,
+    "fftRuntimeTest": "permissions, session transitions, stale callbacks, release on setup error",
+    "baseManifestPermissions": {
+      "RECORD_AUDIO": true,
+      "MODIFY_AUDIO_SETTINGS": true
+    }
+  },
+  "profileCompatibility": {
+    "auditedArchives": 15,
+    "legacyArchives": 14,
+    "legacyBuilds": 13,
+    "readerFamilies": 6,
+    "badgeParserFamilies": 2,
+    "nativeCatalogCapacity": 256,
+    "stableV1": true,
+    "legacyPublicationPreservesExtensions": true,
+    "unknownExtensionBasicFallback": true,
+    "pngGetAndHead": true,
+    "report": "verification/profile-compatibility.json"
+  }
+}

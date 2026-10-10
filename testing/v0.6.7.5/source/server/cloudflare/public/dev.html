@@ -1,0 +1,29 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Для разработчиков — плагины</title>
+<style>:root{color-scheme:light dark;--bg:#fff;--c:#f3f4f6;--t:#111;--m:#666}@media(prefers-color-scheme:dark){:root{--bg:#111215;--c:#1c1d22;--t:#efeff1;--m:#9a9da6}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,sans-serif;background:var(--bg);color:var(--t)}main{max-width:720px;margin:auto;padding:20px}
+h1{font-size:26px}h2{font-size:19px;margin-top:28px}code,pre{font:13px ui-monospace,monospace;background:var(--c);border-radius:8px}code{padding:2px 6px}pre{padding:12px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}td,th{text-align:left;padding:8px;border-bottom:1px solid #8883;vertical-align:top}.ok{color:#1a9d4b}.no{color:#e0334c}</style>
+<main><p><a href="store.html">← Магазин</a></p><h1>Публикация плагина</h1>
+<h2>Что внутри <code>.ctt</code></h2><p>Это zip ровно из трёх файлов: <code>manifest.json</code>, <code>classes.dex</code>, <code>icon.png</code> (необязательно). Любые другие файлы отклоняются.</p>
+<pre>{
+  "id": "author.plugin",
+  "name": "Name", "version": "1.0", "author": "You",
+  "description": "…",
+  "entry": "pkg.MainClass",
+  "min_api": 1
+}</pre>
+<h2>Как работает проверка</h2>
+<p>Проверка смотрит на то, что плагин <b>вызывает</b>, а не на слова в строках. Три исхода:</p>
+<table><tr><th></th><th>Что найдено</th></tr>
+<tr><td class="no">✗ блок</td><td><code>Runtime.exec</code>, <code>ProcessBuilder</code>, <code>System.load*</code>, <code>DexClassLoader</code>, native-методы, SMS, установка приложений, сервис доступности, права администратора. Также рефлексия к <code>java.lang.Runtime</code> или <code>dalvik.system.*ClassLoader</code>, заданная строкой.</td></tr>
+<tr><td class="no">✗ блок</td><td>обфускация (имена из 1–2 букв, нет <code>SourceFile</code>); длинные base64-строки, которые не являются целой PNG/JPEG/WebP-картинкой</td></tr>
+<tr><td>⚠ review</td><td>рефлексия к стороннему классу или без читаемых имён; ссылка по <code>http://</code>; обращение к IP-адресу; сокращатель ссылок; длинная случайная строка. Плагин публикуется, но помечен «требует внимания».</td></tr>
+<tr><td class="ok">✓ ok</td><td>Сеть, файлы, рефлексия к API самого приложения (<code>cat.narezany.margyt.*</code>), картинки внутри кода. Показываются в карточке как «Умеет: …» вместе со списком доменов.</td></tr></table>
+<p>Проверка не антивирус: она ловит сокрытие и опасные примитивы и честно показывает возможности.</p>
+<h2>Частые ошибки</h2>
+<p><b>«Закодированная строка похожа на скрытый код»</b> — раньше срабатывало на встроенные картинки. Теперь картинки проходят; если ошибка осталась, строка не декодируется в PNG/JPEG/WebP целиком.</p>
+<p><b>Плагин не виден в магазине</b> — он не прошёл проверку при выдаче. Причина пишется в лог сервера: <code>[plugins] скрыт &lt;id&gt;: …</code></p>
+<h2>Проверить локально</h2>
+<pre>cd server
+python3 -c "import plugin_audit as a;r=a.analyze_package(open('my.ctt','rb').read());print(r['verdict'],r['capabilities'],r['domains'],r['notes'])"</pre>
+<h2>JSON-скрипты (без кода)</h2><p>Схема <code>schema:1</code>, до 8 КБ, до 16 команд (<code>message</code>, <code>copy</code>, <code>window</code>), имена по UID и цвета <code>#RRGGBB</code>. Отправка: <code>POST /plugins/scripts/submit</code>, после ручного одобрения попадает в <code>/plugins/scripts</code>.</p></main></html>
