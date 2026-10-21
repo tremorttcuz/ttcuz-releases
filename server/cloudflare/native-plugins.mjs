@@ -57,14 +57,6 @@ export async function nativePluginRoute(request, env, readJson, admin, context) 
     } catch (error) {
       return reply({ error: error.message }, 400);
     }
-    const hour = Math.floor(Date.now() / 3600000);
-    const ip = await digest((request.headers.get('cf-connecting-ip') || 'unknown') + ':' + hour);
-    const quota = await env.PROFILES.prepare(
-      'INSERT INTO limits(key,hits,until) VALUES(?,1,?) ON CONFLICT(key) DO UPDATE SET hits=hits+1 RETURNING hits',
-    )
-      .bind('native-plugin:' + ip, (hour + 1) * 3600000)
-      .first();
-    if (quota?.hits > 5) return reply({ error: 'Не больше пяти заявок в час' }, 429);
     const hash = await digest(JSON.stringify(source));
     const existing = await env.PROFILES.prepare(
       'SELECT state FROM native_plugin_submissions WHERE digest=?',
@@ -72,6 +64,22 @@ export async function nativePluginRoute(request, env, readJson, admin, context) 
       .bind(hash)
       .first();
     if (existing) return reply({ digest: hash, status: existing.state });
+    const now = Date.now();
+    const hour = Math.floor(now / 3600000);
+    const ip = await digest((request.headers.get('cf-connecting-ip') || 'unknown') + ':' + hour);
+    const quota = await env.PROFILES.prepare(
+      'INSERT INTO limits(key,hits,until) VALUES(?,1,?) ON CONFLICT(key) DO UPDATE SET hits=hits+1 RETURNING hits',
+    )
+      .bind('native-plugin:' + ip, (hour + 1) * 3600000)
+      .first();
+    if (quota?.hits > 60)
+      return reply(
+        {
+          error: 'Не больше 60 новых заявок в час с одной сети',
+          retry_after_seconds: Math.ceil(((hour + 1) * 3600000 - now) / 1000),
+        },
+        429,
+      );
     const count = await env.PROFILES.prepare(
       "SELECT COUNT(*) AS count FROM native_plugin_submissions WHERE state='pending'",
     ).first();

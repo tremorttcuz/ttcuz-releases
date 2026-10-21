@@ -118,6 +118,69 @@ test('binary catalog is served from Worker assets and submissions enter the revi
   assert.deepEqual((await published.json()).scripts, [JSON.parse(source)]);
 });
 
+test('native plugin submissions allow 60 new reviews per shared IP and retries are free', async () => {
+  let hits = 0;
+  const submissions = new Map();
+  const env = {
+    PROFILES: {
+      prepare(sql) {
+        const query = {
+          args: [],
+          bind(...args) {
+            this.args = args;
+            return this;
+          },
+          async first() {
+            if (sql.startsWith('SELECT state FROM native_plugin_submissions'))
+              return submissions.has(this.args[0]) ? { state: submissions.get(this.args[0]) } : null;
+            if (sql.startsWith('INSERT INTO limits')) return { hits: ++hits };
+            if (sql.startsWith('SELECT COUNT(*)')) return { count: submissions.size };
+            return null;
+          },
+          async run() {
+            if (sql.startsWith('INSERT OR IGNORE INTO native_plugin_submissions'))
+              submissions.set(this.args[0], 'pending');
+            return {};
+          },
+        };
+        return query;
+      },
+    },
+  };
+  const submit = (id) =>
+    pluginRoute(
+      new Request('https://mod/plugins/native/submit', {
+        method: 'POST',
+        headers: { 'cf-connecting-ip': 'shared-nat', 'content-type': 'application/json' },
+        body: JSON.stringify({
+          metadata: {
+            id,
+            name: 'Demo',
+            author: 'tester',
+            version: '1.0',
+            entry: 'demo.plugin.Main',
+          },
+          files: [{ path: 'Main.java', text: 'package demo.plugin;\n// review sample\n' }],
+        }),
+      }),
+      env,
+    );
+  let first;
+  for (let i = 0; i < 60; i++) {
+    const response = await submit(`demo.plugin${i}`);
+    assert.equal(response.status, 202);
+    if (i === 0) first = await response.json();
+  }
+  const limited = await submit('demo.plugin60');
+  assert.equal(limited.status, 429);
+  assert.ok((await limited.json()).retry_after_seconds > 0);
+  const duplicate = await submit('demo.plugin0');
+  assert.equal(duplicate.status, 200);
+  assert.equal((await duplicate.json()).status, 'pending');
+  assert.equal(hits, 61);
+  assert.equal(submissions.has(first.digest), true);
+});
+
 test('plugin review endpoints fail closed without the admin secret', async () => {
   const response = await pluginRoute(new Request('https://mod/plugins/scripts/admin/pending'), {
     PROFILES: {},

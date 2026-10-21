@@ -12,6 +12,6 @@ final class Version {
 
     private Version() {}
 
-    static final String MOD = "0.6.8.8";
+    static final String MOD = "0.6.8.9";
     static final String TIKTOK = "47.2.41";
 }
