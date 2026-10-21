@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Создать плагин · ttcuz</title
+  ><link rel="stylesheet" href="plugin-ui.css" />
+  <main>
+    <nav><a href="store.html">← Магазин</a><a href="dev.html">API и сборка</a></nav>
+    <h1>Создать плагин</h1>
+    <p>Заполни название, добавь код и скачай проект.</p>
+    <form id="editor">
+      <section>
+        <h2>О плагине</h2>
+        <div class="fields">
+          <div>
+            <label for="name">Название</label
+            ><input id="name" required maxlength="80" value="Мой плагин" />
+          </div>
+          <div>
+            <label for="author">Автор</label
+            ><input id="author" required maxlength="80" placeholder="Твой ник" />
+          </div>
+          <div>
+            <label for="plugin-id">ID</label
+            ><input
+              id="plugin-id"
+              required
+              pattern="[A-Za-z0-9][A-Za-z0-9._-]{0,79}"
+              value="ttcuz.my-plugin"
+            />
+          </div>
+          <div>
+            <label for="version">Версия</label
+            ><input id="version" required maxlength="32" value="1.0.0" />
+          </div>
+        </div>
+        <label for="description">Краткое описание</label><input id="description" maxlength="240" />
+        <label for="entry">Главный класс</label
+        ><input
+          id="entry"
+          value="ttcuz.plugins.MyPlugin"
+          required
+          pattern="[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*)+"
+        />
+      </section>
+      <section>
+        <h2>Исходники</h2>
+        <label for="files">Файлы Java</label
+        ><input id="files" type="file" accept=".java" multiple /> <label for="current">Файл</label
+        ><select id="current"></select
+        ><label for="code">Код Java</label
+        ><textarea id="code" spellcheck="false" autocapitalize="off"></textarea>
+        <div class="actions">
+          <button type="submit">Скачать проект ZIP</button
+          ><button type="button" id="submit" class="secondary">Отправить на проверку</button>
+        </div>
+        <p>На проверку отправляются только читаемые исходники. DEX собирается отдельно.</p>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+    </form>
+  </main>
+  <script type="module" src="plugin-create.mjs"></script>
+</html>

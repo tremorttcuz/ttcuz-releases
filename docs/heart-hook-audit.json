@@ -1,0 +1,9 @@
+{
+  "apk": "TikTok 47.2.41",
+  "native_host": "LX/0HCj;",
+  "rewritten_calls": {
+    "ImageView->setImageDrawable (in the class marked LX/0HCj;)": 2
+  },
+  "assembled": true,
+  "device_tested": false
+}

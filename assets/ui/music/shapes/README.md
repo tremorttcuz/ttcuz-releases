@@ -1,0 +1,2 @@
+Derived from AndroidX Compose MaterialShapes (Android Open Source Project, Apache 2.0). Official source parameters exported through AndroidX Graphics Shapes 1.0.1 as cubic paths; normalized to a 100-unit square. No sampled sine-wave substitutes.
+Source: https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/MaterialShapes.kt

@@ -1,0 +1,9 @@
+assets/
+icons/
+docs/
+node_modules/
+work/
+build/
+cache/
+tools/
+outputs/

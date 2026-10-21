@@ -1,0 +1,11 @@
+{
+  "apk": "TikTok 47.2.41",
+  "native_edge_listener": "classes32.dex LX/16wu.onTouch",
+  "legacy_feed_listener": "classes17.dex LY/ATListenerS452S0100000_16.onTouch$8",
+  "hooks": {
+    "native edge speed lock": 1,
+    "swipe-down speed lock": 1
+  },
+  "smali_assembly": "passed",
+  "device_test": false
+}

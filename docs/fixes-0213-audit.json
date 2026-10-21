@@ -1,0 +1,10 @@
+{
+  "tiktok": "47.2.41",
+  "mod": "0.2.13",
+  "rewrite_counts": {
+    "native subtitle slot": 1
+  },
+  "native_class_reassembled": true,
+  "injected_targets_verified": true,
+  "phone_tested": false
+}

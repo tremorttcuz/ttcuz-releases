@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "twemoji",
+      "name": "Twemoji",
+      "version": "17.0.3",
+      "asset": "twemoji.ttf",
+      "minAndroid": 29
+    },
+    {
+      "id": "noto",
+      "name": "Noto",
+      "version": "bundled",
+      "asset": "noto.ttf",
+      "minAndroid": 29
+    },
+    {
+      "id": "blobmoji",
+      "name": "Blobmoji",
+      "version": "bundled",
+      "asset": "blobmoji.ttf",
+      "minAndroid": 29
+    },
+    {
+      "id": "apple_mffm",
+      "name": "Apple MFFM Color Emoji",
+      "version": "2.051 MFFM",
+      "asset": "emoji/apple-mffm.ttf",
+      "minAndroid": 29
+    }
+  ]
+}

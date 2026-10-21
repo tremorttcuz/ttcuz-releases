@@ -1,0 +1,45 @@
+# Build inputs, outputs and caches
+apks/
+apk/
+work/
+.work/
+build/
+cache/
+tools/
+outputs/
+verification/
+node_modules/
+__pycache__/
+*.pyc
+*.class
+*.jar
+*.apk
+!tests/data/fixture.apk
+*.zip
+*.mtp
+
+# Local credentials and runtime databases
+private/
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+*.keystore
+*.jks
+*.pem
+admin.txt
+bot.txt
+*.db
+*.sqlite
+
+# External source material
+reference/
+vendor/
+*-source/
+*_source/
+
+# JVM diagnostics and local publish staging
+hs_err_pid*.log
+replay_pid*.log
+*.hprof

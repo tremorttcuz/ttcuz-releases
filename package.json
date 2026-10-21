@@ -1,0 +1,12 @@
+{
+  "name": "ttcuz-source",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"inject/**/*.java\" \"ttcuz/*.java\" \"examples/**/*.java\" \"plugins/**/*.java\" \"server/**/*.mjs\" \"server/**/*.html\" \"tests/*.mjs\"",
+    "format:check": "prettier --check \"inject/**/*.java\" \"ttcuz/*.java\" \"examples/**/*.java\" \"plugins/**/*.java\" \"server/**/*.mjs\" \"server/**/*.html\" \"tests/*.mjs\""
+  },
+  "devDependencies": {
+    "prettier": "3.9.10",
+    "prettier-plugin-java": "2.11.0"
+  }
+}

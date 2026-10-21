@@ -1,0 +1,28 @@
+{
+  "target": "TikTok 47.2.41",
+  "native_classes_assembled": 11,
+  "idempotent": true,
+  "missing_injected_targets": [],
+  "hooks": {
+    "native repost avatar": 2,
+    "native right-area slots": 8,
+    "native player resume": 1,
+    "native message timestamps": 2,
+    "native notification guide": 1,
+    "native repost": 2,
+    "native profile layout": 1
+  },
+  "native_method_reference_dexes": {
+    "Landroid/app/NotificationManager;": [
+      "classes13.dex",
+      "classes13.dex",
+      "classes37.dex",
+      "classes38.dex"
+    ],
+    "Lcom/ss/android/ugc/aweme/relation/model/FriendsListResponse;": [
+      "classes14.dex",
+      "classes25.dex",
+      "classes28.dex"
+    ]
+  }
+}

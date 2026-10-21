@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Модерация плагинов · ttcuz</title
+  ><link rel="stylesheet" href="plugin-ui.css" />
+  <main>
+    <nav><a href="store.html">← Магазин</a><a href="plugin-create.html">Создать плагин</a></nav>
+    <h1>Модерация плагинов</h1>
+    <form id="login">
+      <label for="token">Ключ владельца профиля ttcuz</label
+      ><input id="token" type="password" autocomplete="off" required pattern="[a-f0-9]{64}" />
+      <p>Ключ хранится только в памяти этой страницы.</p>
+      <button>Открыть заявки</button
+      ><button id="logout" type="button" class="secondary">Выйти</button>
+    </form>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <div id="owner" hidden>
+      <section>
+        <h2>Заявки</h2>
+        <div id="queue"></div>
+      </section>
+      <section id="review" hidden>
+        <h2 id="title"></h2>
+        <p id="meta"></p>
+        <select id="files" aria-label="Исходный файл"></select>
+        <pre id="source"></pre>
+        <pre id="analysis"></pre>
+        <div class="actions">
+          <button id="analyze">Разобрать с ИИ</button><button id="approve">Принять исходники</button
+          ><button id="reject" class="secondary">Отклонить</button
+          ><button id="notify" class="secondary">Повторить DM</button
+          ><button id="download" class="secondary">Скачать проект</button>
+        </div>
+        <p>
+          ИИ помогает найти риски. Решение принимает владелец; исходники не доказывают соответствие
+          чужому DEX.
+        </p>
+      </section>
+      <section>
+        <h2>Марка автора</h2>
+        <form id="mark-form">
+          <label for="author">Автор (точное имя)</label
+          ><input id="author" required maxlength="80" /><label for="mark">Марка</label
+          ><input id="mark" maxlength="40" placeholder="Пусто — удалить" /><button>
+            Сохранить
+          </button>
+        </form>
+        <div id="marks"></div>
+      </section>
+      <section>
+        <h2>Опубликовать плагин</h2>
+        <p>
+          Публикация доступна только владельцу. Для значка проверки собери пакет из принятых
+          исходников.
+        </p>
+        <form id="publish">
+          <div class="fields">
+            <div><label for="plugin-id">ID</label><input id="plugin-id" required /></div>
+            <div><label for="name">Название</label><input id="name" required /></div>
+            <div><label for="version">Версия</label><input id="version" required /></div>
+            <div><label for="publisher">Автор</label><input id="publisher" required /></div>
+          </div>
+          <label for="about">Описание</label><input id="about" maxlength="240" /><label
+            for="package"
+            >Пакет .ctt (до 1 МБ)</label
+          ><input id="package" type="file" accept=".ctt,.zip" required />
+          <label
+            ><input id="verified" type="checkbox" /> Я собрал этот пакет из выбранных принятых
+            исходников</label
+          ><button>Опубликовать</button>
+        </form>
+      </section>
+      <section>
+        <h2>В магазине</h2>
+        <div id="published"></div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="plugin-admin.mjs"></script>
+</html>

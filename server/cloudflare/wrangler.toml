@@ -1,0 +1,14 @@
+name = "ttcuz"
+main = "worker.mjs"
+compatibility_date = "2026-09-30"
+workers_dev = true
+
+[[d1_databases]]
+binding = "PROFILES"
+database_name = "ttcuz-profiles"
+database_id = "418e22cb-764e-48f1-afea-1e75d5a36225"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/health", "/badges", "/badges/*", "/version", "/v1/*", "/plugins/*"]

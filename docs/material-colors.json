@@ -1,0 +1,88 @@
+{
+  "library": "@material/material-color-utilities@0.4.0",
+  "variant": "EXPRESSIVE",
+  "spec": "2025",
+  "platform": "phone",
+  "contrast": 0,
+  "source": "https://github.com/material-foundation/material-color-utilities",
+  "records": [
+    {
+      "seed": "#6750a4",
+      "light": {
+        "primary": "#6850a5",
+        "secondary": "#4d6645",
+        "tertiary": "#376b21"
+      },
+      "dark": {
+        "primary": "#d4c3ff",
+        "secondary": "#bbcbb2",
+        "tertiary": "#edffdf"
+      }
+    },
+    {
+      "seed": "#00639b",
+      "light": {
+        "primary": "#00649c",
+        "secondary": "#7a546a",
+        "tertiary": "#944271"
+      },
+      "dark": {
+        "primary": "#b8dbff",
+        "secondary": "#debece",
+        "tertiary": "#ffafd7"
+      }
+    },
+    {
+      "seed": "#006b5e",
+      "light": {
+        "primary": "#006b5e",
+        "secondary": "#735c2f",
+        "tertiary": "#805700"
+      },
+      "dark": {
+        "primary": "#e5fff8",
+        "secondary": "#d9c4a0",
+        "tertiary": "#ffbe4e"
+      }
+    },
+    {
+      "seed": "#386a20",
+      "light": {
+        "primary": "#386b20",
+        "secondary": "#605b7e",
+        "tertiary": "#6751a5"
+      },
+      "dark": {
+        "primary": "#d9ffc0",
+        "secondary": "#c9c3dc",
+        "tertiary": "#cfbdff"
+      }
+    },
+    {
+      "seed": "#8c5000",
+      "light": {
+        "primary": "#8d5000",
+        "secondary": "#4f5f7e",
+        "tertiary": "#1c60a6"
+      },
+      "dark": {
+        "primary": "#ffc793",
+        "secondary": "#bec6dc",
+        "tertiary": "#a4c9ff"
+      }
+    },
+    {
+      "seed": "#9c4146",
+      "light": {
+        "primary": "#9d4146",
+        "secondary": "#3b6570",
+        "tertiary": "#006977"
+      },
+      "dark": {
+        "primary": "#ffbbbb",
+        "secondary": "#b2cbd2",
+        "tertiary": "#a0efff"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "ttcuz.hello",
+  "name": "Привет",
+  "version": "1.0.0",
+  "author": "Tremor",
+  "description": "Пример жизненного цикла и настроек ttcuz Plugin API.",
+  "api": 1,
+  "entry": "ttcuz.examples.Hello"
+}

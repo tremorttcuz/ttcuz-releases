@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>API плагинов · ttcuz</title
+  ><link rel="stylesheet" href="plugin-ui.css" />
+  <main>
+    <nav><a href="store.html">← Магазин</a><a href="plugin-create.html">Создать плагин</a></nav>
+    <h1>ttcuz Plugin API 1</h1>
+    <section>
+      <h2>Собрать проект</h2>
+      <p>
+        Распакуй исходный ZIP. Нужны исходники ttcuz, JDK, Python, android.jar и r8.jar. SDK
+        создаётся вместе с APK.
+      </p>
+      <pre>
+python -m ttcuz.plugin ./my-project --sdk ttcuz-plugin-sdk.jar --android android.jar --r8 r8.jar -o my-plugin.ctt</pre>
+      <p>Установка: настройки ttcuz → Плагины → Установить плагин.</p>
+    </section>
+    <section>
+      <h2>Возможности</h2>
+      <p>
+        Java, Context приложения, настройки, файлы, потоки, жизненный цикл экранов, цвета, текст,
+        имена, лента и события плагинов.
+      </p>
+      <p>
+        Главный класс наследует <code>cat.ttcuz.framework.plugin.TtcuzPlugin</code>. Подробный API и
+        примеры находятся в <code>docs/plugin-engine.md</code>, <code>examples/hello</code> и
+        <code>examples/commands</code> исходного архива.
+      </p>
+    </section>
+    <section>
+      <h2>Опубликовать</h2>
+      <p>
+        Отправь читаемый Java-код через редактор. Владелец получит заявку и разбор ИИ в Discord. Для
+        проверенной публикации пакет собирает владелец из принятых исходников.
+      </p>
+      <p>Старые плагины другого SDK нужно перенести на API ttcuz и пересобрать.</p>
+    </section>
+  </main>
+</html>

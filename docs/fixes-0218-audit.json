@@ -1,0 +1,17 @@
+{
+  "tiktok": "47.2.41",
+  "mod": "0.2.18",
+  "rewrite_counts": {
+    "native subtitle slot": 1,
+    "native speed feedback": 2,
+    "Aweme->getDesc (in the class marked Lcom/ss/android/ugc/aweme/feed/assem/desc/VideoDescAssem;)": 1,
+    "visible publication date": 1
+  },
+  "native_classes_reassembled": true,
+  "native_hooks_idempotent": true,
+  "favorites_repository_and_state_flow_verified": true,
+  "automatic_tests": 132,
+  "phone_tested": false,
+  "injected_targets_verified": true,
+  "java_dex_compiled": true
+}

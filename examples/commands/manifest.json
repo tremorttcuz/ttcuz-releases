@@ -1,0 +1,9 @@
+{
+  "id": "ttcuz.commands",
+  "name": "Мои команды",
+  "version": "1.0.0",
+  "author": "Tremor",
+  "description": "Собственные действия и события между плагинами.",
+  "api": 1,
+  "entry": "ttcuz.examples.Commands"
+}

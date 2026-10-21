@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Островок навигации — демо анимации</title>
+    <style>
+      :root {
+        --ease: cubic-bezier(0.25, 1, 0.5, 1);
+        --ease-io: cubic-bezier(0.4, 0, 0.2, 1);
+        --bg: #eef0f5;
+        --ink: #1b1f2a;
+        --sub: #5d6475;
+        --chip: #fff;
+        --chipOn: #2f5fd0;
+        --chipOnInk: #fff;
+        --line: #d5d9e4;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0d0f14;
+          --ink: #e8ebf3;
+          --sub: #98a0b3;
+          --chip: #1a1e28;
+          --line: #2a3040;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #0d0f14;
+        --ink: #e8ebf3;
+        --sub: #98a0b3;
+        --chip: #1a1e28;
+        --line: #2a3040;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        transition:
+          background-color 0.35s var(--ease-io),
+          color 0.35s var(--ease-io);
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          15px/1.45 system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 12px 28px;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 4px 0 0;
+        font-weight: 650;
+        text-align: center;
+      }
+      p.hint {
+        margin: 0;
+        color: var(--sub);
+        text-align: center;
+        max-width: 380px;
+        font-size: 13.5px;
+      }
+      .ctl {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+      .ctl button {
+        border: 1px solid var(--line);
+        background: var(--chip);
+        color: var(--ink);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font: inherit;
+        font-size: 14px;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          background-color 0.3s var(--ease),
+          color 0.3s var(--ease),
+          border-color 0.3s var(--ease),
+          transform 0.26s var(--ease);
+      }
+      .ctl button:active {
+        transform: scale(0.97);
+        transition-duration: 0.12s;
+      }
+      .ctl button[aria-pressed='true'] {
+        background: var(--chipOn);
+        color: var(--chipOnInk);
+        border-color: var(--chipOn);
+      }
+      /* phone: 1 unit = 1 dp */
+      .phone {
+        container-type: inline-size;
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        height: 640px;
+        background: #000;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+      .video {
+        position: absolute;
+        inset: 0 0 72px 0;
+        background: linear-gradient(180deg, #1b2a3a 0%, #2a3f33 55%, #16201a 100%);
+      }
+      .video .cap {
+        position: absolute;
+        left: 14px;
+        bottom: 30px;
+        right: 70px;
+        color: #fff;
+        font-weight: 600;
+        text-shadow: 0 1px 6px #0008;
+      }
+      .video .cap small {
+        display: block;
+        font-weight: 400;
+        opacity: 0.8;
+        margin-top: 2px;
+      }
+      .side {
+        position: absolute;
+        right: 12px;
+        bottom: 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .side i {
+        display: block;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #ffffff26;
+      }
+      /* seekbar sits exactly on the native bar's top edge */
+      .seek {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 72px;
+        height: 22px;
+        touch-action: none;
+        cursor: pointer;
+      }
+      .seek .trk {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 3px;
+        background: #ffffff40;
+        transition: height 0.3s var(--ease);
+      }
+      .seek .fill {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        background: #fff;
+        width: 35%;
+        transition: height 0.3s var(--ease);
+      }
+      .seek .dot {
+        position: absolute;
+        bottom: -3px;
+        left: 35%;
+        width: 9px;
+        height: 9px;
+        margin-left: -4px;
+        border-radius: 50%;
+        background: #fff;
+        transition:
+          width 0.3s var(--ease),
+          height 0.3s var(--ease),
+          margin-left 0.3s var(--ease),
+          bottom 0.3s var(--ease);
+      }
+      .seek.drag .trk,
+      .seek.drag .fill {
+        height: 6px;
+      }
+      .seek.drag .dot {
+        width: 14px;
+        height: 14px;
+        margin-left: -7px;
+        bottom: -4px;
+      }
+      /* the time label rises into place instead of blinking on */
+      .time {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 104px;
+        text-align: center;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition:
+          opacity 0.3s var(--ease),
+          transform 0.3s var(--ease);
+      }
+      .seek.drag ~ .time {
+        opacity: 1;
+        transform: none;
+        transition-duration: 0.22s;
+      }
+      /* native bar bounds: never resized by the island */
+      .bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 72px;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        z-index: 3;
+      }
+      .dock {
+        position: absolute;
+        inset: 0;
+        will-change: transform;
+      }
+      .bar.lift {
+        cursor: grabbing;
+      }
+
+      .island {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 0;
+        bottom: 6px;
+        border-radius: 33px;
+        background: #1f2634;
+      }
+      .layer {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 0;
+        bottom: 6px;
+        overflow: hidden;
+        border-radius: 33px;
+      }
+      .pill,
+      .make {
+        position: absolute;
+        border-radius: 16px;
+      }
+      .pill {
+        background: #2a4175;
+        will-change: left, width, top, height;
+      }
+      .make {
+        background: #25324f;
+      }
+      .tabs {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 0;
+        bottom: 6px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+      .tab {
+        all: unset;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 3px;
+        padding-top: 6px;
+        cursor: pointer;
+        color: #8b93a7;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .tab {
+        touch-action: manipulation;
+      }
+      .tab svg {
+        width: 22px;
+        height: 22px;
+        margin-top: 7px;
+        fill: none;
+        stroke: #e9edf7;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.3s var(--ease);
+      }
+      .tab span {
+        font-size: clamp(9px, 2.7cqw, 11px);
+        font-weight: 600;
+        margin-top: 2px;
+        white-space: nowrap;
+        letter-spacing: -0.1px;
+        line-height: 1.2;
+        transition: transform 0.3s var(--ease);
+      }
+      .tab:active svg,
+      .tab:active span {
+        transform: scale(0.92);
+        transition-duration: 0.12s;
+      }
+      .bar.lift .tab:active svg,
+      .bar.lift .tab:active span {
+        transform: none;
+      }
+      .tab:focus-visible {
+        outline: 2px solid #7fa2ff;
+        outline-offset: -4px;
+        border-radius: 20px;
+      }
+      .cur {
+        font-size: 12.5px;
+        color: var(--sub);
+        font-variant-numeric: tabular-nums;
+        min-height: 1.45em;
+        transition: opacity 0.2s var(--ease-io);
+      }
+      .cur.swap {
+        opacity: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Островок навигации: было и стало</h1>
+    <p class="hint">
+      Нажимайте вкладки. Зажмите подсвеченное пятно под выбранной вкладкой: оно расширится, и его
+      можно перетащить на другую вкладку. Остров и полоса перемотки остаются на месте.
+    </p>
+    <div class="ctl">
+      <button id="mNew" aria-pressed="true">Новая анимация</button>
+      <button id="mOld" aria-pressed="false">Старая</button>
+      <button id="mSlow" aria-pressed="false">Замедлить ×4</button>
+    </div>
+
+    <div class="phone" id="phone">
+      <div class="video">
+        <div class="side"><i></i><i></i><i></i></div>
+        <div class="cap">Home Alone Christmas<small>#homealone #christmas</small></div>
+      </div>
+      <div class="seek" id="seek">
+        <div class="trk"></div>
+        <div class="fill" id="fill"></div>
+        <div class="dot" id="dot"></div>
+      </div>
+      <div class="time" id="time">0:07 / 0:20</div>
+      <div class="bar" id="bar">
+        <div class="dock" id="dock">
+          <div class="island" id="island"></div>
+          <div class="layer">
+            <div class="make" id="make"></div>
+            <div class="pill" id="pill"></div>
+          </div>
+          <div class="tabs" id="tabs">
+            <button class="tab" data-i="0">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z" /></svg
+              ><span>Главная</span>
+            </button>
+            <button class="tab" data-i="1">
+              <svg viewBox="0 0 24 24">
+                <circle cx="9" cy="8" r="3.2" />
+                <path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" />
+                <circle cx="17" cy="9" r="2.4" />
+                <path d="M16 14.2c2.7-.3 4.5 1.4 4.5 4" /></svg
+              ><span>Друзья</span>
+            </button>
+            <button class="tab" data-i="2" tabindex="-1" aria-label="Создать">
+              <svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" /></svg><span>&nbsp;</span>
+            </button>
+            <button class="tab" data-i="3">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"
+                /></svg
+              ><span>Входящие</span>
+            </button>
+            <button class="tab" data-i="4">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8.5" r="3.6" />
+                <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" /></svg
+              ><span>Профиль</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cur" id="cur"></div>
+
+    <script>
+      (function () {
+        var tabs = [].slice.call(document.querySelectorAll('.tab')),
+          pill = document.getElementById('pill'),
+          make = document.getElementById('make'),
+          island = document.getElementById('island'),
+          cur = document.getElementById('cur');
+        var MUTED = [139, 147, 167],
+          TEXT = [233, 237, 247];
+        var mode = 'new',
+          slow = 1,
+          selected = 0,
+          previous = -1,
+          progress = 1,
+          lift = 0,
+          raf = 0,
+          t0 = 0,
+          dur = 340;
+        var from = { l: 0, r: 0, t: 0, b: 0 },
+          to = { l: 0, r: 0, t: 0, b: 0 },
+          pillR = { l: 0, r: 0, t: 0, b: 0 };
+
+        function mix(a, b, k) {
+          return (
+            'rgb(' +
+            a
+              .map(function (v, i) {
+                return Math.round(v + (b[i] - v) * k);
+              })
+              .join(',') +
+            ')'
+          );
+        }
+        function ease(t) {
+          var u = 1 - t;
+          return 1 - u * u * u * u;
+        } // soft landing (new)
+        function oldEase(t) {
+          var u = 1 - t;
+          return 1 - u * u * u;
+        } // short decelerate (old)
+        function rectFor(i) {
+          var cx = tabs[i].offsetLeft + tabs[i].offsetWidth / 2;
+          return { l: cx - 28, r: cx + 28, t: 8, b: 40 };
+        }
+        function paint() {
+          var h = pillR.b - pillR.t + 2 * lift;
+          pill.style.left = pillR.l + 'px';
+          pill.style.width = pillR.r - pillR.l + 'px';
+          pill.style.top = pillR.t - lift + 'px';
+          pill.style.height = h + 'px';
+          pill.style.borderRadius = 16 + lift + 'px';
+        }
+        function labels() {
+          tabs.forEach(function (el, i) {
+            if (i === 2) return;
+            var k =
+              progress >= 1
+                ? i === selected
+                  ? 1
+                  : 0
+                : i === selected
+                  ? progress
+                  : i === previous
+                    ? 1 - progress
+                    : 0;
+            el.style.color = mix(MUTED, TEXT, k);
+          });
+        }
+        function frame(now) {
+          var t = Math.min(1, (now - t0) / (dur * slow));
+          progress = t;
+          if (t >= 1) {
+            pillR = { l: to.l, r: to.r, t: to.t, b: to.b };
+            lift = 0;
+            previous = -1;
+            paint();
+            labels();
+            raf = 0;
+            return;
+          }
+          if (mode === 'new') {
+            var right = to.l >= from.l,
+              lead = ease(t),
+              trail = ease(Math.max(0, (t - 0.14) / 0.86)),
+              mv = ease(t);
+            pillR = {
+              l: from.l + (to.l - from.l) * (right ? trail : lead),
+              r: from.r + (to.r - from.r) * (right ? lead : trail),
+              t: from.t + (to.t - from.t) * mv,
+              b: from.b + (to.b - from.b) * mv,
+            };
+            lift = Math.sin(Math.PI * t);
+            lift *= 2;
+          } else {
+            var e = oldEase(t);
+            pillR = {
+              l: from.l + (to.l - from.l) * e,
+              r: from.r + (to.r - from.r) * e,
+              t: from.t,
+              b: from.b,
+            };
+            lift = 0;
+            progress = t > 0 ? 1 : 0;
+            previous = -1; // old: labels switched instantly
+            progress = 1;
+          }
+          paint();
+          labels();
+          raf = requestAnimationFrame(frame);
+        }
+        function select(i, instant) {
+          if (i === 2 || (i === selected && !instant)) return;
+          previous = selected;
+          selected = i;
+          to = rectFor(i);
+          cancelAnimationFrame(raf);
+          if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            pillR = { l: to.l, r: to.r, t: to.t, b: to.b };
+            lift = 0;
+            previous = -1;
+            progress = 1;
+            paint();
+            labels();
+            return;
+          }
+          from = { l: pillR.l, r: pillR.r, t: pillR.t, b: pillR.b };
+          dur = mode === 'new' ? 340 : 240;
+          progress = 0;
+          t0 = performance.now();
+          if (mode === 'old') labels();
+          raf = requestAnimationFrame(frame);
+        }
+        function layout() {
+          var c = tabs[2],
+            cx = c.offsetLeft + c.offsetWidth / 2,
+            cy = c.offsetTop + c.offsetHeight / 2;
+          make.style.left = cx - 26 + 'px';
+          make.style.top = '4px';
+          make.style.width = '52px';
+          make.style.height = '40px'; // same centre line (24px) as every icon and the indicator
+          var cur0 = rectFor(selected);
+          pillR = { l: cur0.l, r: cur0.r, t: cur0.t, b: cur0.b };
+          to = cur0;
+          paint();
+          labels();
+        }
+        tabs.forEach(function (el) {
+          el.addEventListener('click', function () {
+            if (suppress) return;
+            select(+el.dataset.i);
+          });
+        });
+        function setMode(m) {
+          mode = m;
+          document.getElementById('mNew').setAttribute('aria-pressed', m === 'new');
+          document.getElementById('mOld').setAttribute('aria-pressed', m === 'old');
+          var text =
+            m === 'new'
+              ? '340 мс · растяжение · перетекание цвета подписей'
+              : '240 мс · линейное смещение · цвет подписей сразу';
+          if (!cur.textContent || reduce) {
+            cur.textContent = text;
+            return;
+          }
+          cur.classList.add('swap');
+          clearTimeout(cur._t);
+          cur._t = setTimeout(function () {
+            cur.textContent = text;
+            cur.classList.remove('swap');
+          }, 180);
+        }
+        document.getElementById('mNew').onclick = function () {
+          setMode('new');
+        };
+        document.getElementById('mOld').onclick = function () {
+          setMode('old');
+        };
+        var sb = document.getElementById('mSlow');
+        sb.onclick = function () {
+          slow = slow === 1 ? 4 : 1;
+          sb.setAttribute('aria-pressed', slow !== 1);
+        };
+        addEventListener('resize', function () {
+          W = layer.clientWidth;
+          layout();
+        });
+        setMode('new');
+        layout();
+
+        // ---- hold the indicator, it grows; drag it across tabs; release selects the nearest one
+        var bar = document.getElementById('bar'),
+          layer = document.querySelector('.layer');
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches,
+          suppress = false,
+          W = layer.clientWidth;
+        function Sp(v, k, c) {
+          this.v = v;
+          this.t = v;
+          this.vel = 0;
+          this.k = k;
+          this.c = c;
+        }
+        var pxs = new Sp(0, 520, 30),
+          pg = new Sp(0, 520, 26),
+          both = [pxs, pg],
+          run = 0,
+          last = 0,
+          manual = false,
+          holding = false,
+          lifted = false,
+          timer = 0,
+          pid = 0,
+          sx0 = 0,
+          sy0 = 0,
+          off = 0,
+          near = -1;
+        function go(sp, t) {
+          sp.t = t;
+          if (reduce) {
+            sp.v = t;
+            sp.vel = 0;
+          }
+          kick();
+        }
+        function kick() {
+          if (!run) {
+            last = performance.now();
+            run = requestAnimationFrame(tick);
+          }
+        }
+        function centre(i) {
+          return tabs[i].offsetLeft + tabs[i].offsetWidth / 2;
+        }
+        function nearest(x) {
+          var b = 0,
+            d = 1e9;
+          [0, 1, 3, 4].forEach(function (i) {
+            var k = Math.abs(centre(i) - x);
+            if (k < d) {
+              d = k;
+              b = i;
+            }
+          });
+          return b;
+        }
+        function render() {
+          var g = Math.max(0, pg.v),
+            e = Math.min(g, 1.1),
+            w = 56 + 18 * e + Math.min(26, Math.abs(pxs.vel) * 0.035),
+            h = 32 + 7 * e;
+          // equal margin all round: the stretched indicator never touches the island edge, even on the outer tabs
+          var cx = Math.max(6 + w / 2, Math.min(W - 6 - w / 2, pxs.v));
+          pill.style.left = cx - w / 2 + 'px';
+          pill.style.width = w + 'px';
+          pill.style.top = 8 - 3.5 * e + 'px';
+          pill.style.height = h + 'px';
+          pill.style.borderRadius = h / 2 + 'px';
+          var k = Math.min(1, g);
+          pill.style.background = mix([42, 65, 117], [78, 116, 210], k);
+          pill.style.boxShadow =
+            '0 ' + 3 * k + 'px ' + 14 * k + 'px rgba(110,150,255,' + 0.4 * k + ')';
+          tabs.forEach(function (el, i) {
+            if (i === 2) return;
+            var c = mix(MUTED, TEXT, Math.max(0, 1 - Math.abs(centre(i) - pxs.v) / 64));
+            if (el._c !== c) {
+              el._c = c;
+              el.style.color = c;
+            }
+          });
+        }
+        function tick(now) {
+          var dt = Math.min(0.032, (now - last) / 1000) / slow;
+          last = now;
+          var n = Math.ceil(dt / 0.008),
+            h = dt / n,
+            busy = false;
+          both.forEach(function (p) {
+            for (var i = 0; i < n; i++) {
+              p.vel += (p.k * (p.t - p.v) - p.c * p.vel) * h;
+              p.v += p.vel * h;
+            }
+            if (Math.abs(p.t - p.v) > 0.002 || Math.abs(p.vel) > 0.01) busy = true;
+            else {
+              p.v = p.t;
+              p.vel = 0;
+            }
+          });
+          if (manual) render();
+          if (busy || holding) {
+            run = requestAnimationFrame(tick);
+          } else {
+            run = 0;
+            if (manual) handBack();
+          }
+        }
+        function handBack() {
+          // spring settled: normal rendering takes over again
+          manual = false;
+          var r = rectFor(selected);
+          pillR = { l: r.l, r: r.r, t: r.t, b: r.b };
+          to = r;
+          progress = 1;
+          previous = -1;
+          lift = 0;
+          pill.style.background = '';
+          pill.style.boxShadow = '';
+          tabs.forEach(function (el) {
+            el._c = null;
+          });
+          paint();
+          labels();
+        }
+        function onPill(e) {
+          var r = pill.getBoundingClientRect();
+          return (
+            e.clientX >= r.left - 6 &&
+            e.clientX <= r.right + 6 &&
+            e.clientY >= r.top - 6 &&
+            e.clientY <= r.bottom + 6
+          );
+        }
+        function vib(ms) {
+          try {
+            navigator.vibrate && navigator.vibrate(ms);
+          } catch (e) {}
+        }
+        function liftUp() {
+          if (!holding) return;
+          lifted = true;
+          try {
+            bar.setPointerCapture(pid);
+          } catch (e) {}
+          cancelAnimationFrame(raf);
+          raf = 0;
+          progress = 1;
+          previous = -1;
+          bar.classList.add('lift'); // start from where the indicator is drawn right now: still gliding after a release (manual) or at rest
+          var cx = manual ? pxs.v : (pillR.l + pillR.r) / 2;
+          manual = true;
+          pxs.v = pxs.t = cx;
+          pxs.vel = 0;
+          near = selected;
+          var lx = sx0 - layer.getBoundingClientRect().left;
+          off = lx - pxs.v;
+          go(pg, 1);
+          vib(14);
+          render();
+        }
+        bar.addEventListener('pointerdown', function (e) {
+          if (e.button > 0 || !onPill(e)) return;
+          holding = true;
+          lifted = false;
+          pid = e.pointerId;
+          sx0 = e.clientX;
+          sy0 = e.clientY;
+          timer = setTimeout(liftUp, 300);
+        });
+        bar.addEventListener('pointermove', function (e) {
+          if (!holding) return;
+          if (!lifted) {
+            if (Math.hypot(e.clientX - sx0, e.clientY - sy0) > 8) {
+              clearTimeout(timer);
+              holding = false;
+            }
+            return;
+          }
+          var lx = e.clientX - layer.getBoundingClientRect().left;
+          go(pxs, Math.max(centre(0), Math.min(centre(4), lx - off)));
+          var n = nearest(pxs.t);
+          if (n !== near) {
+            near = n;
+            vib(6);
+          }
+        });
+        function release(commit) {
+          clearTimeout(timer);
+          if (!holding) return;
+          holding = false;
+          if (lifted) {
+            lifted = false;
+            bar.classList.remove('lift');
+            suppress = true;
+            setTimeout(function () {
+              suppress = false;
+            }, 60);
+            if (commit) selected = near; // a cancelled gesture springs back to where it started
+            to = rectFor(selected);
+            go(pxs, centre(selected));
+            go(pg, 0);
+            vib(8);
+            kick();
+          }
+        }
+        bar.addEventListener('pointerup', function () {
+          release(true);
+        });
+        bar.addEventListener('pointercancel', function () {
+          release(false);
+        });
+        addEventListener('blur', function () {
+          release(false);
+        });
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) release(false);
+        });
+        bar.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+        });
+
+        // seekbar: draggable, never covered by the island
+        var seek = document.getElementById('seek'),
+          fill = document.getElementById('fill'),
+          dot = document.getElementById('dot'),
+          time = document.getElementById('time'),
+          down = false;
+        // The bar follows the finger through a critically damped spring (no overshoot): a tap glides to its place and a drag
+        // stays glued to the finger without the jitter of raw pointer samples.
+        var ss = { v: 0.35, t: 0.35, vel: 0 },
+          sRun = 0,
+          sLast = 0;
+        function seekPaint() {
+          var p = (ss.v * 100).toFixed(3) + '%';
+          fill.style.width = p;
+          dot.style.left = p;
+        }
+        function seekTick(now) {
+          var dt = Math.min(0.032, (now - sLast) / 1000) / slow;
+          sLast = now;
+          var n = Math.ceil(dt / 0.004),
+            h = dt / n;
+          for (var i = 0; i < n; i++) {
+            ss.vel += (1100 * (ss.t - ss.v) - 66 * ss.vel) * h;
+            ss.v += ss.vel * h;
+          }
+          if (Math.abs(ss.t - ss.v) < 0.0003 && Math.abs(ss.vel) < 0.01) {
+            ss.v = ss.t;
+            ss.vel = 0;
+            seekPaint();
+            sRun = 0;
+            return;
+          }
+          seekPaint();
+          sRun = requestAnimationFrame(seekTick);
+        }
+        function seekKick() {
+          if (reduce) {
+            ss.v = ss.t;
+            ss.vel = 0;
+            seekPaint();
+            return;
+          }
+          if (!sRun) {
+            sLast = performance.now();
+            sRun = requestAnimationFrame(seekTick);
+          }
+        }
+        function setSeek(ev) {
+          var r = seek.getBoundingClientRect(),
+            p = Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width));
+          ss.t = p;
+          seekKick();
+          var s = Math.round(p * 20);
+          time.textContent = '0:' + (s < 10 ? '0' : '') + s + ' / 0:20';
+        }
+        seek.addEventListener('pointerdown', function (e) {
+          down = true;
+          seek.classList.add('drag');
+          seek.setPointerCapture(e.pointerId);
+          setSeek(e);
+        });
+        seek.addEventListener('pointermove', function (e) {
+          if (down) setSeek(e);
+        });
+        function up() {
+          down = false;
+          seek.classList.remove('drag');
+        }
+        seek.addEventListener('pointerup', up);
+        seek.addEventListener('pointercancel', up);
+      })();
+    </script>
+  </body>
+</html>
