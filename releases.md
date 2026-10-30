@@ -1,11 +1,11 @@
 # Публикация обновлений ttcuz
 
-Репозиторий APK и документации: https://github.com/daniilsolovatulin-cyber/ttcuz-releases
+Репозиторий APK и документации: https://github.com/tremorttcuz/ttcuz-releases
 
 1. Соберите готовый мод, увеличив `VERSION` и Android `versionCode`. Сохраняйте прежний package name и ключ подписи: иначе Android не установит APK поверх предыдущего.
 2. Переименуйте APK в `ttcuz.apk`.
 3. В репозитории откройте Releases → Draft a new release. Создайте тег вида `v0.1.1`, напишите изменения, прикрепите `ttcuz.apk` и нажмите Publish release. Не отмечайте Draft или Pre-release для общего обновления.
-4. Проверьте https://ttcuz.daniilsolovatulin.workers.dev/version — там появятся версия, прямая ссылка на APK и описание из релиза. Кеш сервера — до пяти минут.
+4. Проверьте https://ttcuz.ttcuz1337.workers.dev/version — там появятся версия, прямая ссылка на APK и описание из релиза. Кеш сервера — до пяти минут.
 
 Настройки сервера после каждого релиза редактировать не нужно. Он читает последний опубликованный стабильный релиз этого репозитория. Релиз без файла `ttcuz.apk` не предлагается пользователям.
 
