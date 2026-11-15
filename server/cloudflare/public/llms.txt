@@ -1,0 +1,21 @@
+# ttcuz
+
+> ttcuz — мод TikTok 47.2.41 для Android. Плагины — Java-классы, которые наследуют cat.ttcuz.framework.plugin.TtcuzPlugin,
+> собираются в файл .ctt (ZIP: manifest.json, classes.dex, icon.png) и ставятся в моде. Текущая версия Plugin API — 4.
+
+Чтобы написать плагин, прочитайте целиком plugin-api.md: в нём все хуки, разрешения manifest.json, методы ttcuz(),
+события TikTok, ограничения, ошибки сборки, точные сигнатуры SDK и рабочий пример. Не выдумывайте методы, которых там нет:
+вызов без разрешения в manifest.json бросает SecurityException, а сборка останавливается на неотмеченных разрешениях.
+
+## Документация
+
+- [Plugin API — полное руководство и сигнатуры SDK](https://ttcuz.ttcuz1337.workers.dev/plugin-api.md): единственный актуальный источник
+- [Магазин плагинов](https://ttcuz.ttcuz1337.workers.dev/store.html): опубликованные плагины с исходниками
+
+## Коротко
+
+- manifest.json: id, entry (полное имя класса), api (1–4), tiktok "47.2.41", permissions (список), name/description
+- Разрешения: interface, text, feed, colours, region, events, account, effects, mod, watch, automation, player, tiktok,
+  network, notifications, clipboard, storage, android.permission.*
+- Каждая строка кода, которая пользуется разрешением, помечается комментарием `// @uses <разрешение>: <зачем>`
+- Сеть только из ttcuz().away(...); хуки экранов — на главном потоке

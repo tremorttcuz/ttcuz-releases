@@ -1,0 +1,13 @@
+{
+  "native_flags": {
+    "native experiment overrides": 3
+  },
+  "native_author_speed": {
+    "native speed feedback": 2,
+    "native author date slot": 3
+  },
+  "flags_idempotent": true,
+  "assembly_success": true,
+  "source_apk": "TikTok 47.2.41",
+  "runtime_on_phone": false
+}

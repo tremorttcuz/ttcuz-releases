@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2f5fa3">
+<title>Проверка плагинов</title>
+<link rel="stylesheet" href="ui.css">
+<style>
+.lock{min-height:100vh;display:grid;place-items:center;padding:24px 0}
+.lockc{width:min(100%,380px);background:var(--sc);border-radius:28px;padding:28px 24px;text-align:center;animation:tpin .5s var(--emph) both}
+.lockc .logo{justify-content:center;font-size:24px;margin-bottom:6px}
+.lockc p{color:var(--var);font-size:14px;line-height:1.5;margin:6px 0 20px}
+.pin{width:100%;height:60px;border-radius:16px;border:1px solid var(--outline);background:var(--bg);color:var(--on);font:500 26px/1 inherit;letter-spacing:10px;text-align:center;outline:0;transition:border-color .2s,box-shadow .2s}
+.pin:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 25%,transparent)}
+.pin.bad{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.lockc .btn{width:100%;height:48px;margin-top:16px}
+.bar2{display:flex;align-items:center;gap:12px;padding:14px 0 4px}
+.bar2 h1{flex:1;margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ibtn{border:0;background:var(--sc);color:var(--on);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;transition:transform .3s var(--spring),background .2s}
+.ibtn:active{transform:scale(.9)}
+.ibtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ibtn.spin2 svg{animation:rot 0.8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:10px;padding:0 6px;margin-left:6px;font-size:12px;font-weight:700;background:var(--err);color:#fff}
+.chip.on .cnt{background:var(--on-primary);color:var(--primary)}
+.q{background:var(--sc);border-radius:28px;padding:18px;margin:12px 0;animation:rvin .45s var(--emph) both;animation-delay:calc(var(--i,0)*50ms);transition:opacity .35s,transform .45s var(--emph),max-height .45s var(--emph),margin .45s var(--emph),padding .45s var(--emph);overflow:hidden}
+.q.gone{opacity:0;transform:scale(.96);max-height:0!important;margin:0;padding-top:0;padding-bottom:0}
+.qh{display:flex;gap:14px;align-items:center}
+.qh .icw{width:56px;flex:none}
+.qh .m{flex:1;min-width:0}
+.qh .m b{display:block;font-size:17px;font-weight:600}
+.qh small{color:var(--var);font-size:12px}
+.vd{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;padding:12px 14px;border-radius:18px;background:color-mix(in srgb,var(--c) 14%,transparent);font-size:14px;line-height:1.45}
+.vd b{color:var(--c)}
+.vd ul{margin:6px 0 0 18px;padding:0;color:var(--var)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-size:12px;font-weight:600;padding:5px 10px;border-radius:10px;background:color-mix(in srgb,var(--primary) 14%,transparent);color:var(--primary)}
+.tag.w{background:color-mix(in srgb,var(--err) 14%,transparent);color:var(--err)}
+.upd{margin-top:12px;font-size:14px;line-height:1.5;color:var(--var)}
+.upd b{color:var(--on)}
+.files{margin-top:14px;border-radius:18px;background:var(--bg);overflow:hidden}
+.ftabs{display:flex;gap:6px;overflow-x:auto;padding:8px;scrollbar-width:none}
+.ftabs button{border:0;border-radius:10px;padding:7px 12px;font:inherit;font-size:13px;background:none;color:var(--var);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.ftabs button.on{background:var(--sc);color:var(--on)}
+.code{margin:0;padding:12px 14px 16px;font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;max-height:0;transition:max-height .45s var(--emph);white-space:pre;color:var(--on)}
+.files.open .code{max-height:520px}
+.code .k{color:var(--primary)}.code .s{color:#3a9b5c}.code .c{color:var(--outline);font-style:italic}.code .u{background:color-mix(in srgb,#e8a100 22%,transparent);border-radius:4px}
+.qa{display:flex;gap:10px;margin-top:16px}
+.qa .btn{flex:1;height:44px}
+.btn.no{background:color-mix(in srgb,var(--err) 16%,transparent);color:var(--err);box-shadow:none}
+.srow2{display:flex;align-items:center;gap:14px;padding:10px 8px;margin:0 -8px;border-radius:20px;animation:rvin .45s var(--emph) both;animation-delay:calc(var(--i,0)*40ms);transition:background .25s,opacity .35s,transform .35s}
+.srow2.gone{opacity:0;transform:translateX(30px)}
+.srow2 .icw{width:52px;flex:none}
+.srow2 .m{flex:1;min-width:0}.srow2 .m b{display:block;font-weight:500}.srow2 small{color:var(--var);font-size:12px}
+.trash{color:var(--err)}
+.rvadm{display:grid;gap:10px;margin:4px 0 14px 66px}
+.rvadm .rvc{display:flex;gap:10px;align-items:flex-start;padding:12px 14px}
+.rvadm .rvc div{flex:1;min-width:0;font-size:14px}
+.say{color:var(--var);font-size:14px;min-height:20px;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="scrim" id="scrim"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dt"><div class="di" id="di"></div><h3 id="dt"></h3><p id="dp"></p><div class="dacts"><button class="tb" id="dno">Отмена</button><button class="tb" id="dyes">ОК</button></div></div></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// opened from disk rather than from the site: talk to the site itself
+const BASE=location.protocol==="file:"?"https://ttcuz.ttcuz1337.workers.dev":"";
+const ICONS={refresh:'<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',out:'<path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 17l5-5-5-5M15 12H4"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',chev:'<path d="M9 6l6 6-6 6"/>'};
+const svg=n=>`<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
+const RISKY=new Set(["network","account","tiktok","clipboard","mod"]);
+let pin="",tab="queue",queue=[],store=[],busy=false;
+try{localStorage.removeItem("ttcuz-review-key");pin=sessionStorage.getItem("ttcuz-review-pin")||""}catch{}
+
+async function call(path,body){
+ const headers={"x-admin-pin":pin};if(body)headers["content-type"]="application/json";
+ const r=await fetch(BASE+path,{method:body?"POST":"GET",headers,body:body?JSON.stringify(body):undefined});
+ const j=await r.json().catch(()=>({error:"HTTP "+r.status}));
+ if(!r.ok){const e=new Error(j.hint||({forbidden:"Неверный PIN",locked:"Слишком много попыток, подождите час",wrong:"Неверный PIN"}[j.error])||j.error||"HTTP "+r.status);e.status=r.status;throw e}
+ return j}
+
+/* ---------------------------------------------------------------- the lock */
+function lock(message){
+ $("#app").innerHTML=`<div class="lock"><div class="lockc"><div class="logo"><i>t</i>ttcuz</div><h2 style="justify-content:center;margin:12px 0 0">Проверка плагинов</h2><p>Введите PIN модератора. Пять неверных попыток — блокировка на час.</p>
+  <input class="pin" id="pin" type="password" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="••••••••" aria-label="PIN">
+  <div class="say" id="lsay">${esc(message||"")}</div><button class="btn" id="enter">Войти</button></div></div>`;
+ const box=$("#pin");box.focus();
+ const go=async()=>{const v=box.value.trim();if(!/^\d{4,12}$/.test(v)){box.classList.remove("bad");void box.offsetWidth;box.classList.add("bad");return}
+  pin=v;$("#enter").innerHTML='<span class="bl">Проверяем…</span>';
+  try{await loadAll(true);try{sessionStorage.setItem("ttcuz-review-pin",pin)}catch{}main()}
+  catch(e){pin="";$("#enter").textContent="Войти";$("#lsay").textContent=e.message;box.classList.remove("bad");void box.offsetWidth;box.classList.add("bad");box.select()}};
+ $("#enter").onclick=go;box.onkeydown=e=>{if(e.key==="Enter")go()}}
+
+/* ---------------------------------------------------------------- data */
+async function loadAll(strict){
+ const [q,s]=await Promise.all([call("/plugins/native/admin/pending"),call("/plugins/admin",{action:"list"}).catch(e=>{if(strict&&e.status===403)throw e;return {packages:[]}})]);
+ queue=q.submissions||[];store=s.packages||[]}
+
+/* ---------------------------------------------------------------- the main screen */
+function main(){
+ $("#app").innerHTML=`<div class="top"><div class="bar2"><div class="logo"><i>t</i></div><h1>Проверка плагинов</h1><button class="ibtn" id="ref" aria-label="Обновить">${svg("refresh")}</button><button class="ibtn" id="out" aria-label="Выйти">${svg("out")}</button></div><div class="chips" id="tabs"></div></div><div id="body"></div>`;
+ $("#ref").onclick=refresh;$("#out").onclick=()=>{try{sessionStorage.removeItem("ttcuz-review-pin")}catch{}pin="";lock("Вы вышли.")};
+ draw()}
+async function refresh(){if(busy)return;busy=true;$("#ref").classList.add("spin2");
+ try{await loadAll();draw();toast("Обновлено")}catch(e){if(e.status===403||e.status===429){lock(e.message);return}toast(e.message)}
+ finally{busy=false;const r=$("#ref");if(r)r.classList.remove("spin2")}}
+function draw(){
+ const T=[["queue","Очередь",queue.length],["store","Магазин",0],["reviews","Отзывы",0]];
+ $("#tabs").innerHTML=T.map(([k,t,n])=>`<button class="chip ${k===tab?"on":""}" data-tab="${k}">${t}${n?`<span class="cnt">${n}</span>`:""}</button>`).join("");
+ $("#tabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(b){tab=b.dataset.tab;draw()}};
+ const body=$("#body");
+ if(tab==="queue")body.innerHTML=queue.length?queue.map(item).join(""):`<div class="empty">Очередь пуста 🎉<br><small>Новые заявки придут и в Discord.</small></div>`;
+ if(tab==="store")body.innerHTML=`<h2>В магазине<span>${store.length}</span></h2>`+(store.length?store.map((p,i)=>`<div class="srow2" style="--i:${i}" data-row="${esc(p.id)}">${icon(p)}<div class="m"><b>${esc(p.name||p.id)}</b><small>${esc(p.id)} · v${esc(p.version)}${p.by?" · @"+esc(p.by):""}</small></div><button class="ibtn trash" data-del="${esc(p.id)}" aria-label="Убрать из магазина">${svg("trash")}</button></div>`).join(""):`<div class="empty">Магазин пуст.</div>`);
+ if(tab==="reviews")body.innerHTML=`<h2>Отзывы по плагинам</h2>`+(store.length?store.map((p,i)=>`<div class="srow2" style="--i:${i};cursor:pointer" data-rv="${esc(p.id)}">${icon(p)}<div class="m"><b>${esc(p.name||p.id)}</b><small>Нажмите, чтобы открыть отзывы</small></div><span class="ibtn">${svg("chev")}</span></div><div class="rvadm" id="rv-${esc(p.id)}" hidden></div>`).join(""):`<div class="empty">Нет плагинов.</div>`);
+ wire()}
+
+const hue=id=>{let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return h%360};
+const icon=(p,b64)=>`<div class="icw"><div class="ic pli" style="background:linear-gradient(135deg,hsl(${hue(p.id)} 45% 38%),hsl(${(hue(p.id)+40)%360} 55% 22%))"><span>${esc(String(p.name||p.id)[0]||"?").toUpperCase()}</span>${b64?`<img alt="" src="data:image/png;base64,${esc(b64)}">`:p.icon&&p.icon[0]==="/"?`<img alt="" src="${BASE+esc(p.icon)}" onerror="this.remove()">`:""}</div></div>`;
+const VERDICT={safe:["#1e8e3e","Gemini: безопасен"],suspicious:["#b06d00","Gemini: подозрительный"],dangerous:["#c5221f","Gemini: опасен"],unknown:["#777","Gemini: не проверил"]};
+function verdict(r){
+ if(!r)return `<div class="vd" style="--c:var(--primary)"><span class="spin"></span><div>Gemini ещё читает код — обновите через минуту.</div></div>`;
+ const [c,t]=r.obfuscated?["#c5221f","Gemini: код запутан"]:(VERDICT[r.verdict]||VERDICT.unknown);
+ return `<div class="vd" style="--c:${c}"><div><b>${t}</b>${r.summary?`<div>${esc(r.summary)}</div>`:""}${(r.issues||[]).length?`<ul>${r.issues.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}</div></div>`}
+
+// light Java colouring for reading, and the permission marks (// @uses) stand out
+function java(text){
+ return esc(text).split("\n").map(line=>{
+  if(/\/\/\s*@(uses|разрешение)\b/.test(line))return `<span class="u">${line}</span>`;
+  return line.replace(/(\/\/.*$)/,'<span class="c">$1</span>').replace(/(&quot;.*?&quot;)/g,'<span class="s">$1</span>')
+   .replace(/\b(public|private|protected|class|extends|implements|static|final|void|return|new|if|else|for|while|try|catch|import|package|boolean|int|long|float|String|null|true|false|this|super|throws|interface)\b/g,'<span class="k">$1</span>')}).join("\n")}
+
+function item(s,i){
+ const p=s.plugin,from=s.handle&&!String(p.author).toLowerCase().includes(s.handle.toLowerCase())?" · прислал @"+esc(s.handle):"";
+ const u=p.update,d=u&&u.diff;
+ return `<div class="q" style="--i:${i}" data-q="${s.id}">
+ ${s.banner?`<div style="margin:-18px -18px 14px;height:110px;background:var(--sh) url('${BASE+esc(s.banner)}') center/cover"></div>`:""}
+ <div class="qh">${icon(p,s.icon)}<div class="m"><b>${esc(p.name)}${u?` <span class="rvchip">обновление</span>`:""}</b><small>${esc(p.id)} · v${esc(p.version)} · ${esc(p.author)}${from}</small><br><small>${Math.max(1,Math.round(s.size/1024))} КБ · ${new Date(s.added).toLocaleString("ru")} · ${s.via==="site"?"с сайта":"из приложения"}${s.reviewsOpen?" · отзывы открыты":""}</small></div></div>
+ ${verdict(s.review)}
+ ${u?`<div class="upd"><b>v${esc(u.from||"?")} → v${esc(p.version)}</b>${d?` · <b style="color:#3a9b5c">+${d.plus}</b> <b style="color:var(--err)">−${d.minus}</b> строк${d.changed.length?" · изменены: "+d.changed.map(f=>`<code>${esc(f.replace(/^java\//,""))}</code>`).join(" "):""}${d.added.length?" · новые: "+d.added.map(f=>`<code>${esc(f.replace(/^java\//,""))}</code>`).join(" "):""}${d.removed.length?" · удалены: "+d.removed.map(f=>`<code>${esc(f.replace(/^java\//,""))}</code>`).join(" "):""}`:""}</div>`:""}
+ ${p.changes?`<div class="upd"><b>Что нового:</b> ${esc(p.changes)}</div>`:""}
+ ${p.about?`<p class="desc" style="font-size:14px;margin:12px 0 0">${esc(p.about)}</p>`:""}
+ <div class="tags">${(p.permissions||[]).map(x=>`<span class="tag ${RISKY.has(x)||x.startsWith("android.")?"w":""}">${esc(x.replace("android.permission.",""))}</span>`).join("")||'<span class="tag">без разрешений</span>'}</div>
+ <div class="files" data-files="${s.id}"><div class="ftabs">${s.files.map((f,k)=>`<button data-f="${k}">${esc(f.path.split("/").pop())}</button>`).join("")}</div><pre class="code"></pre></div>
+ <div class="qa"><button class="btn no" data-act="reject">Отклонить</button><button class="btn" data-act="approve">Одобрить</button></div></div>`}
+
+function wire(){
+ const body=$("#body");
+ body.onclick=async e=>{
+  const f=e.target.closest("[data-f]");
+  if(f){const box=f.closest(".files"),s=queue.find(x=>x.id==box.dataset.files),code=box.querySelector(".code");
+   const was=f.classList.contains("on");box.querySelectorAll("[data-f]").forEach(b=>b.classList.remove("on"));
+   if(was){box.classList.remove("open");return}
+   f.classList.add("on");code.innerHTML=java(s.files[f.dataset.f].text);box.classList.add("open");return}
+  const a=e.target.closest("[data-act]");if(a){decide(a.closest(".q"),a.dataset.act);return}
+  const del=e.target.closest("[data-del]");if(del){remove(del.dataset.del);return}
+  const rv=e.target.closest("[data-rv]");if(rv){reviews(rv.dataset.rv);return}
+  const rx=e.target.closest("[data-rpx]");if(rx){dropReply(rx.dataset.rpx,rx.dataset.rid,rx.closest(".rp"));return}
+  const x=e.target.closest("[data-rx]");if(x){dropReview(x.dataset.rx,x.dataset.ref,x.closest(".rvc"))}
+ }}
+
+async function decide(card,action){
+ const s=queue.find(x=>x.id==card.dataset.q);if(!s)return;
+ if(action==="reject"&&!await ask("Отклонить плагин?","«"+s.plugin.name+"» не попадёт в магазин. Автор сможет отправить его снова.","Отклонить"))return;
+ card.querySelectorAll(".qa .btn").forEach(b=>b.disabled=true);
+ try{await call("/plugins/native/admin/review",{id:s.id,action});
+  card.style.maxHeight=card.scrollHeight+"px";requestAnimationFrame(()=>card.classList.add("gone"));
+  queue=queue.filter(x=>x!==s);
+  if(action==="approve"){toast(s.plugin.update?"Обновление опубликовано":"Опубликован в магазине");loadAll().catch(()=>{})}else toast("Отклонён");
+  setTimeout(draw,480)}
+ catch(e){card.querySelectorAll(".qa .btn").forEach(b=>b.disabled=false);toast(e.message)}}
+
+async function remove(id){
+ const p=store.find(x=>x.id===id);if(!p)return;
+ if(!await ask("Убрать из магазина?","«"+(p.name||id)+"» пропадёт из магазина у всех. Установленные копии останутся.","Убрать",svg("trash")))return;
+ try{await call("/plugins/admin",{action:"remove",kind:"package",id});const row=document.querySelector(`[data-row="${CSS.escape(id)}"]`);if(row)row.classList.add("gone");
+  store=store.filter(x=>x!==p);toast("Убран из магазина");setTimeout(draw,360)}
+ catch(e){toast(e.message)}}
+
+async function reviews(id){
+ const box=document.getElementById("rv-"+id);if(!box)return;
+ if(!box.hidden){box.hidden=true;return}
+ box.hidden=false;box.innerHTML='<div class="pl-st" style="padding:8px"><span class="spin"></span>Загружаем…</div>';
+ try{const j=await call("/plugins/reviews/"+encodeURIComponent(id));
+  box.innerHTML=j.reviews.length?j.reviews.map((r,i)=>`<div class="rvc" style="--i:${i}"><div><b>${r.name?esc(r.name)+" ":""}${r.handle?"@"+esc(r.handle):"Без ника"}</b> <span class="stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</span> <small style="color:var(--var)">полезно ${r.up||0} · нет ${r.dn||0}</small>${r.text?`<br>${esc(r.text)}`:""}${(r.replies||[]).map(p=>`<div class="rp" style="margin-top:8px;display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><b>${p.handle?"@"+esc(p.handle):"Без ника"}</b> ${esc(p.text)}</div><button class="ibtn trash" data-rpx="${esc(id)}" data-rid="${p.id}" aria-label="Удалить ответ">${svg("trash")}</button></div>`).join("")}</div><button class="ibtn trash" data-rx="${esc(id)}" data-ref="${esc(r.ref)}" aria-label="Удалить отзыв">${svg("trash")}</button></div>`).join(""):'<p class="desc" style="margin:0">Отзывов нет.</p>'}
+ catch(e){box.innerHTML=`<p class="desc">${esc(e.message)}</p>`}}
+
+async function dropReply(id,rid,el){
+ if(!await ask("Удалить ответ?","Ответ пропадёт под отзывом у всех.","Удалить",svg("trash")))return;
+ try{await call("/plugins/reviews/"+encodeURIComponent(id)+"/replies/"+rid+"/delete",{});el.style.transition="opacity .3s";el.style.opacity=0;setTimeout(()=>el.remove(),300);toast("Ответ удалён")}
+ catch(e){toast(e.message)}}
+async function dropReview(id,ref,card){
+ if(!await ask("Удалить отзыв?","Отзыв пропадёт из магазина, средняя оценка пересчитается.","Удалить",svg("trash")))return;
+ try{await call("/plugins/reviews/"+encodeURIComponent(id)+"/remove",{ref});card.style.transition="opacity .3s,transform .3s";card.style.opacity=0;card.style.transform="translateX(30px)";setTimeout(()=>card.remove(),300);toast("Отзыв удалён")}
+ catch(e){toast(e.message)}}
+
+/* ---------------------------------------------------------------- glue */
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show","low");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),1900)}
+let dlgRes=null;
+function dlgClose(v){$("#scrim").classList.remove("open");const r=dlgRes;dlgRes=null;r&&r(v)}
+function ask(title,text,ok,ic){return new Promise(res=>{if(dlgRes)dlgClose(false);dlgRes=res;$("#di").innerHTML=ic||"";$("#dt").textContent=title;$("#dp").textContent=text;$("#dyes").textContent=ok||"ОК";$("#scrim").classList.add("open");setTimeout(()=>$("#dyes").focus(),50)})}
+$("#dyes").onclick=()=>dlgClose(true);$("#dno").onclick=()=>dlgClose(false);
+$("#scrim").addEventListener("click",e=>{if(e.target.id==="scrim")dlgClose(false)});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&pin&&$("#tabs"))refresh()});
+if(pin)loadAll(true).then(main).catch(e=>lock(e.message));else lock();
+</script>
+</body>
+</html>

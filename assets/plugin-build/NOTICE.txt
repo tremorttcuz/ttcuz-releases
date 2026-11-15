@@ -1,0 +1,15 @@
+On-device plugin build tools for ttcuz
+
+ttcuz-ecj-3.26.0-dex.jar
+  Eclipse Compiler for Java (ECJ) 3.26.0, converted to Android dex.
+  License: Eclipse Public License 2.0. Source: https://github.com/eclipse-jdt/eclipse.jdt.core
+  It also carries the javax.lang.model / javax.tools classes from OpenJDK 17
+  (GPLv2 with the Classpath Exception, https://github.com/openjdk/jdk17u). One
+  file is changed: SourceVersion.getLatestSupported() no longer calls
+  Runtime.version(), which Android lacks. The changed file is SourceVersion-patched.java.
+
+ttcuz-d8-8.7.18-dex.jar
+  D8 from R8 8.7.18 (Google), converted to Android dex.
+  License: BSD 3-Clause. Source: https://r8.googlesource.com/r8
+
+android.jar is not included; the app fetches it from dl.google.com once.

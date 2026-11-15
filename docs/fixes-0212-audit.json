@@ -1,0 +1,14 @@
+{
+  "tiktok": "47.2.41",
+  "mod": "0.2.12",
+  "rewrite_counts": {
+    "ImageView->setImageDrawable (in the class marked LX/0HCj;)": 2,
+    "TuxIconView->setIconRes (in the class marked LX/0HCj;)": 2,
+    "TuxIconView->setTintColor (in the class marked LX/0HCj;)": 2,
+    "Aweme->getDesc (in the class marked Lcom/ss/android/ugc/aweme/feed/assem/desc/VideoDescAssem;)": 1,
+    "visible publication date": 1
+  },
+  "native_classes_reassembled": true,
+  "injected_targets_verified": true,
+  "phone_tested": false
+}

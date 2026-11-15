@@ -1,0 +1,8 @@
+{
+  "version": "0.9.0",
+  "channel": "testing",
+  "url": "",
+  "url_armv7": "",
+  "notes": "TikTok 47.7.3: real liquid glass, app and chat lock with fingerprint or PIN, beat haptics, resume the last video, scroll effects, settings subpages and tile animations, interface sounds, comment like toggle, armv7 build",
+  "notes_ru": "TikTok 47.7.3: настоящее жидкое стекло, блокировка TikTok и переписок отпечатком или кодом, вибрация в ритм музыки, продолжение последнего видео, эффекты прокрутки, подстраницы и анимации плиток в меню, звуки интерфейса, лайк и снятие лайка двойным нажатием, сборка armv7"
+}

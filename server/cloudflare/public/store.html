@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f5fa3">
+<title>Плагины ttcuz</title>
+<meta name="description" content="Магазин плагинов мода ttcuz: проверенные дополнения, плагины на проверке, отзывы и установка в один тап.">
+<link rel="stylesheet" href="ui.css">
+<style>
+.app{padding-bottom:120px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico.f{fill:currentColor;stroke:none}
+.me{width:36px;height:36px;border-radius:50%;border:0;padding:0;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font:inherit;font-weight:700;cursor:pointer;overflow:hidden;flex:none;transition:transform .35s var(--spring)}
+.me:active{transform:scale(.9)}
+.me img{width:100%;height:100%;object-fit:cover}
+.me .ico{width:20px;height:20px}
+.perm i{color:var(--primary)}.perm.warn i{color:var(--err)}
+.perm i .ico{width:20px;height:20px}
+.mini{display:inline-flex;gap:4px;color:var(--var)}.mini .ico{width:14px;height:14px}
+.rate .ico{width:13px;height:13px;color:#e8a100}
+.stars{display:inline-flex;gap:1px;vertical-align:-2px}.stars .ico{width:14px;height:14px}
+.stars .on{color:#e8a100}.stars .off{color:var(--outline);opacity:.5}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;vertical-align:2px;background:color-mix(in srgb,#e8a100 18%,transparent);color:#b07800}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge{color:#f5c04a}}
+.badge .ico{width:12px;height:12px}
+.badge.ok{background:color-mix(in srgb,var(--primary) 16%,transparent);color:var(--primary)}
+.badge.bad{background:color-mix(in srgb,var(--err) 16%,transparent);color:var(--err)}
+.pend{margin:4px 0 12px;padding:14px 16px;border-radius:20px;background:color-mix(in srgb,#e8a100 12%,var(--sc));display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--var)}
+.pend .ico{color:#e8a100;width:22px;height:22px}
+.pend b{color:var(--on)}
+.crop{position:fixed;inset:0;z-index:60;background:#0009;display:grid;place-items:center;padding:16px;opacity:0;transition:opacity .2s}.crop.open{opacity:1}
+.crop .cp{background:var(--sc,#1d1b20);color:var(--on,#e6e1e5);border-radius:28px;padding:22px;width:min(760px,100%);transform:scale(.94);transition:transform .25s cubic-bezier(.2,0,0,1)}.crop.open .cp{transform:none}
+.crop h3{margin:0 0 6px}.crop p{margin:0 0 14px;opacity:.75;font-size:14px}
+.crop .cf{position:relative;width:100%;aspect-ratio:3/1;border-radius:18px;overflow:hidden;background:#000;touch-action:none;cursor:grab}.crop .cf:active{cursor:grabbing}
+.crop .cf i{position:absolute;inset:0;border:2px solid #fff9;border-radius:18px;pointer-events:none;box-shadow:inset 0 0 0 1px #0006}
+.crop .cz{display:flex;gap:10px;align-items:center;margin:14px 0 4px}.crop .cz input{flex:1}
+.bnr{margin:8px 0 0;height:min(34vw,220px);background:var(--sc) center/cover no-repeat;border-radius:28px;position:relative}
+.bnr+.dh{margin-top:-44px;position:relative;align-items:flex-start}
+.bnr+.dh>div:last-child{margin-top:50px}
+.bnr+.dh .icw{box-shadow:0 0 0 4px var(--bg);border-radius:24%}
+.bcard{display:block;margin:12px 0;border-radius:24px;overflow:hidden;background:var(--sc);cursor:pointer;animation:rvin .45s var(--emph) both;animation-delay:calc(var(--i,0)*40ms);transition:transform .45s var(--spring)}
+.bcard:active{transform:scale(.98)}
+.bcard .img{height:120px;background:var(--sh) center/cover no-repeat}
+.bcard .li{margin:0;padding:12px 14px;border-radius:0;animation:none}
+.code{margin:8px 0 0;padding:14px;border-radius:18px;background:var(--sc);font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre;max-height:70vh;color:var(--on)}
+.code .k{color:var(--primary)}.code .s{color:#3a9b5c}.code .c{color:var(--outline);font-style:italic}.code .u{background:color-mix(in srgb,#e8a100 22%,transparent);border-radius:4px}
+.ftabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.ftabs .chip{font-size:13px;padding:6px 12px}
+.compose{background:var(--sc);border-radius:24px;padding:16px 18px;margin:12px 0}
+.compose .pick{display:flex;gap:6px;justify-content:center;margin:4px 0 10px}
+.compose .pick button{border:0;background:none;padding:4px;cursor:pointer;color:var(--outline);transition:transform .35s var(--spring),color .2s}
+.compose .pick button .ico{width:34px;height:34px}
+.compose .pick button.on{color:#e8a100}
+.compose .pick button:active{transform:scale(.85)}
+.compose textarea{width:100%;min-height:84px;resize:vertical;font:inherit;font-size:15px;color:var(--on);background:var(--bg);border:2px solid transparent;border-radius:14px;padding:10px 12px;outline:0}
+.compose textarea:focus{border-color:var(--primary)}
+.compose .row{display:flex;gap:10px;margin-top:10px}.compose .row .btn{flex:1;height:44px}
+.drop{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;background:var(--sc);border:2px dashed color-mix(in srgb,var(--outline) 60%,transparent);cursor:pointer;transition:border-color .2s,background .2s;margin:10px 0}
+.drop:hover,.drop.over{border-color:var(--primary)}
+.drop.done{border-style:solid;border-color:color-mix(in srgb,var(--primary) 50%,transparent)}
+.drop .ico{width:26px;height:26px;color:var(--primary)}
+.drop b{display:block;font-weight:500;color:var(--on)}.drop small{color:var(--var);font-size:12px}
+.drop input{display:none}
+.prev{display:flex;gap:12px;align-items:center;margin:6px 0}
+.prev img.i{width:64px;height:64px;border-radius:22%;object-fit:cover}
+.prev .b{flex:1;height:64px;border-radius:16px;background:var(--sh) center/cover no-repeat}
+.sw{display:flex;align-items:center;gap:14px;padding:14px 0;cursor:pointer}
+.sw div{flex:1}.sw b{display:block;font-weight:500}.sw small{color:var(--var);font-size:13px;line-height:1.4}
+.tg{width:52px;height:32px;border-radius:16px;background:var(--sh);position:relative;flex:none;transition:background .25s;border:2px solid var(--outline)}
+.tg:after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:var(--outline);top:6px;left:6px;transition:transform .35s var(--spring),width .2s,height .2s,top .2s,background .2s}
+.sw.on .tg{background:var(--primary);border-color:var(--primary)}
+.sw.on .tg:after{transform:translateX(20px);width:24px;height:24px;top:2px;background:var(--on-primary)}
+.info{background:var(--sc);border-radius:20px;padding:14px 16px;font-size:14px;line-height:1.5;color:var(--var);margin:10px 0}
+.info b{color:var(--on)}
+.gbtn{display:flex;justify-content:center;margin:14px 0}
+/* our own Google button; Google's real one lies invisibly on top and takes the tap */
+.gsign{position:relative;display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 24px 0 16px;border-radius:24px;background:color-mix(in srgb,var(--primary) 16%,var(--sc));color:var(--on);font-weight:600;font-size:15px;overflow:hidden;transition:transform .3s var(--spring),background .2s;cursor:pointer;box-shadow:0 2px 6px -2px rgba(0,0,0,.3)}
+.gsign:hover{background:color-mix(in srgb,var(--primary) 24%,var(--sc))}
+.gsign:active{transform:scale(.95)}
+.gsign .g{width:22px;height:22px;flex:none;background:#fff;border-radius:50%;padding:3px;box-sizing:content-box}
+.gsign .real{position:absolute;inset:0;opacity:.001;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.gsign .real>div{transform:scale(1.4)}
+/* the profile */
+.pf{text-align:center;padding:8px 0 24px}
+.pfa{display:block;position:relative;width:112px;height:112px;margin:8px auto 14px;border-radius:50%;cursor:pointer;transition:transform .35s var(--spring)}
+.pfa:active{transform:scale(.94)}
+.pfa .face{width:100%;height:100%;border-radius:50%;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font-size:44px;font-weight:700;overflow:hidden}
+.pfa .face img{width:100%;height:100%;object-fit:cover}
+.pfa .cam{position:absolute;right:2px;bottom:2px;width:36px;height:36px;border-radius:50%;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;box-shadow:0 0 0 4px var(--bg)}
+.pfa .cam .ico{width:18px;height:18px}
+.pf h1{margin:0;font-size:24px}.pf .at{color:var(--primary);font-size:15px;margin-top:2px}
+.fm .hint{font-size:12px;min-height:16px;margin-top:-6px;transition:color .2s}
+.fm .hint.ok{color:#3a9b5c}.fm .hint.bad{color:var(--err)}
+.fm .at-in{position:relative}.fm .at-in input{padding-left:30px}.fm .at-in:before{content:"@";position:absolute;left:14px;top:13px;color:var(--var);font-size:16px}
+.welcome{animation:pop .6s var(--spring)}
+.rva img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.rvc{--rvbg:var(--sc)}
+.rvs .rvc{animation:rvin .5s var(--emph) both;animation-delay:calc(var(--i,0)*45ms)}
+.sum .hb i{animation:grow 800ms var(--emph) both}
+.rvc .who small{color:var(--var);font-size:12px;font-weight:400}
+.search .me{transition:opacity .2s,transform .4s var(--spring)}
+.search.open .me{opacity:0;transform:scale(.4);pointer-events:none}
+
+.sres .li{animation:none}
+.sres .grp{color:var(--var);font-size:13px;font-weight:600;padding:14px 0 4px;list-style:none}
+.pubc{background:var(--sc);border-radius:28px;padding:24px;display:grid;justify-items:center;gap:14px;animation:pop .45s var(--spring)}
+.pubc span{color:var(--on);font-size:14px}
+.btn.pc{font-variant-numeric:tabular-nums}
+.icw canvas{pointer-events:none}
+.acct{display:flex;gap:14px;align-items:center;background:var(--sc);border-radius:24px;padding:16px;margin:12px 0}
+.acct img,.acct .me{width:48px;height:48px}
+.acct div{flex:1;min-width:0}.acct small{color:var(--var)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="search" id="sbar"><button class="lead" id="sblead" aria-label="Поиск"><svg class="mag" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><svg class="back" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><input id="q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Поиск плагинов" aria-label="Поиск плагинов"><button class="x" id="qx" hidden aria-label="Очистить">✕</button><button class="me" id="me" aria-label="Аккаунт"></button></div>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div id="secs"></div>
+</div>
+<nav class="bar" aria-label="Разделы" id="nav"></nav>
+<div class="sview" id="sview"><ul class="sres" id="sres"></ul></div>
+<div class="sheet" id="sheet"><div id="det"></div></div>
+<div class="sheet" id="prof"><div id="pfd"></div></div>
+<div class="pubov" id="pubov" hidden role="status"><div class="pubc"><canvas class="wring" aria-hidden="true"></canvas><span id="pubt"></span></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="scrim" id="scrim"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dt"><div class="di" id="di"></div><h3 id="dt"></h3><p id="dp"></p><div class="dacts"><button class="tb" id="dno">Отмена</button><button class="tb" id="dyes">ОК</button></div></div></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ID=/^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/;
+
+/* ---------------------------------------------------------------- icons: outlined, 24×24, as in the rest of the page */
+const P={zoom_in:'<path d="M9.5 3a6.5 6.5 0 0 1 5.2 10.4l5.1 5.1-1.4 1.4-5.1-5.1A6.5 6.5 0 1 1 9.5 3Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM9 7h1v2h2v1h-2v2H9v-2H7V9h2V7Z"/>',
+ interface:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 9v11"/>',
+ effects:'<path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
+ mod:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+ text:'<path d="M5 7V5h14v2M12 5v14M9 19h6"/>',
+ feed:'<rect x="4" y="3" width="16" height="8" rx="2"/><rect x="4" y="13" width="16" height="8" rx="2"/>',
+ colours:'<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.9 1.2-1.8-.5-1-.1-2.2 1.2-2.2H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',
+ globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"/>',
+ events:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+ bell:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+ clipboard:'<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h4"/>',
+ folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+ person:'<circle cx="12" cy="8" r="4"/><path d="M4 20c1-4 4.5-6 8-6s7 2 8 6"/>',
+ code:'<path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/>',
+ cam:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ out:'<path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 17l5-5-5-5M15 12H4"/>',
+ camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ pin:'<path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+ contacts:'<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17c1-2 2.5-3 4-3s3 1 4 3"/>',
+ vibrate:'<rect x="8" y="4" width="8" height="16" rx="2"/><path d="M4 8v8M20 8v8"/>',
+ eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ play:'<circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+ star:'<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+ upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',
+ check:'<path d="M5 12l5 5 9-10"/>',
+ warn:'<path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h0"/>',
+ image:'<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+ file:'<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/>',
+ zip:'<path d="M6 3h8l5 5v13H6z"/><path d="M11 6h1M11 9h1M11 12h1M10.5 15h2v3h-2z"/>',
+};
+const ico=(n,cls="")=>`<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[n]||P.shield}</svg>`;
+const star=on=>`<svg class="ico f ${on?"on":"off"}" viewBox="0 0 24 24" aria-hidden="true">${P.star}</svg>`;
+const stars=n=>`<span class="stars" aria-label="${n} из 5">${[1,2,3,4,5].map(i=>star(i<=Math.round(n))).join("")}</span>`;
+
+// what each permission means, in the words the app uses under its key button; 4th: risky
+const RIGHTS={interface:["interface","Интерфейс","Свои кнопки и окна поверх экранов TikTok"],effects:["effects","Эффекты","Размытие, motion blur и шейдеры поверх экранов"],mod:["mod","Интерфейс и настройки мода","Меняет экраны мода и добавляет свои настройки",1],
+ text:["text","Тексты и ники","Меняет подписи и ники"],feed:["feed","Лента","Убирает или переставляет видео"],colours:["colours","Цвета","Перекрашивает приложение"],region:["globe","Регион","Меняет регион, который видит TikTok"],
+ events:["events","События","События мода и других плагинов"],network:["globe","Интернет","Отправляет и получает данные",1],notifications:["bell","Уведомления","Показывает свои уведомления"],
+ clipboard:["clipboard","Буфер обмена","Копирует и читает скопированное",1],storage:["folder","Файлы","Сохраняет файлы в «Загрузки»"],account:["person","Аккаунт","Видит id аккаунта",1],tiktok:["code","Внутренности TikTok","Вызывает скрытые методы TikTok",1],
+ watch:["eye","Действия в TikTok","Какое видео открыто, комментарии, поиск, сообщения",1],automation:["code","Нажатия за вас","Нажимает, листает и печатает вместо вас",1],player:["play","Плеер","Пауза, скорость, сохранение видео"],
+ "android.permission.CAMERA":["camera","Камера","Разрешение Android",1],"android.permission.RECORD_AUDIO":["mic","Микрофон","Разрешение Android",1],"android.permission.ACCESS_FINE_LOCATION":["pin","Точное местоположение","Разрешение Android",1],
+ "android.permission.ACCESS_COARSE_LOCATION":["pin","Примерное местоположение","Разрешение Android",1],"android.permission.READ_CONTACTS":["contacts","Контакты","Разрешение Android",1],"android.permission.VIBRATE":["vibrate","Вибрация","Разрешение Android"],
+ "android.permission.POST_NOTIFICATIONS":["bell","Уведомления Android","Разрешение Android"]};
+const right=p=>RIGHTS[p]||["shield",String(p).replace("android.permission.","").toLowerCase().replace(/_/g," "),"Разрешение"];
+const CHIPS=[["all","Все"],["top","Лучшие"],["effects","Эффекты"],["interface","Интерфейс"],["feed","Лента"],["text","Тексты"],["network","Интернет"]];
+const VERDICT={safe:["ok","Gemini: безопасен"],suspicious:["","Gemini: подозрительный"],dangerous:["bad","Gemini: опасен"],unknown:["","Gemini: не проверил"]};
+
+let store=[],queue=[],state="load",qstate="idle",chip="all",query="",tab="store",open=null,user=null,googleId="";
+
+/* ---------------------------------------------------------------- data */
+async function load(){
+ state="load";render();
+ try{const r=await fetch("/plugins/catalog.json",{signal:AbortSignal.timeout(10000)});if(!r.ok)throw 0;
+  const j=await r.json();store=(Array.isArray(j.plugins)?j.plugins:[]).filter(p=>p&&ID.test(p.id||"")&&p.format==="ctt");state="ok"}
+ catch(e){state="err"}
+ render();route()}
+async function loadQueue(){
+ qstate="load";if(tab==="queue")render();
+ try{const r=await fetch("/plugins/native/queue",{signal:AbortSignal.timeout(10000)});if(!r.ok)throw 0;queue=(await r.json()).queue||[];qstate="ok"}
+ catch(e){qstate="err"}
+ render();route()}
+
+/* ---------------------------------------------------------------- pieces */
+const hue=id=>{let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return h%360};
+const grad=p=>`background:linear-gradient(135deg,hsl(${hue(p.id)} 45% 38%),hsl(${(hue(p.id)+40)%360} 55% 22%))`;
+const size=n=>!n?"":n>1048576?(n/1048576).toFixed(1).replace(".",",")+" МБ":Math.max(1,Math.round(n/1024))+" КБ";
+const plural=(n,a,b,c)=>{const t=n%100,u=n%10;return t>10&&t<20?c:u===1?a:u>=2&&u<=4?b:c};
+const icon=p=>`<div class="icw" data-ic="${esc(p.id)}"><canvas aria-hidden="true"></canvas><div class="ic pli" style="${grad(p)}"><span>${esc(String(p.name||p.id)[0]||"?").toUpperCase()}</span>${p.icon&&p.icon[0]==="/"?`<img src="${esc(p.icon)}" alt="" loading="lazy" onerror="this.remove()">`:""}</div></div>`;
+const rate=p=>p.rating&&p.rating.count?`<span class="rate"><b>${String(p.rating.average).replace(".",",")}</b>${star(true)}(${p.rating.count})</span>`:"";
+const perms=p=>`<span class="mini">${(p.permissions||[]).slice(0,4).map(x=>ico(right(x)[0])).join("")}</span>`;
+const pendingBadge=`<span class="badge">${ico("clock")}На рассмотрении</span>`;
+function row(p,i,pending){
+ const key=pending?"q:"+p.sub:p.id;
+ const line=`<div class="li pl" data-id="${esc(key)}" style="--i:${i}">${icon(p)}<div class="m"><b class="pn"><span class="nm">${esc(p.name||p.id)}</span>${!pending&&p.verified?' <span class="vf" title="Проверен">✓</span>':""}</b><small>${esc(p.author||"")} · v${esc(p.version||"")}${p.size?" · "+size(p.size):""}</small><div class="meta">${pending?pendingBadge:rate(p)}${perms(p)}</div></div>${pending?"":`<button class="btn s" data-go="${esc(p.id)}">Установить</button>`}</div>`;
+ return p.banner?`<div class="bcard" data-id="${esc(key)}" style="--i:${i}"><div class="img" style="background-image:url('${esc(p.banner)}')"></div>${line.replace('class="li pl"','class="li"')}</div>`:line}
+// a queue entry, in the shape of a store plugin
+const asPlugin=q=>({...q.plugin,sub:q.id,icon:q.icon,banner:q.banner,by:q.handle,size:q.size,pending:true,reviewsOpen:q.reviewsOpen,gemini:q.review,added:q.added});
+
+function shown(){
+ let l=store.slice();
+ if(query){const q=query.toLowerCase();l=l.filter(p=>[p.name,p.id,p.author,p.about].some(v=>String(v||"").toLowerCase().includes(q)))}
+ if(chip==="top")l=l.filter(p=>p.rating&&p.rating.count).sort((a,b)=>b.rating.average-a.rating.average||b.rating.count-a.rating.count);
+ else if(chip!=="all")l=l.filter(p=>(p.permissions||[]).includes(chip));
+ return l}
+
+function render(){
+ $("#nav").innerHTML=[["store","bag","Магазин"],["queue","clock","На проверке"],["send","upload","Отправить"]].map(([k,i,t])=>`<button data-t="${k}" ${k===tab?'aria-current="page"':""}><span class="pill">${ico(i)}</span>${t}</button>`).join("");
+ $("#chips").style.display=tab==="store"?"":"none";
+ $("#chips").innerHTML=CHIPS.map(([k,t])=>`<button class="chip ${k===chip?"on":""}" data-c="${k}">${t}</button>`).join("");
+ const secs=$("#secs");
+ if(tab==="send"){secs.innerHTML=sendPage();wireSend();return}
+ if(tab==="queue"){
+  if(qstate==="idle"){loadQueue();return}
+  if(qstate==="load"){secs.innerHTML=`<h2>На проверке</h2><div class="pl-st"><canvas class="wring" aria-hidden="true"></canvas>Загружаем очередь…</div>`;return}
+  if(qstate==="err"){secs.innerHTML=`<div class="empty">Не удалось загрузить очередь.<br><button class="btn o" data-retry="q" style="margin-top:16px">Повторить</button></div>`;return}
+  let l=queue.map(asPlugin);if(query){const q=query.toLowerCase();l=l.filter(p=>[p.name,p.id,p.author,p.by].some(v=>String(v||"").toLowerCase().includes(q)))}
+  secs.innerHTML=`<h2>На проверке<span>${l.length}</span></h2><p class="pnote">Эти плагины ещё не проверил модератор. Их код открыт — каждый может его почитать. Установить их можно будет после одобрения.</p>`
+   +(l.length?l.map((p,i)=>row(p,i,true)).join(""):`<div class="empty">Очередь пуста.</div>`);return}
+ if(state==="load"){secs.innerHTML=`<h2>Плагины</h2><div class="pl-st"><canvas class="wring" aria-hidden="true"></canvas>Загружаем плагины…</div>`;return}
+ if(state==="err"){secs.innerHTML=`<div class="empty">Не удалось загрузить магазин.<br><small>Проверьте подключение.</small><br><button class="btn o" data-retry="s" style="margin-top:16px">Повторить</button></div>`;return}
+ const l=shown(),title=query?"Найдено":chip==="all"?"Все плагины":CHIPS.find(c=>c[0]===chip)[1];
+ secs.innerHTML=`<h2>${title}<span>${l.length}</span></h2>`+(l.length?l.map((p,i)=>row(p,i)).join(""):`<div class="empty">${query?"Ничего не нашлось":"Здесь пока пусто"}</div>`)
+  +(query||chip!=="all"?"":`<h2>Как установить</h2><ol class="howto"><li>Нажмите «Установить» — откроется TikTok с модом ttcuz и сразу предложит поставить плагин.</li><li>Если мод не открылся, скачайте файл .ctt в карточке плагина и выберите его в ttcuz → Настройки → Плагины → «Установить .ctt».</li><li>Хотите свой плагин в магазине? Вкладка «Отправить».</li></ol>`)+`<p class="foot"><a href="privacy">Конфиденциальность</a> · <a href="dev.html">Как сделать плагин</a></p>`}
+
+/* ---------------------------------------------------------------- Google sign-in and the profile */
+// The ID token Google gives the page goes with every write; the server asks Google whether it is real.
+// me: the profile on the site -- @username (unique), display name, avatar.
+let me=null;
+const G='<svg class="g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.1C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 6.6-9.6 6.6-17z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.1-5.5c-2.2 1.5-5 2.3-8.8 2.3-6.3 0-11.6-4.2-13.5-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>';
+function token(){return user&&user.until>Date.now()+30000?user.token:""}
+const face=()=>me&&me.avatar?me.avatar:user&&user.picture?user.picture:"";
+const shownName=()=>me&&me.display?me.display:user?user.name:"";
+function drawMe(){const b=$("#me"),f=face();b.innerHTML=user?(f?`<img src="${esc(f)}" alt="">`:esc((shownName()||"?")[0].toUpperCase())):ico("person");b.title=user?shownName():"Войти"}
+async function loadMe(){
+ if(!token())return null;
+ try{const r=await fetch("/plugins/web/me",{method:"POST",headers:{"x-google-token":token()}});if(r.status===401){signOut();return null}
+  me=await r.json();
+  // the site's own 30-day session takes the place of Google's one-hour token: the sign-in survives closing the page
+  if(me.session){user={...user,token:me.session,until:me.sessionUntil};delete me.session;delete me.sessionUntil;keep()}
+  try{localStorage.setItem("ttcuz-me",JSON.stringify(me))}catch{}drawMe();loadMine().then(()=>{if(open)reopen()});return me}catch{return null}}
+function keep(){try{localStorage.setItem("ttcuz-google",JSON.stringify(user))}catch{}}
+async function signedIn(credential){
+ try{const part=JSON.parse(decodeURIComponent(escape(atob(credential.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")))));
+  const first=!user;
+  user={token:credential,name:part.name||part.email||"",picture:part.picture||"",until:part.exp*1000};
+  keep();
+  drawMe();await loadMe();render();if(open)reopen();
+  if(first)welcome()}catch(e){toast("Не удалось войти")}}
+function welcome(){
+ // the signed-in window: who you are now, and a username to pick on the first visit
+ const f=face(),fresh=me&&me.fresh;
+ ask(fresh?"Добро пожаловать!":"Вы вошли",fresh?"Придумайте имя пользователя: по нему вас узнают в отзывах и в магазине. Его можно поменять потом в профиле.":"Отзывы и плагины теперь отправляются от вашего профиля"+(me&&me.username?" @"+me.username:"")+".",fresh?"Выбрать имя":"Профиль",
+  `<div class="welcome" style="width:72px;height:72px;border-radius:50%;overflow:hidden;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font-size:30px;font-weight:700">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover">`:esc((shownName()||"?")[0].toUpperCase())}</div>`)
+  .then(y=>{if(y)profile()})}
+function signOut(){user=null;me=null;try{for(const k of ["ttcuz-google","ttcuz-me"]){localStorage.removeItem(k);sessionStorage.removeItem(k)}}catch{}try{google.accounts.id.disableAutoSelect()}catch{}$("#prof").classList.remove("open");drawMe();render();if(open)reopen()}
+async function setupGoogle(){
+ try{const u=JSON.parse(localStorage.getItem("ttcuz-google")||sessionStorage.getItem("ttcuz-google")||"null");if(u&&u.until>Date.now()+60000){user=u;me=JSON.parse(localStorage.getItem("ttcuz-me")||sessionStorage.getItem("ttcuz-me")||"null")}}catch{}
+ drawMe();
+ // a kept session is checked (and renewed in its last week) once per visit
+ if(user)loadMe().then(()=>render());
+ // the client id rarely changes: kept for a day, so most visits ask nothing for it
+ try{const c=JSON.parse(localStorage.getItem("ttcuz-gid")||"null");if(c&&c.until>Date.now())googleId=c.id}catch{}
+ if(!googleId){try{googleId=(await (await fetch("/plugins/web/config")).json()).google||"";localStorage.setItem("ttcuz-gid",JSON.stringify({id:googleId,until:Date.now()+86400000}))}catch{}}
+ if(!googleId){document.querySelectorAll("[data-gbtn]").forEach(gButton);return}
+ const s=document.createElement("script");s.src="https://accounts.google.com/gsi/client";s.async=true;
+ s.onload=()=>{google.accounts.id.initialize({client_id:googleId,callback:r=>signedIn(r.credential),auto_select:true,cancel_on_tap_outside:true,use_fedcm_for_prompt:true});if(!user)google.accounts.id.prompt();document.querySelectorAll("[data-gbtn]").forEach(gButton)};
+ document.head.append(s)}
+function gButton(el){
+ if(!googleId){el.innerHTML=`<p class="pnote" style="text-align:center">Вход через Google скоро появится.</p>`;return}
+ el.innerHTML=`<div class="gsign">${G}<span>Войти через Google</span><div class="real"></div></div>`;
+ if(window.google&&google.accounts)google.accounts.id.renderButton(el.querySelector(".real"),{type:"standard",size:"large",shape:"pill",width:260,locale:"ru"})}
+function account(){
+ if(user){profile();return}
+ ask("Вход","Войдите через Google, чтобы оставлять отзывы и отправлять плагины на проверку.","Закрыть",ico("person"));
+ const holder=document.createElement("div");holder.className="gbtn";holder.dataset.gbtn="";$("#dp").after(holder);gButton(holder);$("#dno").style.display="none"}
+
+function profile(){
+ if(!user)return account();
+ const f=face(),m=me||{};
+ $("#pfd").innerHTML=`<button class="back" id="pbk" aria-label="Назад">←</button>
+ <div class="pf"><label class="pfa" title="Сменить аватарку"><div class="face" id="pface">${f?`<img src="${esc(f)}" alt="">`:esc((shownName()||"?")[0].toUpperCase())}</div><span class="cam">${ico("cam")}</span><input type="file" accept="image/*" id="pfile" hidden></label>
+ <h1 id="pname">${esc(shownName())}</h1><div class="at" id="pat">${m.username?"@"+esc(m.username):"имя пользователя не выбрано"}</div></div>
+ <div class="fm"><label>Отображаемое имя<input id="pdisp" maxlength="40" value="${esc(m.display||user.name)}" autocomplete="off"></label>
+ <label>Имя пользователя<span class="at-in"><input id="puser" maxlength="24" value="${esc(m.username||"")}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="например, cool_dev"></span></label>
+ <div class="hint" id="phint">Латиница, цифры, «_» и «.», от 3 до 24 символов. Не может повторяться.</div>
+ <button class="btn" id="psave">Сохранить</button></div>
+ ${m.avatar?`<button class="btn o" id="pdrop" style="width:100%;height:44px;margin-top:10px">Убрать аватарку</button>`:""}
+ <button class="btn o" id="pout" style="width:100%;height:44px;margin-top:10px;color:var(--err)">Выйти из аккаунта</button>
+ <p class="pnote" style="margin-top:16px">Вход через Google ${esc(user.name)}. Почту мы не храним. <a href="privacy">Конфиденциальность</a></p>`;
+ $("#prof").classList.add("open");
+ $("#pbk").onclick=()=>$("#prof").classList.remove("open");
+ $("#pout").onclick=()=>ask("Выйти?","Вы сможете войти снова в любой момент.","Выйти",ico("out")).then(y=>{if(y){signOut();toast("Вы вышли")}});
+ let avatar,timer;
+ $("#pfile").onchange=async e=>{const file=e.target.files[0];if(!file)return;
+  try{avatar=await picture(file,256,256,"image/jpeg",48000);$("#pface").innerHTML=`<img src="data:image/jpeg;base64,${avatar}" alt="">`;$("#pface").animate([{transform:"scale(.85)"},{transform:"scale(1)"}],{duration:420,easing:"cubic-bezier(.34,1.56,.64,1)"});toast("Нажмите «Сохранить»")}
+  catch(err){toast(err.message||"Не подошла картинка")}};
+ const drop=$("#pdrop");if(drop)drop.onclick=()=>{avatar=null;$("#pface").innerHTML=esc((shownName()||"?")[0].toUpperCase());toast("Нажмите «Сохранить»")};
+ const hint=(t,c)=>{const h=$("#phint");h.textContent=t;h.className="hint "+(c||"")};
+ $("#puser").oninput=e=>{
+  const v=e.target.value=e.target.value.toLowerCase().replace(/[^a-z0-9_.]/g,"");clearTimeout(timer);
+  if(v===(m.username||"")){hint("Это ваше имя.","ok");return}
+  if(v.length<3){hint("Минимум 3 символа.");return}
+  hint("Проверяем…");
+  // asked once typing stops, not on every key
+  timer=setTimeout(async()=>{try{const r=await (await fetch("/plugins/web/username/"+encodeURIComponent(v))).json();if($("#puser").value!==v)return;hint(r.free?"Свободно — @"+v:r.hint,r.free?"ok":"bad")}catch{hint("")}},550)};
+ $("#psave").onclick=async e=>{
+  const b=e.currentTarget,body={display:$("#pdisp").value,username:$("#puser").value};if(avatar!==undefined)body.avatar=avatar;
+  if(!token()){toast("Войдите заново");signOut();return}
+  b.disabled=true;b.textContent="Сохраняем…";busyShow("Сохраняем профиль…");
+  try{const r=await fetch("/plugins/web/profile",{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:JSON.stringify(body)});const j=await r.json();
+   if(!r.ok)throw new Error(j.hint||j.error);me={...j,fresh:false};try{localStorage.setItem("ttcuz-me",JSON.stringify(me))}catch{}
+   drawMe();$("#pname").textContent=me.display;$("#pat").textContent="@"+me.username;hint("Сохранено.","ok");toast("Профиль сохранён");avatar=undefined;if(open)reopen()}
+  catch(err){hint(err.message||"Не удалось сохранить","bad")}
+  finally{busyShow("");b.disabled=false;b.textContent="Сохранить"}}}
+
+/* ---------------------------------------------------------------- the app link */
+function openInApp(id,review){
+ const link="ttcuz://plugin/"+encodeURIComponent(id)+(review?"?review=1":"");
+ let left=false;const away=()=>{left=true};
+ document.addEventListener("visibilitychange",away,{once:true});window.addEventListener("pagehide",away,{once:true});
+ location.href=link;
+ setTimeout(()=>{if(left||document.hidden)return;toast("Не открылось? Нужен TikTok с модом ttcuz",review?null:"Скачать .ctt",()=>{if(open!==id)detail(id);download(id)})},1600)}
+
+/* ---------------------------------------------------------------- M3 wavy indicators, as in CStore */
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),mix=(a,b,t)=>a+(b-a)*t,TAU=Math.PI*2;
+const dpr0=()=>Math.min(window.devicePixelRatio||1,3);
+const calm=matchMedia("(prefers-reduced-motion:reduce)");
+const ringColor=()=>getComputedStyle(document.documentElement).getPropertyValue("--primary").trim()||"#2f5fa3";
+// indeterminate: an arc that grows and shrinks while it turns, a wave running along it
+function ringIndet(cv,now){const S=cv.clientWidth,px=Math.round(S*dpr0());if(!S)return;if(cv.width!==px)cv.width=cv.height=px;
+ const c=cv.getContext("2d"),col=getComputedStyle(cv).color,u=px/96;c.setTransform(u,0,0,u,48*u,48*u);c.clearRect(-48,-48,96,96);c.lineWidth=+cv.dataset.lw||5;c.lineCap=c.lineJoin="round";
+ const RR=36,gap=8/RR,ph=(calm.matches?0:(now/1000)%1)*TAU,s0=-Math.PI/2+now/1500*TAU,len=mix(.12,.72,(1-Math.cos(now/2200*TAU))/2)*TAU,g=gap*clamp(len*RR/10);
+ const arc=(a0,a1,am)=>{const n=Math.max(2,Math.ceil((a1-a0)*RR/2));c.beginPath();for(let i=0;i<=n;i++){const a=mix(a0,a1,i/n),r=RR+am*Math.sin(a*10-ph);i?c.lineTo(Math.cos(a)*r,Math.sin(a)*r):c.moveTo(Math.cos(a)*r,Math.sin(a)*r)}c.stroke()};
+ c.strokeStyle=col;c.globalAlpha=.25;const rest=TAU-len-2*g;if(rest>.05)arc(s0+len+g,s0+len+g+rest,0);
+ c.globalAlpha=1;if(len*RR>1)arc(s0,s0+len,2.2*clamp(len*RR/24))}
+// determinate around an icon: a spiral that settles into the rim, then the wave runs while it fills
+function drawLoader(c,st,now,col){
+ const W=c.clientWidth;if(!W)return;const px=Math.round(W*dpr0());if(c.width!==px)c.width=c.height=px;
+ const x=c.getContext("2d");x.setTransform(px/W,0,0,px/W,0,0);x.clearRect(0,0,W,W);
+ const el=(now-st.t0)/1000,e=clamp(el/1.4),sm=e*e*(3-2*e);
+ const rot=TAU/1.7*(e<1?1.4*(e**3-e**4/2):.7+el-1.4),ph=el*TAU*.9;
+ const p=clamp(st.d/100),fl=st.f?clamp((now-st.f)/550):0,flat=1-clamp((p-.86)/.14),flatEase=flat*flat*(3-2*flat),len=TAU*(.1+.9*p),R=W*.42,g=W*.05/R*clamp(len*R/(W*.3)),s0=-Math.PI/2+rot;
+ x.lineWidth=W*.05;x.lineCap=x.lineJoin="round";
+ const ring=(a0,a1,am,sp)=>{const n=Math.max(2,Math.ceil((a1-a0)*R/2));x.beginPath();
+  for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n,r=R+am*Math.sin(a*10-ph)-sp*W*.09*(1-i/n),X=W/2+Math.cos(a)*r,Y=W/2+Math.sin(a)*r;i?x.lineTo(X,Y):x.moveTo(X,Y)}x.stroke()};
+ const rest=TAU-len-2*g;x.strokeStyle=col;
+ if(rest>.05){x.globalAlpha=.25*sm;ring(s0+len+g,s0+len+g+rest,0,0)}
+ x.globalAlpha=1;ring(s0,s0+len,W*.024*sm*flatEase*(1-fl)*clamp(len*R/(W*.3)),1-sm)}
+// determinate, linear: a wavy line that flattens as it nears the end
+function drawLinear(c,st,now,col){
+ const W=c.clientWidth,H=c.clientHeight;if(!W)return;const k=dpr0(),pw=Math.round(W*k),ph=Math.round(H*k);if(c.width!==pw||c.height!==ph){c.width=pw;c.height=ph}
+ const x=c.getContext("2d");x.setTransform(k,0,0,k,0,0);x.clearRect(0,0,W,H);
+ const p=clamp(st.d/100),lw=4,pad=lw/2+1,len=W-2*pad,end=pad+len*p,gap=6,amp=3.2*(1-clamp((p-.9)/.1)),ph0=(now-st.t0)/1000*TAU*.9,wl=26,my=H/2;
+ x.lineWidth=lw;x.lineCap="round";x.lineJoin="round";x.strokeStyle=col;
+ if(end+gap<W-pad){x.globalAlpha=.25;x.beginPath();x.moveTo(end+gap,my);x.lineTo(W-pad,my);x.stroke()}
+ x.globalAlpha=1;x.beginPath();const n=Math.max(2,Math.ceil((end-pad)/2));
+ for(let i=0;i<=n;i++){const X=pad+(end-pad)*i/n,ramp=clamp((X-pad)/16),Y=my+amp*ramp*Math.sin((X/wl)*TAU-ph0);i?x.lineTo(X,Y):x.moveTo(X,Y)}
+ x.stroke()}
+// one frame loop for all of them; it stops by itself when nothing is spinning or downloading
+const dl={};let raf=0,last=0;
+function tick(now){
+ raf=0;const k=Math.min(3,(now-last)/16.7||1);last=now;let busy=false;
+ if(!document.hidden)document.querySelectorAll(".wring").forEach(c=>{if(c.clientWidth){ringIndet(c,now);busy=true}});
+ const col=ringColor();
+ for(const id of Object.keys(dl)){
+  const st=dl[id];busy=true;
+  st.d+=(st.t-st.d)*(1-Math.pow(.94,k));
+  const pc=Math.round(st.d)+"%";
+  if(st.lp!==pc){st.lp=pc;document.querySelectorAll(`[data-pc="${CSS.escape(id)}"]`).forEach(el=>el.textContent=pc)}
+  document.querySelectorAll(`[data-ic="${CSS.escape(id)}"] canvas`).forEach(c=>drawLoader(c,st,now,col));
+  document.querySelectorAll(`[data-lc="${CSS.escape(id)}"]`).forEach(c=>drawLinear(c,st,now,col));
+  const lt=st.total?size(st.total*st.d/100)+" из "+size(st.total):pc;
+  document.querySelectorAll(`[data-lt="${CSS.escape(id)}"]`).forEach(el=>{if(el.textContent!==lt)el.textContent=lt});
+  if(st.done&&st.d>99.5){st.d=100;if(!st.f)st.f=now;if(now-st.f>650)finish(id)}}
+ if(busy)raf=requestAnimationFrame(tick)}
+const kick=()=>{if(!raf){last=performance.now();raf=requestAnimationFrame(tick)}};
+new MutationObserver(()=>{if(document.querySelector(".wring"))kick()}).observe(document.body,{childList:true,subtree:true});
+document.addEventListener("visibilitychange",kick);
+function morph(b,html,pc,o){if(!b)return;b.classList.toggle("pc",pc);if(o!=null)b.classList.toggle("o",o);b.innerHTML=`<span class="bl">${html}</span>`}
+function busyShow(text){$("#pubt").textContent=text||"";$("#pubov").hidden=!text;if(text)kick()}
+
+/* ---------------------------------------------------------------- download */
+async function download(id){
+ const p=store.find(x=>x.id===id);if(!p||dl[id])return;
+ const st=dl[id]={t:0,d:0,t0:performance.now(),total:p.size||0,ac:new AbortController()};
+ document.querySelectorAll(`[data-ic="${CSS.escape(id)}"]`).forEach(el=>el.classList.add("dl"));
+ document.querySelectorAll(`[data-dlb="${CSS.escape(id)}"]`).forEach(b=>morph(b,`<span data-pc="${esc(id)}">0%</span>`,true,true));
+ document.querySelectorAll(`[data-lb="${CSS.escape(id)}"]`).forEach(b=>b.classList.add("on"));
+ kick();
+ try{const r=await fetch(p.url,{signal:st.ac.signal});if(!r.ok)throw new Error("http "+r.status);
+  const total=+r.headers.get("content-length")||p.size||0,rd=r.body.getReader(),parts=[];let got=0;st.total=total;
+  for(;;){const x=await rd.read();if(x.done)break;parts.push(x.value);got+=x.value.length;if(total)st.t=Math.min(99,got/total*100)}
+  const blob=new Blob(parts);
+  if(p.sha256&&crypto.subtle){const h=[...new Uint8Array(await crypto.subtle.digest("SHA-256",await blob.arrayBuffer()))].map(n=>n.toString(16).padStart(2,"0")).join("");if(h!==p.sha256)throw new Error("контрольная сумма не совпала")}
+  st.blob=blob;st.t=100;st.done=true}
+ catch(e){const was=dl[id];cancelDl(id);if(was&&e.name!=="AbortError")toast("Не удалось скачать: "+(e.message||"ошибка сети"))}}
+function finish(id){
+ const st=dl[id];if(!st)return;delete dl[id];
+ const p=store.find(x=>x.id===id);
+ const u=URL.createObjectURL(st.blob),a=document.createElement("a");a.href=u;a.download=id+".ctt";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);
+ reset(id,"Скачано");toast(((p&&p.name)||id)+" скачан");
+ setTimeout(()=>document.querySelectorAll(`[data-dlb="${CSS.escape(id)}"]`).forEach(b=>morph(b,"Скачать .ctt",false,true)),2600)}
+function cancelDl(id){const st=dl[id];if(!st)return;try{st.ac.abort()}catch{}delete dl[id];reset(id,"Скачать .ctt")}
+function reset(id,label){
+ document.querySelectorAll(`[data-ic="${CSS.escape(id)}"]`).forEach(el=>{el.classList.remove("dl");const c=el.querySelector("canvas");if(c)c.getContext("2d").clearRect(0,0,c.width,c.height)});
+ document.querySelectorAll(`[data-dlb="${CSS.escape(id)}"]`).forEach(b=>morph(b,label,false,true));
+ document.querySelectorAll(`[data-lb="${CSS.escape(id)}"]`).forEach(b=>b.classList.remove("on"))}
+
+/* ---------------------------------------------------------------- search: the bar opens over the page, results rise in */
+const sbar=$("#sbar"),sview=$("#sview"),sres=$("#sres");sview.inert=true;
+const N=t=>String(t||"").toLowerCase().replace(/ё/g,"е");
+function sOpen(o){sbar.classList.toggle("open",o);sbar.parentElement.classList.toggle("sopen",o);sview.classList.toggle("open",o);sview.inert=!o;$("#sblead").setAttribute("aria-label",o?"Назад":"Поиск");
+ if(o)sFill();else{$("#q").blur();setTimeout(()=>{if(!sbar.classList.contains("open")){$("#q").value="";$("#qx").hidden=true}},260)}}
+function sFill(){
+ // the store first, then what waits for review; the best match on top
+ const v=N($("#q").value.trim()),W=v.split(/\s+/).filter(Boolean);$("#qx").hidden=!v;
+ const score=p=>{const n=N(p.name||p.id),rest=N([p.id,p.author,p.about,p.by].join(" "));if(!W.every(w=>(n+" "+rest).includes(w)))return 9;return !v||n.startsWith(v)?0:n.includes(v)?1:2};
+ const pick=l=>l.map(p=>[score(p),p]).filter(x=>x[0]<9).sort((a,b)=>a[0]-b[0]||((b[1].rating?.count||0)-(a[1].rating?.count||0))).map(x=>x[1]);
+ const a=pick(store),b=pick(queue.map(asPlugin));let i=0;
+ sres.innerHTML=(a.length?a.map(p=>`<li style="--i:${Math.min(i++,8)}">${row(p,0)}</li>`).join(""):"")
+  +(b.length?`<li class="grp" style="--i:${Math.min(i++,8)}">На проверке</li>`+b.map(p=>`<li style="--i:${Math.min(i++,8)}">${row(p,0,true)}</li>`).join(""):"")
+  +(!a.length&&!b.length?`<li style="--i:0"><p class="empty">${v?"Ничего не нашлось":"Начните вводить название"}</p></li>`:"");
+ if(qstate==="idle")loadQueue()}
+$("#q").addEventListener("focus",()=>{if(!sbar.classList.contains("open"))sOpen(true)});
+["input","search","compositionend"].forEach(t=>$("#q").addEventListener(t,sFill));
+$("#q").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#q").blur()}});
+sbar.addEventListener("click",e=>{if(e.target.closest("#me"))return;if(!sbar.classList.contains("open"))$("#q").focus();else if(e.target.closest("#sblead"))sOpen(false)});
+$("#qx").onclick=e=>{e.stopPropagation();$("#q").value="";sFill();$("#q").focus()};
+
+/* ---------------------------------------------------------------- a plugin's page */
+function find(key){if(key.startsWith("q:")){const q=queue.find(x=>"q:"+x.id===key);return q?asPlugin(q):null}return store.find(x=>x.id===key)}
+function reopen(){const k=open;if(k)detail(k,false)}
+function detail(key,push=true){
+ const p=find(key);if(!p)return;open=key;
+ if(push&&location.hash!=="#"+hashOf(key))history.pushState({key},"","#"+hashOf(key));
+ const pr=p.permissions||[],pending=!!p.pending,reviewable=!pending||p.reviewsOpen;
+ const inf=[["ID",`<code>${esc(p.id)}</code>`],["Версия",esc(p.version)],["Автор",esc(p.author)],p.by?[pending?"Прислал":"Опубликовал","@"+esc(p.by)]:null,["Размер",size(p.size)],pending?["Отправлен",new Date(p.added).toLocaleDateString("ru")]:null,["TikTok",esc(p.tiktok||"47.2.41")],p.sha256?["SHA-256",`<code>${esc(p.sha256.slice(0,16))}…</code>`]:null]
+  .filter(Boolean).map(([a,b])=>`<div><span>${a}</span><b style="font-weight:500">${b}</b></div>`).join("");
+ const tabs=pending?["Обзор","Код","Отзывы"]:["Обзор","Отзывы","Что нового"];
+ const g=p.gemini,gv=g?VERDICT[g.verdict]||VERDICT.unknown:null;
+ $("#det").innerHTML=`<button class="back" id="bk" aria-label="Назад">←</button>
+ ${p.banner?`<div class="bnr" style="background-image:url('${esc(p.banner)}')"></div>`:""}
+ <div class="dh">${icon(p)}<div><h1>${esc(p.name||p.id)}${!pending&&p.verified?' <span class="vf" title="Проверен">✓</span>':""}</h1><span>${esc(p.author||"")}</span><br>${pending?pendingBadge:`<small style="color:var(--var)">${p.verified?"Проверен модератором":"Плагин ttcuz"}</small>`}</div></div>
+ ${pending?`<div class="pend">${ico("clock")}<div><b>Плагин на рассмотрении.</b> Его ещё не проверил модератор, поэтому установить его пока нельзя. Код открыт во вкладке «Код».${g?` <span class="badge ${gv[0]}">${esc(gv[1])}</span>`:""}</div></div>`:""}
+ <div class="stats"><div><b>${p.rating&&p.rating.count?String(p.rating.average).replace(".",","):"—"}</b><small>${p.rating&&p.rating.count?p.rating.count+" "+plural(p.rating.count,"отзыв","отзыва","отзывов"):"нет отзывов"}</small></div><div><b>${size(p.size)||"—"}</b><small>размер</small></div><div><b>v${esc(p.version)}</b><small>версия</small></div><div><b>${pr.length}</b><small>${plural(pr.length,"разрешение","разрешения","разрешений")}</small></div></div>
+ ${pending?"":`<div class="act"><button class="btn o" id="dl" data-dlb="${esc(p.id)}">${dl[p.id]?`<span class="bl"><span data-pc="${esc(p.id)}">${Math.round(dl[p.id].d)}%</span></span>`:"Скачать .ctt"}</button><button class="btn" id="in">Установить в ttcuz</button>${mine.has(p.id)?`<button class="btn o" id="bnb">${p.banner?"Сменить баннер":"Добавить баннер"}</button>`:""}</div>
+ <div class="lp ${dl[p.id]?"on":""}" data-lb="${esc(p.id)}"><div class="lpi"><div class="lpp"><div class="lpt"><span data-lt="${esc(p.id)}">0 КБ</span><button class="tb" data-x="${esc(p.id)}">Отменить</button></div><canvas class="lpc" data-lc="${esc(p.id)}"></canvas></div></div></div>`}
+ <div class="tabs" id="dtabs" role="tablist">${tabs.map((t,i)=>`<button role="tab" aria-selected="${i==0}" data-tab="${i}"><span>${t}</span></button>`).join("")}<i class="ind"></i></div>
+ <div class="tp in" role="tabpanel"><h2>Об этом плагине</h2><p class="desc">${esc(p.about||"Автор не добавил описание.")}</p>
+  ${g&&g.summary?`<h2>Мнение Gemini</h2><p class="desc">${esc(g.summary)}</p>`:""}
+  <h2>Что может плагин</h2>${pr.length?pr.map(x=>{const r=right(x);return `<div class="perm ${r[3]?"warn":""}"><i>${ico(r[0])}</i><div><b>${esc(r[1])}</b><small>${esc(r[2])}</small></div></div>`}).join(""):`<p class="desc">Не просит разрешений.</p>`}
+  <h2>Сведения</h2><div class="inf">${inf}</div></div>
+ ${pending?`<div class="tp" role="tabpanel" hidden id="codep"><div class="pl-st"><canvas class="wring" aria-hidden="true"></canvas>Загружаем код…</div></div>`:""}
+ <div class="tp" role="tabpanel" hidden id="rvp">${reviewable?`<div class="pl-st"><canvas class="wring" aria-hidden="true"></canvas>Загружаем отзывы…</div>`:`<div class="empty">Автор не открыл отзывы, пока плагин на проверке.</div>`}</div>
+ ${pending?"":`<div class="tp" role="tabpanel" hidden><h2>Версия ${esc(p.version)}</h2>${p.previous?`<p class="desc" style="margin-top:-6px">Обновление с v${esc(p.previous)}</p>`:""}<p class="desc">${esc(p.changes||"Автор не рассказал, что нового.")}</p></div>`}`;
+ $("#sheet").classList.add("open");if(push)$("#sheet").scrollTop=0;
+ $("#bk").onclick=()=>history.state?history.back():close();
+ if(!pending){$("#in").onclick=()=>openInApp(p.id);if($("#bnb"))$("#bnb").onclick=()=>changeBanner(p);$("#dl").onclick=()=>dl[p.id]?cancelDl(p.id):download(p.id)}
+ if(dl[p.id])document.querySelectorAll(`#det [data-ic="${CSS.escape(p.id)}"]`).forEach(el=>el.classList.add("dl"));
+ const tb=$("#dtabs"),ind=tb.querySelector(".ind"),pan=[...document.querySelectorAll("#det .tp")];
+ const setInd=()=>{const sp=tb.querySelector('[aria-selected="true"] span');if(!sp)return;const t=tb.getBoundingClientRect(),b=sp.getBoundingClientRect();ind.style.width=b.width+"px";ind.style.transform=`translateX(${b.left-t.left-16}px)`};
+ tb.onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tb.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-selected",String(x===b)));pan.forEach((q,i)=>{q.hidden=i!=b.dataset.tab;q.classList.toggle("in",i==b.dataset.tab)});setInd()};
+ requestAnimationFrame(setInd);
+ if(reviewable)reviews(p,key);
+ if(pending)sources(p,key)}
+const hashOf=key=>key.startsWith("q:")?"review-"+key.slice(2):"plugin-"+key;
+function close(){open=null;$("#sheet").classList.remove("open");if(location.hash)history.replaceState(null,"",location.pathname)}
+
+// light Java colouring for reading; the permission marks (// @uses) stand out
+function java(text){return esc(text).split("\n").map(line=>/\/\/\s*@(uses|разрешение)\b/.test(line)?`<span class="u">${line}</span>`:line.replace(/(\/\/.*$)/,'<span class="c">$1</span>').replace(/(&quot;.*?&quot;)/g,'<span class="s">$1</span>').replace(/\b(public|private|protected|class|extends|implements|static|final|void|return|new|if|else|for|while|try|catch|import|package|boolean|int|long|float|String|null|true|false|this|super|throws|interface)\b/g,'<span class="k">$1</span>')).join("\n")}
+async function sources(p,key){
+ const box=$("#codep");
+ try{const r=await fetch("/plugins/native/public/"+p.sub+"/sources");if(!r.ok)throw 0;const files=(await r.json()).files||[];if(open!==key)return;
+  box.innerHTML=`<p class="pnote" style="margin-top:12px">${files.length} ${plural(files.length,"файл","файла","файлов")} на Java. Подсвечены строки, где автор объясняет, зачем плагину разрешение.</p><div class="ftabs">${files.map((f,i)=>`<button class="chip ${i?"":"on"}" data-file="${i}">${esc(f.path.split("/").pop())}</button>`).join("")}</div><pre class="code" id="src"></pre>`;
+  const show=i=>{$("#src").innerHTML=java(files[i].text);box.querySelectorAll("[data-file]").forEach(b=>b.classList.toggle("on",b.dataset.file==i))};
+  box.querySelector(".ftabs").onclick=e=>{const b=e.target.closest("[data-file]");if(b)show(+b.dataset.file)};show(0)}
+ catch(e){if(open===key)box.innerHTML=`<div class="empty">Не удалось загрузить код.</div>`}}
+
+async function reviews(p,key){
+ const box=$("#rvp");
+ try{const r=await fetch("/plugins/reviews/"+encodeURIComponent(p.id),{headers:token()?{"x-google-token":token()}:{},signal:AbortSignal.timeout(10000)});if(!r.ok)throw 0;const j=await r.json();
+  if(open!==key)return;
+  const max=Math.max(1,...j.histogram);
+  box.innerHTML=(j.count?`<div class="sum"><div><div class="big">${String(j.average).replace(".",",")}</div>${stars(j.average)}<br><small style="color:var(--var)">${j.count} ${plural(j.count,"отзыв","отзыва","отзывов")}</small></div><div class="hist">${[5,4,3,2,1].map(n=>`<div class="hrow">${n}<div class="hb"><i style="width:${j.histogram[n-1]/max*100}%"></i></div></div>`).join("")}</div></div>`:`<div class="empty" style="padding:28px 16px">Отзывов пока нет — будьте первым.</div>`)
+   +composer(j.mine)
+   +`<div class="rvs">${j.reviews.map((x,i)=>reviewCard(x,i)).join("")}</div>`;
+  box._reviews=j.reviews;wireThreads(box,p);
+  wireComposer(p,key,j.mine)}
+ catch(e){if(open===key)box.innerHTML=`<div class="empty">Не удалось загрузить отзывы.</div>`}}
+/* ---------------------------------------------------------------- likes, dislikes and replies, as on CStore */
+const TH='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8c1.6 0 2.5 1.1 2.2 2.6L12.8 9H19a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.8 20H7"/></svg>';
+const RPI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 9V5l-7 7 7 7v-4c5 0 8.5 1.5 11 5-1-6-4-10-11-11z"/></svg>';
+const who=x=>`<b>${x.name?esc(x.name):x.handle?"@"+esc(x.handle):"Пользователь ttcuz"}</b>${x.name&&x.handle?` <small>@${esc(x.handle)}</small>`:""}`;
+const face0=x=>x.avatar?`<img src="${esc(x.avatar)}" alt="" loading="lazy">`:esc(((x.name||x.handle)||"?")[0].toUpperCase());
+const rpPl=k=>plural(k,"ответ","ответа","ответов");
+const RP=r=>`<div class="rp" data-rid="${r.id}"><div class="rpa">${face0(r)}</div><div class="rpm"><div class="rph">${who(r)}<time>${new Date(r.added).toLocaleDateString("ru")}</time></div><p>${esc(r.text)}</p><div class="rpv"><button type="button" class="rv up${r.my===1?" on":""}" data-rv="1" aria-pressed="${r.my===1}" aria-label="Полезный ответ">${TH}<span>${r.up|0}</span></button><button type="button" class="rv dn${r.my===-1?" on":""}" data-rv="-1" aria-pressed="${r.my===-1}" aria-label="Неполезный ответ">${TH}<span>${r.dn|0}</span></button>${r.mine?'<button type="button" class="rpx" data-rd>Удалить</button>':""}</div></div></div>`;
+const VB=x=>`<div class="rvv"><button type="button" class="vb up${x.my===1?" on":""}" data-v="1" aria-pressed="${x.my===1}" aria-label="Полезный отзыв">${TH}<span>${x.up|0}</span></button><button type="button" class="vb dn${x.my===-1?" on":""}" data-v="-1" aria-pressed="${x.my===-1}" aria-label="Неполезный отзыв">${TH}<span>${x.dn|0}</span></button><button type="button" class="vb rb" data-rp aria-label="Ответить">${RPI}<span>Ответить${x.replies.length?" · "+x.replies.length:""}</span></button></div><div class="rps">${x.replies.map(RP).join("")}</div>${x.replies.length>1?`<button type="button" class="rmore" data-rm aria-expanded="false">Показать ещё ${x.replies.length-1} ${rpPl(x.replies.length-1)}</button>`:""}`;
+const reviewCard=(x,i)=>`<div class="rvc ${x.mine?"mine":""}" style="--i:${i}" data-i="${i}"><header><div class="rva">${face0(x)}</div><div class="who">${who(x)}${x.mine?' <span class="rvchip">вы</span>':""}<br>${stars(x.stars)}</div><time>${new Date(x.updated).toLocaleDateString("ru")}</time></header>${x.text?`<p>${esc(x.text)}</p>`:""}${VB(x)}</div>`;
+const pop=b=>b.animate([{transform:"scale(1)"},{transform:"scale(1.18)"},{transform:"scale(1)"}],{duration:360,easing:"cubic-bezier(.34,1.56,.64,1)"});
+function wireThreads(box,p){
+ const base="/plugins/reviews/"+encodeURIComponent(p.id);
+ const post=async(path,body)=>{if(!token())throw new Error("Войдите через Google");const r=await fetch(base+path,{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:JSON.stringify(body||{})});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.hint||j.error||"HTTP "+r.status);return j};
+ const need=()=>{if(!user){account();return true}if(me&&!me.username){profile();toast("Сначала выберите имя пользователя");return true}return false};
+ // a vote shows at once; if the server says no, it goes back
+ const setV=(o,nv)=>{if(o.my===1)o.up--;if(o.my===-1)o.dn--;o.my=nv;if(nv===1)o.up++;if(nv===-1)o.dn++};
+ const paint=(el,o,sel,key)=>el.querySelectorAll(sel).forEach(b=>{const u=b.dataset[key]==="1",on=o.my===(u?1:-1);b.classList.toggle("on",on);b.setAttribute("aria-pressed",String(on));b.querySelector("span").textContent=String(u?o.up:o.dn)});
+ const syncMore=(el,x)=>{const rps=el.querySelector(".rps");let b=el.querySelector(".rmore");const k=x.replies.length-1;
+  if(k<1){if(b)b.remove();rps.classList.remove("open");return}
+  if(!b){rps.insertAdjacentHTML("afterend",'<button type="button" class="rmore" data-rm></button>');b=el.querySelector(".rmore")}
+  const o=rps.classList.contains("open");b.setAttribute("aria-expanded",String(o));b.textContent=o?"Скрыть ответы":`Показать ещё ${k} ${rpPl(k)}`};
+ const count=(el,x)=>{el.querySelector(".rb span").textContent="Ответить"+(x.replies.length?" · "+x.replies.length:"")};
+ box.onclick=async e=>{
+  const card=e.target.closest(".rvc[data-i]");if(!card)return;const x=box._reviews[+card.dataset.i];if(!x)return;
+  const vb=e.target.closest(".vb[data-v]");
+  if(vb){if(need())return;if(x.mine){toast("Свой отзыв оценить нельзя");return}if(card._busy)return;
+   const prev=x.my,want=+vb.dataset.v,nv=prev===want?0:want;card._busy=1;setV(x,nv);paint(card,x,".vb[data-v]","v");pop(vb);
+   try{await post("/vote",{ref:x.ref,value:nv})}catch(err){setV(x,prev);paint(card,x,".vb[data-v]","v");toast(err.message)}finally{card._busy=0}return}
+  const rv=e.target.closest(".rv[data-rv]");
+  if(rv){if(need())return;const el=rv.closest(".rp"),o=x.replies.find(r=>String(r.id)===el.dataset.rid);if(!o||el._busy)return;if(o.mine){toast("Свой ответ оценить нельзя");return}
+   const prev=o.my,want=+rv.dataset.rv,nv=prev===want?0:want;el._busy=1;setV(o,nv);paint(el,o,".rv","rv");pop(rv);
+   try{await post("/replies/"+o.id+"/vote",{value:nv})}catch(err){setV(o,prev);paint(el,o,".rv","rv");toast(err.message)}finally{el._busy=0}return}
+  if(e.target.closest("[data-rm]")){const rps=card.querySelector(".rps");rps.classList.toggle("open");syncMore(card,x);return}
+  if(e.target.closest("[data-rd]")){const el=e.target.closest(".rp"),o=x.replies.find(r=>String(r.id)===el.dataset.rid);if(!o)return;
+   if(!await ask("Удалить ответ?","Он пропадёт под отзывом у всех.","Удалить"))return;
+   try{await post("/replies/"+o.id+"/delete");x.replies=x.replies.filter(r=>r!==o);el.style.transition="opacity .25s,transform .25s";el.style.opacity=0;el.style.transform="translateX(20px)";setTimeout(()=>{el.remove();count(card,x);syncMore(card,x)},250);toast("Ответ удалён")}catch(err){toast(err.message)}return}
+  if(e.target.closest("[data-rp]")){if(need())return;
+   const old=card.querySelector(".rpf");if(old){old.remove();return}
+   card.querySelector(".rps").insertAdjacentHTML("afterend",`<div class="rpf"><label class="rtf"><textarea maxlength="400" rows="2" placeholder=" "></textarea><span>Ваш ответ</span><em class="rcn">0 / 400</em></label><div class="rpf-a"><button type="button" class="btn o s" data-rcx>Отмена</button><button type="button" class="btn s" data-rok>Отправить</button></div></div>`);
+   const f=card.querySelector(".rpf"),ta=f.querySelector("textarea"),cn=f.querySelector(".rcn"),ok=f.querySelector("[data-rok]");
+   ta.focus();ta.oninput=()=>{cn.textContent=ta.value.length+" / 400"};f.querySelector("[data-rcx]").onclick=()=>f.remove();
+   ok.onclick=async()=>{const text=ta.value.trim();if(!text){toast("Напишите ответ");return}ok.disabled=true;
+    try{const {reply}=await post("/reply",{ref:x.ref,text});
+     Object.assign(reply,{name:me&&me.display,handle:me&&me.username,avatar:me&&me.avatar});x.replies.push(reply);
+     const rps=card.querySelector(".rps");rps.insertAdjacentHTML("beforeend",RP(reply));rps.classList.add("open");
+     const added=rps.lastElementChild;added.style.animation="tpin .3s var(--emph)";f.remove();count(card,x);syncMore(card,x);toast("Ответ опубликован")}
+    catch(err){toast(err.message);ok.disabled=false}}}}}
+function composer(mine){
+ if(user&&me&&!me.username)return `<div class="cta"><p>Чтобы оставить отзыв, выберите имя пользователя в профиле.</p><button class="btn s" id="signrv">Профиль</button></div>`;
+ if(!user)return `<div class="cta"><p>Войдите через Google, чтобы поставить оценку, или оцените в приложении ttcuz.</p><button class="btn s" id="signrv">Войти</button></div>`;
+ return `<div class="compose"><b>${mine?"Ваш отзыв":"Оцените плагин"}</b><div class="pick" id="pick">${[1,2,3,4,5].map(n=>`<button data-s="${n}" class="${mine&&n<=mine.stars?"on":""}" aria-label="${n}">${`<svg class="ico f" viewBox="0 0 24 24">${P.star}</svg>`}</button>`).join("")}</div><textarea id="rvt" maxlength="600" placeholder="Что понравилось, что нет (необязательно)">${esc(mine?mine.text:"")}</textarea><div class="row">${mine?`<button class="btn o" id="rvdel">Удалить</button>`:""}<button class="btn" id="rvsend">${mine?"Изменить":"Отправить"}</button></div></div>`}
+function wireComposer(p,key,mine){
+ const s=$("#signrv");if(s){s.onclick=user?profile:account;return}
+ let chosen=mine?mine.stars:0;
+ $("#pick").onclick=e=>{const b=e.target.closest("[data-s]");if(!b)return;chosen=+b.dataset.s;$("#pick").querySelectorAll("[data-s]").forEach(x=>x.classList.toggle("on",+x.dataset.s<=chosen));b.animate([{transform:"scale(1.4)"},{transform:"scale(1)"}],{duration:380,easing:"cubic-bezier(.34,1.56,.64,1)"})};
+ const send=async n=>{
+  if(n&&!chosen){toast("Выберите от 1 до 5 звёзд");return}
+  if(!token()){toast("Войдите заново");signOut();return}
+  try{const r=await fetch("/plugins/reviews/"+encodeURIComponent(p.id),{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:JSON.stringify({stars:n?chosen:0,text:$("#rvt").value})});
+   const j=await r.json();if(!r.ok)throw new Error(j.hint||j.error);toast(n?"Спасибо! Отзыв сохранён":"Отзыв удалён");
+   const it=store.find(x=>x.id===p.id);if(it)it.rating=j.count?{average:j.average,count:j.count}:null;reviews(p,key)}
+  catch(e){toast(e.message||"Не удалось отправить")}};
+ $("#rvsend").onclick=()=>send(1);const d=$("#rvdel");if(d)d.onclick=()=>send(0)}
+
+/* ---------------------------------------------------------------- sending a plugin for review */
+const form={ctt:null,manifest:null,files:[],icon:"",banner:"",open:false,changes:""};
+function sendPage(){
+ if(user&&me&&!me.username)return `<h2>Отправить плагин</h2><div class="info"><b>Сначала выберите имя пользователя.</b> Плагин опубликуется от вашего @имени, и только этот профиль сможет присылать обновления.</div><button class="btn" data-profile style="width:100%;height:48px">Открыть профиль</button>`;
+ if(!user)return `<h2>Отправить плагин</h2><p class="pnote">Плагин попадёт на проверку: его прочитает Gemini и модератор. Пока он на проверке, его видно во вкладке «На проверке», а код открыт всем.</p><div class="info"><b>Нужен вход через Google</b> — от этого аккаунта плагин будет опубликован, и только он сможет присылать обновления.</div><div class="gbtn" data-gbtn></div>`;
+ const m=form.manifest;
+ return `<h2>Отправить плагин</h2><div class="acct" data-profile style="cursor:pointer">${face()?`<img src="${esc(face())}" alt="" style="border-radius:50%;object-fit:cover">`:`<span class="me">${esc((shownName()||"?")[0])}</span>`}<div><b>${esc(shownName())}</b><br><small>${me&&me.username?"@"+esc(me.username)+" · ":""}плагин отправится от этого профиля</small></div></div>
+ <label class="drop ${form.ctt?"done":""}" id="dctt">${ico("file")}<div><b>${m?esc(m.name||m.id)+" v"+esc(m.version||""):"Пакет плагина .ctt"}</b><small>${m?esc(m.id)+" · "+size(form.ctt.length)+((m.permissions||[]).length?" · "+m.permissions.length+" "+plural(m.permissions.length,"разрешение","разрешения","разрешений"):""):"Соберите в редакторе мода или командой python3 -m ttcuz.plugin"}</small></div><input type="file" accept=".ctt,.zip,application/zip" id="fctt"></label>
+ <label class="drop ${form.files.length?"done":""}" id="dsrc">${ico("zip")}<div><b>${form.files.length?form.files.length+" "+plural(form.files.length,"файл","файла","файлов")+" .java":"Исходники"}</b><small>${form.files.length?esc(form.files.slice(0,3).map(f=>f.path.split("/").pop()).join(", "))+(form.files.length>3?"…":""):"ZIP проекта (с папкой java/) или файлы .java — без них плагин не примут"}</small></div><input type="file" accept=".zip,.java" multiple id="fsrc"></label>
+ <label class="drop ${form.icon?"done":""}">${ico("image")}<div><b>Аватарка</b><small>Картинка, GIF или видео — будет 128×128, видео станет GIF</small></div><input type="file" accept="image/*,video/*" id="ficon"></label>
+ <label class="drop ${form.banner?"done":""}">${ico("image")}<div><b>Баннер</b><small>Фон в карточке плагина, 3:1 (например 1200×400)</small></div><input type="file" accept="image/*" id="fban"></label>
+ ${form.icon||form.banner?`<div class="prev">${form.icon?`<img class="i" src="data:image/${form.icon.startsWith("R0lGOD")?"gif":"png"};base64,${form.icon}" alt="">`:""}${form.banner?`<div class="b" style="background-image:url(data:image/jpeg;base64,${form.banner})"></div>`:""}</div>`:""}
+ <div class="fm"><label>Что нового (для обновления)<textarea id="fchg" maxlength="500" rows="3" placeholder="Например: исправлен вылет при открытии профиля">${esc(form.changes)}</textarea></label></div>
+ <div class="sw ${form.open?"on":""}" id="fopen" role="switch" aria-checked="${form.open}"><div><b>Отзывы во время проверки</b><small>Люди смогут ставить оценки и писать отзывы, пока плагин ещё на рассмотрении</small></div><span class="tg"></span></div>
+ <button class="btn" id="fsend" style="width:100%;height:48px;margin-top:12px">Отправить на проверку</button>
+ <p class="pnote" style="margin-top:12px">Запутанный (обфусцированный) код и пакеты, собранные не из этих исходников, не принимаются. Обновить уже опубликованный плагин может только тот, кто прислал его первым.</p>`}
+
+// a small ZIP reader: stored and deflated entries, with the browser's own inflater
+async function unzip(buf){
+ const v=new DataView(buf),u8=new Uint8Array(buf),out=new Map();let e=-1;
+ for(let i=buf.byteLength-22;i>=Math.max(0,buf.byteLength-65557);i--)if(v.getUint32(i,true)===0x06054b50){e=i;break}
+ if(e<0)throw new Error("это не ZIP");
+ let p=v.getUint32(e+16,true);const n=v.getUint16(e+10,true);
+ for(let k=0;k<n;k++){
+  if(v.getUint32(p,true)!==0x02014b50)throw new Error("ZIP повреждён");
+  const method=v.getUint16(p+10,true),csize=v.getUint32(p+20,true),nlen=v.getUint16(p+28,true),xlen=v.getUint16(p+30,true),clen=v.getUint16(p+32,true),off=v.getUint32(p+42,true);
+  const name=new TextDecoder().decode(u8.subarray(p+46,p+46+nlen));p+=46+nlen+xlen+clen;
+  if(name.endsWith("/"))continue;
+  const start=off+30+v.getUint16(off+26,true)+v.getUint16(off+28,true),raw=u8.subarray(start,start+csize);
+  out.set(name,method===0?raw.slice():new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).arrayBuffer()))}
+ return out}
+const b64=bytes=>{let s="";for(let i=0;i<bytes.length;i+=32768)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+32768));return btoa(s)};
+// a picture, cut and scaled on a canvas: the avatar a 128 px PNG, the banner a 3:1 JPEG
+/* An animated plugin picture: a GIF as it is (up to 96 KB), or a GIF made here from a bigger GIF or the first three
+   seconds of a video, 128×128 at about 15 frames a second. null for an ordinary picture. */
+async function animatedIcon(file){
+ const LIMIT=98304,S=128;
+ if(file.type==="image/gif"&&file.size<=LIMIT)return b64(new Uint8Array(await file.arrayBuffer()));
+ let frames=[],ms=66;const c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d",{willReadFrequently:true});
+ const cover=(src,w,h)=>{x.clearRect(0,0,S,S);const r=Math.max(S/w,S/h);x.drawImage(src,(S-w*r)/2,(S-h*r)/2,w*r,h*r);return x.getImageData(0,0,S,S).data};
+ if(file.type==="image/gif"&&"ImageDecoder" in window){
+  const d=new ImageDecoder({data:file.stream(),type:"image/gif"});await d.tracks.ready;const n=Math.min(30,d.tracks.selectedTrack.frameCount);
+  for(let i=0;i<n;i++){const {image}=await d.decode({frameIndex:i});frames.push(cover(image,image.displayWidth,image.displayHeight));ms=Math.max(20,(image.duration||66000)/1000);image.close()}
+ }else if(file.type.startsWith("video/")){
+  const v=document.createElement("video");v.muted=true;v.playsInline=true;v.src=URL.createObjectURL(file);
+  await new Promise((ok,no)=>{v.onloadeddata=ok;v.onerror=()=>no(new Error("видео не открылось"))});
+  const span=Math.min(3,v.duration||3),n=Math.max(1,Math.min(30,Math.floor(span*1000/66)));ms=span*1000/n;
+  for(let i=0;i<n;i++){v.currentTime=i*ms/1000;await new Promise(ok=>v.onseeked=ok);frames.push(cover(v,v.videoWidth,v.videoHeight))}
+  URL.revokeObjectURL(v.src);
+ }else return null;
+ if(!frames.length)return null;
+ for(let size=S,attempt=0;attempt<5;attempt++){
+  const out=gifEncode(frames,size,ms);if(out.length<=LIMIT)return b64(out);
+  if(attempt%2===0&&frames.length>=4){frames=frames.filter((_,i)=>i%2===0);ms*=2}
+  else{const k=Math.round(size*.8),t=document.createElement("canvas");t.width=t.height=k;const tx=t.getContext("2d",{willReadFrequently:true});
+   frames=frames.map(f=>{x.putImageData(new ImageData(f,size,size),0,0);tx.clearRect(0,0,k,k);tx.drawImage(c,0,0,size,size,0,0,k,k);return tx.getImageData(0,0,k,k).data});size=k}
+ }
+ throw new Error("анимация слишком большая")}
+/* The same encoder as the app's (GifWriter): one median-cut palette of 255 colours, index 255 transparent, LZW. */
+function gifEncode(frames,size,ms){
+ const key=(d,i)=>((d[i]>>3)<<10)|((d[i+1]>>3)<<5)|(d[i+2]>>3),counts=new Uint32Array(32768);
+ for(const f of frames)for(let i=0;i<f.length;i+=4)if(f[i+3]>=128)counts[key(f,i)]++;
+ let cols=[];for(let i=0;i<32768;i++)if(counts[i])cols.push(i);if(!cols.length)cols=[0];
+ let boxes=[cols];
+ while(boxes.length<255){let best=-1,score=0,axis=0;
+  boxes.forEach((b,i)=>{if(b.length<2)return;for(const a of [10,5,0]){let lo=31,hi=0;for(const c of b){const v=(c>>a)&31;lo=Math.min(lo,v);hi=Math.max(hi,v)}if(hi-lo>score){score=hi-lo;best=i;axis=a}}});
+  if(best<0)break;const b=boxes[best].sort((p,q)=>((p>>axis)&31)-((q>>axis)&31));
+  let total=0;for(const c of b)total+=counts[c];let half=0,cut=1;for(let i=0;i<b.length-1;i++){half+=counts[b[i]];cut=i+1;if(half*2>=total)break}
+  boxes.splice(best,1,b.slice(0,cut),b.slice(cut))}
+ const ex=v=>(v<<3)|(v>>2),pal=boxes.map(b=>{let r=0,g=0,bl=0,n=0;for(const c of b){const w=counts[c]||1;r+=((c>>10)&31)*w;g+=((c>>5)&31)*w;bl+=(c&31)*w;n+=w}return [ex(Math.round(r/n)),ex(Math.round(g/n)),ex(Math.round(bl/n))]});
+ const map=new Int16Array(32768).fill(-1),near=k=>{const r=ex((k>>10)&31),g=ex((k>>5)&31),b=ex(k&31);let best=0,bd=1e9;pal.forEach((p,i)=>{const d=(p[0]-r)**2*3+(p[1]-g)**2*4+(p[2]-b)**2*2;if(d<bd){bd=d;best=i}});return best};
+ const out=[],w8=v=>out.push(v&255),w16=v=>{w8(v);w8(v>>8)},asc=t=>{for(const ch of t)w8(ch.charCodeAt(0))};
+ asc("GIF89a");w16(size);w16(size);w8(0xF7);w8(255);w8(0);for(let i=0;i<256;i++){const p=pal[i]||[0,0,0];w8(p[0]);w8(p[1]);w8(p[2])}
+ w8(0x21);w8(0xFF);w8(11);asc("NETSCAPE2.0");w8(3);w8(1);w16(0);w8(0);
+ const delay=Math.max(2,Math.round(ms/10)),idx=new Uint8Array(size*size);
+ for(const f of frames){
+  w8(0x21);w8(0xF9);w8(4);w8(9);w16(delay);w8(255);w8(0);w8(0x2C);w16(0);w16(0);w16(size);w16(size);w8(0);
+  for(let p=0;p<idx.length;p++){const i=p*4;if(f[i+3]<128){idx[p]=255;continue}const k=key(f,i);let m=map[k];if(m<0)m=map[k]=near(k);idx[p]=m}
+  w8(8);
+  let block=[],acc=0,cnt=0;const put=(code,n)=>{acc|=code<<cnt;cnt+=n;while(cnt>=8){block.push(acc&255);acc>>>=8;cnt-=8;if(block.length===255){w8(255);out.push(...block);block=[]}}};
+  const clear=256,end=257;let n=9,next=258,table=new Map();put(clear,n);let prefix=idx[0];
+  for(let i=1;i<idx.length;i++){const k=idx[i],kk=(prefix<<8)|k,known=table.get(kk);if(known!==undefined){prefix=known;continue}
+   put(prefix,n);if(next>(1<<n)-1&&n<12)n++;if(next<4096)table.set(kk,next++);else{put(clear,n);table=new Map();n=9;next=258}prefix=k}
+  put(prefix,n);if(next>(1<<n)-1&&n<12)n++;put(end,n);if(cnt>0)block.push(acc&255);if(block.length){w8(block.length);out.push(...block)}w8(0)}
+ w8(0x3B);return new Uint8Array(out)}
+/* The banner: the picture in a 3:1 frame, moved with a finger or the mouse and brought closer with a slider, so
+   what shows on the store card is chosen by eye. Gives a 1200×400 JPEG (≤280 KB) as base64, or null. */
+function bannerCrop(file){return new Promise(async(done)=>{
+ let img;try{img=await createImageBitmap(file)}catch{toast("Это не картинка");done(null);return}
+ const box=document.createElement("div");box.className="crop";
+ box.innerHTML=`<div class="cp"><h3>Баннер</h3><p>Передвиньте картинку и выберите, что будет видно над карточкой плагина.</p>
+  <div class="cf"><canvas></canvas><i></i></div>
+  <label class="cz"><span>${ico("zoom_in")}</span><input type="range" min="100" max="300" value="100" aria-label="Приблизить"></label>
+  <div class="dacts"><button class="tb" data-no>Отмена</button><button class="tb" data-ok>Готово</button></div></div>`;
+ document.body.append(box);requestAnimationFrame(()=>box.classList.add("open"));
+ const cv=box.querySelector("canvas"),fr=box.querySelector(".cf"),zm=box.querySelector("input");
+ let zoom=1,cx=.5,cy=.5;
+ const W=()=>fr.clientWidth,H=()=>fr.clientWidth/3;
+ const fit=()=>Math.max(W()/img.width,H()/img.height)*zoom;
+ const clamp=()=>{const k=fit(),vw=W()/k,vh=H()/k;cx=Math.min(1-vw/2/img.width,Math.max(vw/2/img.width,cx));cy=Math.min(1-vh/2/img.height,Math.max(vh/2/img.height,cy))};
+ const draw=()=>{const d=devicePixelRatio||1;cv.width=W()*d;cv.height=H()*d;cv.style.width=W()+"px";cv.style.height=H()+"px";clamp();const x=cv.getContext("2d"),k=fit()*d;
+  x.drawImage(img,cv.width/2-cx*img.width*k,cv.height/2-cy*img.height*k,img.width*k,img.height*k)};
+ draw();addEventListener("resize",draw);
+ let drag=null;fr.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,cx,cy};fr.setPointerCapture(e.pointerId)};
+ fr.onpointermove=e=>{if(!drag)return;const k=fit();cx=drag.cx-(e.clientX-drag.x)/k/img.width;cy=drag.cy-(e.clientY-drag.y)/k/img.height;draw()};
+ fr.onpointerup=fr.onpointercancel=()=>drag=null;
+ fr.onwheel=e=>{e.preventDefault();zm.value=Math.min(300,Math.max(100,+zm.value-e.deltaY*.3));zoom=zm.value/100;draw()};
+ zm.oninput=()=>{zoom=zm.value/100;draw()};
+ const finish=async ok=>{removeEventListener("resize",draw);box.classList.remove("open");setTimeout(()=>box.remove(),220);
+  if(!ok){done(null);return}
+  const out=document.createElement("canvas");out.width=1200;out.height=400;const k=Math.max(1200/img.width,400/img.height)*zoom;
+  out.getContext("2d").drawImage(img,600-cx*img.width*k,200-cy*img.height*k,img.width*k,img.height*k);
+  for(const q of [.86,.74,.62,.5]){const b=await new Promise(r=>out.toBlob(r,"image/jpeg",q));const bytes=new Uint8Array(await b.arrayBuffer());if(bytes.length<=280000){done(b64(bytes));return}}
+  toast("Картинка слишком сложная");done(null)};
+ box.querySelector("[data-no]").onclick=()=>finish(false);box.querySelector("[data-ok]").onclick=()=>finish(true)})}
+/* Plugins whose banner this account may change: asked once after signing in. */
+let mine=new Set();
+async function loadMine(){if(!token())return;try{const r=await fetch("/plugins/banner/mine",{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:"{}"});if(r.ok)mine=new Set((await r.json()).ids||[])}catch{}}
+async function changeBanner(p){
+ const pick=document.createElement("input");pick.type="file";pick.accept="image/*";
+ pick.onchange=async()=>{const f=pick.files[0];if(!f)return;const banner=await bannerCrop(f);if(!banner)return;
+  busyShow("Сохраняем баннер…");
+  try{const r=await fetch("/plugins/banner",{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:JSON.stringify({id:p.id,banner})});const j=await r.json().catch(()=>({}));
+   if(!r.ok)throw new Error(j.hint||j.error||"HTTP "+r.status);toast("Баннер обновлён");await load();detail(p.id,false)}
+  catch(e){toast(e.message||"Не удалось")}finally{busyShow("")}};
+ pick.click()}
+async function picture(file,w,h,type,limit){
+ const img=await createImageBitmap(file);const c=document.createElement("canvas");
+ for(const scale of [1,.8,.6,.45]){
+  c.width=Math.round(w*scale);c.height=Math.round(h*scale);const x=c.getContext("2d");
+  const r=Math.max(c.width/img.width,c.height/img.height),dw=img.width*r,dh=img.height*r;x.drawImage(img,(c.width-dw)/2,(c.height-dh)/2,dw,dh);
+  for(const q of type==="image/png"?[1]:[.85,.72,.6]){const blob=await new Promise(res=>c.toBlob(res,type,q));const bytes=new Uint8Array(await blob.arrayBuffer());if(bytes.length<=limit)return b64(bytes)}}
+ throw new Error("картинка слишком большая")}
+function javaPath(name,text){const pkg=(text.match(/^\s*package\s+([\w.]+)\s*;/m)||[])[1];return "java/"+(pkg?pkg.replace(/\./g,"/")+"/":"")+name.split("/").pop()}
+function wireSend(){
+ document.querySelectorAll("[data-gbtn]").forEach(gButton);
+ if(!user)return;
+ const pick=(id,fn)=>{const el=$(id);if(el)el.onchange=async()=>{try{await fn(el.files);render()}catch(e){toast(e.message||"Не подошло")}finally{el.value=""}}};
+ pick("#fctt",async fl=>{const f=fl[0];const bytes=new Uint8Array(await f.arrayBuffer());const z=await unzip(bytes.buffer);
+  if(!z.has("manifest.json")||!z.has("classes.dex"))throw new Error("В пакете нет manifest.json или classes.dex — это не собранный плагин");
+  form.manifest=JSON.parse(new TextDecoder().decode(z.get("manifest.json")));form.ctt=bytes;
+  if(!form.icon&&z.has("icon.png"))try{form.icon=await picture(new Blob([z.get("icon.png")]),128,128,"image/png",32768)}catch{}});
+ pick("#fsrc",async fl=>{const found=new Map();
+  // one file per class path: a ZIP may hold the same file twice (a copy, a backup folder), Windows writes "\"
+  const add=(n,t)=>{n=n.replace(/\\/g,"/");if(/(^|\/)(build|out|bin|\.git|__MACOSX)\//.test(n))return;const i=n.lastIndexOf("/java/")>=0?n.lastIndexOf("/java/")+1:n.startsWith("java/")?0:-1;
+   let path=i>=0?n.slice(i):javaPath(n,t);if(!/^java\/(?:[A-Za-z_$][\w$]*\/)*[A-Za-z_$][\w$]*\.java$/.test(path))path=javaPath(n,t);found.set(path,{path,text:t.replace(/^\uFEFF/,"")})};
+  for(const f of fl){
+   if(/\.zip$/i.test(f.name)){const z=await unzip(await f.arrayBuffer());for(const [n,d] of z){if(!/\.java$/.test(n))continue;add(n,new TextDecoder().decode(d))}}
+   else if(/\.java$/i.test(f.name))add(f.name,await f.text())}
+  const files=[...found.values()];
+  if(!files.length)throw new Error("Не нашлось ни одного файла .java");if(files.length>32)throw new Error("Не больше 32 файлов .java");form.files=files});
+ pick("#ficon",async fl=>{form.icon=await animatedIcon(fl[0])||await picture(fl[0],128,128,"image/png",32768)});
+ pick("#fban",async fl=>{const b=await bannerCrop(fl[0]);if(b)form.banner=b});
+ $("#fchg").oninput=e=>form.changes=e.target.value;
+ $("#fopen").onclick=e=>{form.open=!form.open;e.currentTarget.classList.toggle("on",form.open);e.currentTarget.setAttribute("aria-checked",form.open)};
+ $("#fsend").onclick=async e=>{
+  const b=e.currentTarget;
+  if(!form.ctt){toast("Добавьте пакет .ctt");return}if(!form.files.length){toast("Добавьте исходники .java");return}
+  if(!token()){toast("Войдите заново");signOut();return}
+  b.disabled=true;b.textContent="Отправляем…";busyShow("Отправляем плагин на проверку…");
+  try{const r=await fetch("/plugins/web/submit",{method:"POST",headers:{"content-type":"application/json","x-google-token":token()},body:JSON.stringify({archive:b64(form.ctt),files:form.files,icon:form.icon||undefined,banner:form.banner||undefined,reviewsOpen:form.open,changes:form.changes||undefined})});
+   const j=await r.json().catch(()=>({}));
+   // the reasons stay on screen until read: a toast vanished before anyone could see what was wrong
+   if(!r.ok&&Array.isArray(j.reasons)&&j.reasons.length){await ask(j.error==="obfuscated"?"Код не принят":"Пакет не совпадает с исходниками","• "+j.reasons.join("\n• ")+"\n\nСоберите .ctt заново из этих же файлов и приложите все .java, из которых он собран.","Понятно",ico("close"));return}
+   if(!r.ok)throw new Error(j.hint||j.error||("HTTP "+r.status));
+   Object.assign(form,{ctt:null,manifest:null,files:[],icon:"",banner:"",open:false,changes:""});
+   await ask(j.update?"Обновление отправлено":"Плагин отправлен",(j.update?"Версия v"+j.update.from+" → новая. ":"")+"Его прочитает Gemini, потом модератор. Пока он во вкладке «На проверке».","Понятно",ico("check"));
+   tab="queue";qstate="idle";render()}
+  catch(err){toast(err.message||"Не удалось отправить")}
+  finally{busyShow("");b.disabled=false;b.textContent="Отправить на проверку"}}}
+
+/* ---------------------------------------------------------------- glue */
+function toast(t,act,cb){const e=$("#toast");e.innerHTML="";const sp=document.createElement("span");sp.textContent=t;e.append(sp);
+ if(act){const b=document.createElement("button");b.textContent=act;b.onclick=()=>{e.classList.remove("show");clearTimeout(toast.t);cb&&cb()};e.append(b)}
+ e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),act?5000:1900)}
+let dlgRes=null;
+function dlgClose(v){$("#scrim").classList.remove("open");const r=dlgRes;dlgRes=null;r&&r(v)}
+function ask(title,text,ok,ic){return new Promise(res=>{if(dlgRes)dlgClose(false);dlgRes=res;
+ // whatever an earlier window added (the sign-in button) goes with it
+ document.querySelectorAll("#scrim .gbtn").forEach(x=>x.remove());$("#dno").style.display="";$("#di").innerHTML=ic||"";$("#dt").textContent=title;$("#dp").textContent=text;$("#dp").style.whiteSpace="pre-line";$("#dyes").textContent=ok||"ОК";$("#scrim").classList.add("open");setTimeout(()=>$("#dyes").focus(),50)})}
+$("#dyes").onclick=()=>dlgClose(true);$("#dno").onclick=()=>dlgClose(false);
+$("#scrim").addEventListener("click",e=>{if(e.target.id==="scrim")dlgClose(false)});
+function route(){
+ const h=decodeURIComponent(location.hash.slice(1));let key=null;
+ if(h.startsWith("plugin-"))key=h.slice(7);else if(h.startsWith("review-")){key="q:"+h.slice(7);if(qstate==="idle"){loadQueue();return}}
+ if(key&&find(key))detail(key,false);else if(open&&!key)close()}
+window.addEventListener("popstate",route);
+document.addEventListener("click",e=>{
+ const go=e.target.closest("[data-go]");if(go){e.stopPropagation();openInApp(go.dataset.go);return}
+ const x=e.target.closest("[data-x]");if(x){cancelDl(x.dataset.x);return}
+ const c=e.target.closest("[data-id]");if(c&&!e.target.closest("#sheet")){if(c.closest("#sres"))sOpen(false);detail(c.dataset.id);return}
+ const ch=e.target.closest("[data-c]");if(ch){chip=ch.dataset.c;render();window.scrollTo({top:0,behavior:"smooth"});return}
+ const n=e.target.closest("[data-t]");if(n){tab=n.dataset.t;render();window.scrollTo({top:0});return}
+ const pf=e.target.closest("[data-profile]");if(pf){profile();return}
+ const rt=e.target.closest("[data-retry]");if(rt){rt.dataset.retry==="q"?loadQueue():load()}});
+$("#me").onclick=account;
+
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if($("#scrim").classList.contains("open")){dlgClose(false);return}if($("#prof").classList.contains("open"))$("#prof").classList.remove("open");else if(open)close();else if(sbar.classList.contains("open"))sOpen(false)});
+setupGoogle().then(()=>{if(user&&!me)loadMe().then(()=>render())});load();
+</script>
+</body>
+</html>

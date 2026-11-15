@@ -1,0 +1,1 @@
+Material Symbols Rounded, optical size 24, weight 400, fill 0. Source: https://github.com/google/material-design-icons/tree/master/symbols/web . Coordinates normalized from the official 960-unit grid to 24 units without changing geometry. Apache 2.0; see LICENSE.txt.

@@ -1,0 +1,24 @@
+{
+  "version": "0.2.20",
+  "reported_version": "0.2.13",
+  "native_apk": "TikTok 47.2.41",
+  "gson_encode": [
+    "LJIILL"
+  ],
+  "gson_decode": [
+    "LJI"
+  ],
+  "tests_python_java": 133,
+  "tests_server": 20,
+  "actual_account_accent_cache_tested": true,
+  "account_switch_sequences": [
+    "A -> B -> A",
+    "logout -> B"
+  ],
+  "bio_backup_restoration_tested": true,
+  "native_json_standard_and_obfuscated_tested": true,
+  "feed_single_classification_per_post_tested": true,
+  "worker_deployed": false,
+  "physical_device_fps_measured": false,
+  "report_dns_failure_resolved": false
+}

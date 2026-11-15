@@ -1,0 +1,12 @@
+{
+  "id": "com.example.tour",
+  "name": "API 4 tour",
+  "name_ru": "Тур по API 4",
+  "version": "1.0",
+  "author": "ttcuz",
+  "description_ru": "Показывает возможности Plugin API 4: события TikTok, плеер, скрытие элементов по селектору, повторяющиеся задачи и вызовы между плагинами.",
+  "entry": "com.example.tour.Main",
+  "api": 4,
+  "tiktok": "47.2.41",
+  "permissions": ["watch", "player", "interface", "events"]
+}

@@ -1,0 +1,14 @@
+{
+  "seek": {
+    "smali10\\X\\0Ncn.3.smali": 1,
+    "smali10\\X\\0Ncv.3.smali": 1,
+    "smali10\\X\\0Ncx.3.smali": 2,
+    "smali10\\X\\0Ncy.3.smali": 1
+  },
+  "scoped": {
+    "Aweme->getDesc (in the class marked Lcom/ss/android/ugc/aweme/feed/assem/desc/LandscapeVideoDescVM;)": 1,
+    "Aweme->getDesc (in the class marked Lcom/ss/android/ugc/aweme/feed/assem/desc/VideoDescAssem;)": 1,
+    "View->setOnLongClickListener (in the class marked Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;)": 1,
+    "Aweme->getDesc (in the class marked Lcom/ss/android/ugc/aweme/feed/assem/desc/VideoDescVM;)": 3
+  }
+}

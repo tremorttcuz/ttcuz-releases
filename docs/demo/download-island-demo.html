@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Островок загрузки — демо</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#FE2C55;--tx:#F2F0F5;color-scheme:dark;box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:#050507;font-family:Roboto,system-ui,sans-serif;color:var(--tx)}
+#stage{position:relative;height:100%;max-width:430px;margin:0 auto;overflow:hidden;background:linear-gradient(160deg,#1d1736,#0c0c10 62%)}
+@media(min-width:500px){#stage{height:min(100%,860px);margin-top:max(0px,calc((100% - 860px)/2));border-radius:28px;outline:1px solid #26262c}}
+#hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ffffff40;font-size:13px;padding:0 40px;text-align:center}
+#win{position:absolute;top:56px;left:0;right:0;margin:0 auto;overflow:hidden;display:none;width:96px;height:96px}
+#sv{position:absolute;inset:0;width:100%;height:100%}
+#ind{position:absolute;left:50%;top:0;width:96px;height:96px;margin-left:-48px;pointer-events:none}
+#mark{position:absolute;inset:0;padding:96px 16px 8px 10px;display:flex;flex-direction:column;cursor:pointer}
+#list{display:none;height:200px;margin-top:4px;overflow-y:auto;flex:none;scrollbar-width:none}
+#list::-webkit-scrollbar{display:none}
+#rows{cursor:default}
+.row{font-size:13px;line-height:1.17}
+.close{min-height:48px;display:flex;align-items:center;justify-content:center;color:var(--acc);cursor:pointer;white-space:pre}
+.blk{padding:8px 0}
+.t1{font-size:14px;line-height:1.17;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t2{font-size:11px;line-height:1.17;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb{height:5px;position:relative;overflow:hidden}
+.pb:before{content:"";position:absolute;left:0;right:0;top:.5px;height:4px;background:rgba(255,255,255,.21)}
+.pb i{position:absolute;left:0;top:.5px;height:4px;background:var(--acc);width:0}
+.pb.ind i{width:35%;animation:ind 1.3s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes ind{from{left:-35%}to{left:100%}}
+.bt{display:flex;align-items:center}
+.st{flex:1;height:48px;display:flex;align-items:center;font-size:12px}
+.ac{min-height:48px;padding-left:12px;color:var(--acc);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+#note{position:absolute;top:120px;left:50%;transform:translateX(-50%);display:none;max-width:calc(100% - 32px);padding:8px 14px;border-radius:16px;background:rgba(36,38,43,.9);font-size:12px;text-align:center;line-height:1.17;pointer-events:none}
+#ctl{position:absolute;left:0;right:0;bottom:0;padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));background:#141519;border-top:1px solid #22242a;display:flex;flex-direction:column;gap:12px}
+.r{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:500 13px Roboto,system-ui,sans-serif;color:var(--tx);background:#24262B;border:0;border-radius:18px;padding:10px 14px;cursor:pointer}
+button:active{background:#2e3037}
+label{font-size:13px;display:flex;align-items:center;gap:6px;color:#c9c7ce}
+input[type=checkbox]{accent-color:var(--acc);width:16px;height:16px}
+.sw{width:28px;height:28px;border-radius:50%;padding:0;border:2px solid transparent}
+.sw.on{border-color:#fff}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="hint">Нажми «Старт загрузки». Тап по островку раскрывает список задач.</div>
+  <div id="win">
+    <svg id="sv"><path id="contour"/><path id="chk" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/></svg>
+    <canvas id="ind"></canvas>
+    <div id="mark"><div id="list"><div id="rows"></div></div></div>
+  </div>
+  <div id="note"></div>
+  <div id="ctl">
+    <div class="r"><button id="b1">Старт загрузки</button><button id="b2">Ещё задача</button><button id="b3">Сбой</button><button id="b4">Задачи</button></div>
+    <div class="r"><label><input type="checkbox" id="mo" checked> Анимации</label><label><input type="checkbox" id="nt" checked> «Сохранено в…»</label></div>
+    <div class="r" id="sws"></div>
+  </div>
+</div>
+<script>
+const $=s=>document.querySelector(s),mix=(a,b,t)=>a+(b-a)*t,clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const bez=(x1,y1,x2,y2)=>t=>{if(t<=0||t>=1)return t;let lo=0,hi=1,s=t;for(let i=0;i<30;i++){s=(lo+hi)/2;const x=3*(1-s)*(1-s)*s*x1+3*(1-s)*s*s*x2+s*s*s;x<t?lo=s:hi=s}return 3*(1-s)*(1-s)*s*y1+3*(1-s)*s*s*y2+s*s*s};
+const OUT=bez(.25,1,.5,1),BOTH=bez(.4,0,.2,1);           // Motion.OUT / Motion.BOTH
+function animate(dur,ease,upd,end){let id,t0=null,dead=false;const step=ts=>{if(dead)return;if(t0===null)t0=ts;const p=clamp((ts-t0)/dur);upd(ease(p));if(p<1)id=requestAnimationFrame(step);else{dead=true;end&&end()}};id=requestAnimationFrame(step);return{cancel(){dead=true;cancelAnimationFrame(id)}}}
+
+/* ---------- LabShapes: семь фигур MaterialShapes, 240 лучей ---------- */
+const N=240,TAU=Math.PI*2;
+const rot=(x,y,a)=>{const s=Math.sin(a),k=Math.cos(a);return[x*k-y*s,x*s+y*k]};
+const star=(n,inner,round,turn)=>Array.from({length:n*2},(_,i)=>{const a=Math.PI/n*i,r=i%2?inner:1,p=rot(Math.cos(a)*r,Math.sin(a)*r,turn);return[p[0],p[1],round]});
+const custom=(pv,reps)=>Array.from({length:pv.length*reps},(_,i)=>{const c=pv[i%pv.length],p=rot(c[0],c[1],Math.floor(i/pv.length)*TAU/reps);return[p[0],p[1],c[2]]});
+function outline(v){const n=v.length,u=[],w=[],ang=[],d=[],len=[];
+  for(let i=0;i<n;i++){const c=v[i],p=v[(i+n-1)%n],q=v[(i+1)%n],ax=p[0]-c[0],ay=p[1]-c[1],bx=q[0]-c[0],by=q[1]-c[1],la=Math.hypot(ax,ay),lb=Math.hypot(bx,by);
+    u[i]=[ax/la,ay/la];w[i]=[bx/lb,by/lb];ang[i]=Math.acos(clamp(u[i][0]*w[i][0]+u[i][1]*w[i][1],-1,1));d[i]=c[2]>0?c[2]/Math.tan(ang[i]/2):0;len[i]=lb}
+  const sc=[];for(let i=0;i<n;i++){const s=d[i]+d[(i+1)%n];sc[i]=s>len[i]&&s>0?len[i]/s:1}
+  const pts=[];
+  for(let i=0;i<n;i++){const c=v[i],s=Math.min(sc[i],sc[(i+n-1)%n]),cut=d[i]*s;
+    if(cut<1e-4){pts.push([c[0],c[1]]);continue}
+    const r=cut*Math.tan(ang[i]/2),bx=u[i][0]+w[i][0],by=u[i][1]+w[i][1],bl=Math.hypot(bx,by),dist=r/Math.sin(ang[i]/2),cx=c[0]+bx/bl*dist,cy=c[1]+by/bl*dist;
+    const a1=Math.atan2(c[1]+u[i][1]*cut-cy,c[0]+u[i][0]*cut-cx),a2=Math.atan2(c[1]+w[i][1]*cut-cy,c[0]+w[i][0]*cut-cx),da=((a2-a1+3*Math.PI)%TAU)-Math.PI;
+    for(let j=0;j<=12;j++){const a=a1+da*j/12;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}}
+  return pts}
+function profile(pts){const m=pts.length;let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(const p of pts){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}
+  let area=0,gx=0,gy=0;for(let i=0;i<m;i++){const a=pts[i],b=pts[(i+1)%m],w=a[0]*b[1]-b[0]*a[1];area+=w;gx+=(a[0]+b[0])*w;gy+=(a[1]+b[1])*w}
+  const cx=gx/(3*area),cy=gy/(3*area),side=Math.max(x1-x0,y1-y0),q=pts.map(p=>[p[0]-cx,p[1]-cy]),out=new Float32Array(N);
+  for(let i=0;i<N;i++){const a=i*TAU/N,dx=Math.cos(a),dy=Math.sin(a);let best=0;
+    for(let j=0;j<m;j++){const p=q[j],r=q[(j+1)%m],ex=r[0]-p[0],ey=r[1]-p[1],den=dx*ey-dy*ex;if(Math.abs(den)<1e-12)continue;
+      const t=(p[0]*ey-p[1]*ex)/den,u=(p[0]*dy-p[1]*dx)/den;if(u>=-1e-9&&u<=1+1e-9&&t>best)best=t}
+    out[i]=best/side}
+  return out}
+const SHAPES=(()=>{const up=-Math.PI/2,L=[];
+  L[0]=custom([[-.307,-.223,.053],[-.324,-.445,.053]],10);           // SoftBurst
+  L[1]=star(9,.8,.5,up);                                            // Cookie9Sided
+  L[2]=Array.from({length:5},(_,i)=>[Math.cos(up+i*TAU/5),Math.sin(up+i*TAU/5),.172]); // Pentagon
+  L[3]=[[-1,-.56,.56],[1,-.56,.56],[1,.56,.56],[-1,.56,.56]];       // Pill
+  L[4]=star(8,.8,.15,up);                                           // Sunny
+  L[5]=custom([[.737,.736,.258],[0,.418,.233]],4);                  // Cookie4Sided
+  L[6]=Array.from({length:90},(_,i)=>{const a=i*TAU/90,p=rot(Math.cos(a),.64*Math.sin(a),-Math.PI/4);return[p[0],p[1],0]}); // Oval
+  return L.map(l=>profile(outline(l)))})();
+const ZW=.6*Math.sqrt(200),WD=Math.sqrt(200)*Math.sqrt(1-.36),spring=t=>1-Math.exp(-ZW*t)*(Math.cos(WD*t)+ZW/WD*Math.sin(WD*t)),END=spring(.65);
+
+/* ---------- DownloadMorph ---------- */
+function roundedDir(dx,dy,width,height,corner){const x=Math.abs(dx),y=Math.abs(dy),hw=width/2,hh=height/2,r=Math.min(corner,Math.min(hw,hh));
+  const ray=Math.min(hw/Math.max(x,1e-5),hh/Math.max(y,1e-5));if(ray*x<=hw-r||ray*y<=hh-r)return ray;
+  const cx=hw-r,cy=hh-r,b=cx*x+cy*y;return b+Math.sqrt(Math.max(0,b*b-cx*cx-cy*cy+r*r))}
+const rgb=c=>[(c>>16)&255,(c>>8)&255,c&255],colour=(a,b,t)=>{const A=rgb(a),B=rgb(b);return`rgb(${A.map((v,i)=>Math.round(mix(v,B[i],t))).join()})`};
+const RX=[],RY=[],rays=new Float32Array(N);for(let i=0;i<N;i++){RX[i]=Math.cos(i*TAU/N);RY[i]=Math.sin(i*TAU/N)}
+
+/* ---------- состояние ---------- */
+const SURFACE=0x24262B,stage=$('#stage'),win=$('#win'),contour=$('#contour'),chk=$('#chk'),listEl=$('#list'),rows=$('#rows'),noteEl=$('#note'),ind=$('#ind'),ictx=ind.getContext('2d');
+const dpr=window.devicePixelRatio||1;ind.width=96*dpr;ind.height=96*dpr;ictx.setTransform(dpr,0,0,dpr,0,0);
+let motionOn=true,accInt=0xFE2C55,acc='#FE2C55',on='#fff',bar=null,curW=260,curH=56,shW=-1,shH=-1,doneNote=null,seq=0;
+const SW=()=>stage.clientWidth,SH=()=>stage.clientHeight;
+const jobs=new Map(),tasks=new Map(),NAMES=['clip_0427.mp4','track_118.m4a','photo_set.zip','update_0.6.8.apk'];
+const jobPercent=()=>{let r=-1;for(const j of jobs.values())r=j.percent;return r};
+
+function setAccent(hex){accInt=parseInt(hex.slice(1),16);acc=hex;const[r,g,b]=rgb(accInt);on=(r*299+g*587+b*114)/1000>150?'#1C2C24':'#FFFFFF';document.documentElement.style.setProperty('--acc',hex);chk.setAttribute('stroke',on)}
+
+/* ---------- DownloadMark.onDraw ---------- */
+function drawSurface(){
+  if(!bar)return;const done=bar.done,W=done?bar.sw:curW,H=done?bar.sh:curH,t=done?bar.phase:0,cx=curW/2,cy=curH/2;
+  if(W!==shW||H!==shH){for(let i=0;i<N;i++)rays[i]=roundedDir(RX[i],RY[i],W,H,28);shW=W;shH=H}
+  const sunny=SHAPES[4];let d='';
+  for(let i=0;i<N;i++){const r=mix(rays[i],sunny[i]*56,t);d+=(i?'L':'M')+(cx+RX[i]*r).toFixed(2)+' '+(cy+RY[i]*r).toFixed(2)}
+  contour.setAttribute('d',d+'Z');contour.setAttribute('fill',colour(SURFACE,accInt,t));contour.setAttribute('fill-opacity',mix(.9,1,t));
+  const draw=clamp((t-.4)/.6);
+  if(draw>0){const k=1.15;chk.setAttribute('d',`M${cx-10*k} ${cy}L${cx-3*k} ${cy+6*k}L${cx+11*k} ${cy-8*k}`);const L=chk.getTotalLength();chk.style.strokeDasharray=L+' '+L;chk.style.strokeDashoffset=L*(1-draw)}
+  else chk.setAttribute('d','');
+  // индикатор: круговой волнистый прогресс из m3-motion-lab, проценты внутри кольца
+  const now=performance.now(),dt=Math.min(.1,(now-(bar.last||now))/1000);bar.last=now;
+  const indet=bar.tgt<0;if(!indet)bar.sm=mix(bar.sm,bar.tgt,1-Math.exp(-dt/.12));const sm=bar.sm;
+  bar.amS=mix(bar.amS,indet?1:clamp((sm-.1)/.08)*clamp((.95-sm)/.08),1-Math.exp(-dt/.15));
+  const fade=Math.max(0,1-t/.28);ictx.setTransform(dpr,0,0,dpr,0,0);ictx.clearRect(0,0,96,96);if(fade<=0)return;
+  ictx.globalAlpha=fade;ictx.translate(48,48);ictx.lineWidth=4;ictx.lineCap='round';ictx.lineJoin='round';
+  const RR=36,gap=8/RR,ph=(motionOn?(now/1000)%1:0)*TAU,s0=-Math.PI/2+(indet&&motionOn?now/1500*TAU:0);
+  const len=indet?mix(.12,.72,(1-Math.cos(now/2200*TAU))/2)*TAU:sm*TAU,g=gap*clamp(len*RR/10);
+  const ring=(a0,a1,am)=>{const n=Math.max(2,Math.ceil((a1-a0)*RR/2));ictx.beginPath();for(let i=0;i<=n;i++){const a=mix(a0,a1,i/n),r=RR+am*Math.sin(a*10-ph);i?ictx.lineTo(Math.cos(a)*r,Math.sin(a)*r):ictx.moveTo(Math.cos(a)*r,Math.sin(a)*r)}ictx.stroke()};
+  ictx.strokeStyle='rgba('+rgb(accInt).join()+',.25)';const rest=TAU-len-2*g;if(rest>.05)ring(s0+len+g,s0+len+g+rest,0);
+  ictx.strokeStyle=acc;if(len*RR>1)ring(s0,s0+len,2.2*(indet?1:bar.amS)*clamp(len*RR/24));
+  if(!indet){ictx.fillStyle='#F2F0F5';ictx.font='600 15px Roboto,system-ui,sans-serif';ictx.textAlign='center';ictx.textBaseline='middle';ictx.fillText(Math.round(sm*100)+'%',0,1)}
+  ictx.globalAlpha=1}
+(function frame(){drawSurface();requestAnimationFrame(frame)})();
+
+/* ---------- окно ---------- */
+function setSize(w,h){curW=w;curH=h;win.style.width=w+'px';win.style.height=h+'px'}
+function createWindow(){
+  hideWindow();bar={done:false,sw:0,sh:0,phase:0,sm:0,amS:0,tgt:0,last:0};shW=-1;if(!jobs.size){bar.tgt=1;bar.sm=1}
+  setSize(96,96);win.style.opacity=1;win.style.display='block';listEl.style.display='none';rows.textContent='';listOn=false;expanded=false;
+  if(motionOn)win.animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'none'}],{duration:180,easing:'cubic-bezier(.25,1,.5,1)'});
+  updateProgress()}
+function hideWindow(){
+  if(bar){disposeIsland();if(bar.morph)bar.morph.cancel()}
+  bar=null;win.style.display='none';noteEl.style.display='none';noteEl.getAnimations().forEach(a=>a.cancel());win.getAnimations().forEach(a=>a.cancel())}
+function updateProgress(){if(!bar||bar.done||!jobs.size)return;const p=jobPercent();bar.tgt=p<0?-1:p/100}
+function progressWindow(){if(!jobs.size)return;if(bar&&!bar.done){updateProgress();return}createWindow()}
+
+/* ---------- DownloadIsland ---------- */
+let expanded=false,listOn=false,motionH=null,compactH=56,keys='',rendered=new Map(),pollT=null;
+const h=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+win.addEventListener('click',()=>{if(bar&&!bar.done)toggle()});
+rows.addEventListener('click',e=>e.stopPropagation());
+const schedule=()=>{clearTimeout(pollT);pollT=setTimeout(function p(){if(!bar||!expanded)return;update();pollT=setTimeout(p,250)},250)};
+function toggle(){if(!bar||bar.done)return;if(expanded){collapse();return}
+  if(motionH)motionH.cancel();expanded=true;
+  if(listOn){animIsland(true);schedule();return}
+  compactH=Math.max(96,curH);keys=null;listOn=true;listEl.style.display='block';listEl.style.opacity=0;listEl.scrollTop=0;
+  update();animIsland(true);schedule()}
+function collapse(after){if(!expanded){after&&after();return}expanded=false;clearTimeout(pollT);animIsland(false,after)}
+function animIsland(opening,after){
+  if(motionH){motionH.cancel();motionH=null}
+  const fromW=curW,fromH=curH,tW=Math.min(opening?320:96,SW()-32),tH=opening?Math.min(308,SH()/2):compactH,startA=listOn?+listEl.style.opacity||0:0;
+  if(!motionOn){resize(tW,tH,opening?1:0);endIsland(opening,after);return}
+  motionH=animate(340,opening?OUT:BOTH,t=>{const f=opening?clamp((t-.3)/.7):Math.min(1,t/.45);resize(Math.round(mix(fromW,tW,t)),Math.round(mix(fromH,tH,t)),mix(startA,opening?1:0,f))},()=>endIsland(opening,after))}
+function resize(w,hh,alpha){if(w!==curW||hh!==curH)setSize(w,hh);if(listOn){listEl.style.opacity=alpha;listEl.style.transform=`translateY(${6*(1-alpha)}px)`}}
+function endIsland(opening,after){motionH=null;
+  if(!opening){listOn=false;listEl.style.display='none';rows.textContent='';rendered.clear()}
+  if(after)after();else if(!opening)tasksCollapsed()}
+function disposeIsland(){clearTimeout(pollT);if(motionH){motionH.cancel();motionH=null}expanded=false}
+function update(){
+  if(!listOn)return;const arr=[...tasks.values()],next=arr.map(t=>t.key).join('\n');
+  if(next!==keys){keys=next;rows.textContent='';rendered.clear();
+    const close=h('div','row close','Задачи  ·  Свернуть');close.onclick=e=>{e.stopPropagation();collapse()};rows.append(close);
+    if(!arr.length)rows.append(h('div','row','Нет сетевых задач'));
+    for(const t of arr){const blk=h('div','blk'),pb=h('div','pb'),bar_=h('i'),bt=h('div','bt'),st=h('div','st'),ac=h('div','ac');
+      pb.append(bar_);bt.append(st,ac);blk.append(h('div','t1',t.label),h('div','t2',t.origin+' · '+t.owner),pb,bt);rows.append(blk);
+      rendered.set(t.key,{st,ac,pb,bar:bar_})}}
+  for(const t of arr){const r=rendered.get(t.key);if(!r)continue;
+    const st=t.state+(t.percent>=0&&t.state==='Загрузка'?' · '+t.percent+'%':'');if(r.st.textContent!==st)r.st.textContent=st;
+    r.pb.classList.toggle('ind',t.percent<0);if(t.percent>=0)r.bar.style.width=t.percent+'%';
+    const cancel=t.state==='Загрузка'&&!t.cancelled,retry=!cancel&&t.state!=='Отмена…'&&t.retry&&t.state!=='Готово';
+    r.ac.style.display=cancel||retry?'flex':'none';const a=cancel?'Отменить':'Повторить';if(r.ac.textContent!==a)r.ac.textContent=a;
+    r.ac.onclick=e=>{e.stopPropagation();cancel?cancelTask(t.key):retryTask(t.key);update()}}}
+function tasksCollapsed(){if(!jobs.size)hideWindow()}
+
+/* ---------- DownloadTasks / Screen ---------- */
+function startJob(name,key){key=key||('job'+(++seq));name=name||NAMES[(seq-1)%NAMES.length];
+  const t={key,label:name,origin:'Мод',owner:'@alice',state:'Загрузка',percent:0,cancelled:false,retry:true,speed:.6+Math.random()};
+  tasks.delete(key);tasks.set(key,t);while(tasks.size>16){const f=[...tasks.values()].find(x=>x.state!=='Загрузка'&&x.state!=='Отмена…');if(!f)break;tasks.delete(f.key)}
+  jobs.set(key,t);progressWindow()}
+function finishTask(key,ok){const t=tasks.get(key);if(!t)return;t.state=t.cancelled?'Отменено':ok?'Готово':'Ошибка';if(ok)t.retry=false}
+function cancelTask(key){const t=tasks.get(key);if(!t||t.state!=='Загрузка')return;t.state='Отмена…';t.cancelled=true;
+  setTimeout(()=>{finishTask(key,false);endProgress(key,false)},700)}
+function retryTask(key){const t=tasks.get(key);if(!t||t.state==='Загрузка'||t.state==='Отмена…'||!t.retry)return;startJob(t.label,key)}
+function endProgress(key,completed){jobs.delete(key);
+  if(!jobs.size){if(!completed)doneNote=null;completed?finishProgress():hideWindow()}else{doneNote=null;progressWindow()}}
+function showTasks(){if(bar&&bar.done)hideWindow();if(!bar)createWindow();if(!expanded)toggle()}
+function finishProgress(){
+  if(bar&&expanded){collapse(()=>{if(!jobs.size)finishProgress()});return}
+  const me=bar;if(!me||me.done){hideWindow();return}
+  disposeIsland();const width=curW,height=Math.max(curH,56);me.done=true;me.tgt=1;me.sw=width;me.sh=height;me.phase=0;
+  const morph=v=>{if(bar!==me)return;me.phase=clamp(v);setSize(Math.round(mix(width,56,v)),Math.round(mix(height,56,v)))};
+  if(motionOn)me.morph=animate(620,BOTH,morph);else morph(1);
+  const note=doneNote;doneNote=null;if(note)showNote(note);
+  setTimeout(()=>{if(bar!==me||jobs.size)return;
+    if(motionOn){noteEl.animate([{opacity:1},{opacity:0}],{duration:240,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+      win.animate([{opacity:1},{opacity:0}],{duration:240,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'}).onfinish=()=>{if(bar===me&&!jobs.size)hideWindow()}}
+    else hideWindow()},note?3800:2400)}
+function showNote(where){noteEl.textContent='Сохранено в '+where;noteEl.style.display='block';
+  if(motionOn)noteEl.animate([{opacity:0,transform:'translate(-50%,-6px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:300,delay:260,easing:'cubic-bezier(.25,1,.5,1)',fill:'backwards'})}
+
+/* имитация сети: ~1% за 120 мс */
+setInterval(()=>{for(const j of [...jobs.values()]){if(j.state!=='Загрузка')continue;j.percent=Math.min(100,Math.round(j.percent+j.speed*(.5+Math.random())));
+  if(j.percent>=100){finishTask(j.key,true);doneNote=$('#nt').checked?'Music/ttcuz':null;endProgress(j.key,true)}}updateProgress()},120);
+
+/* ---------- панель управления ---------- */
+$('#b1').onclick=()=>startJob();
+$('#b2').onclick=()=>startJob();
+$('#b3').onclick=()=>{const run=[...jobs.values()].reverse().find(j=>j.state==='Загрузка');if(run){finishTask(run.key,false);endProgress(run.key,false)}};
+$('#b4').onclick=showTasks;
+$('#mo').onchange=e=>{motionOn=e.target.checked};
+const sws=$('#sws');['#FE2C55','#6750A4','#2E7DFF','#F5A524','#A8E6CF'].forEach((c,i)=>{const b=h('button','sw'+(i?'':' on'));b.style.background=c;b.onclick=()=>{[...sws.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');setAccent(c)};sws.append(b)});
+setAccent('#FE2C55');
+</script>
+</body>
+</html>

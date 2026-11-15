@@ -1,0 +1,19 @@
+{
+  "tiktok": "47.2.41",
+  "mod": "0.2.11",
+  "native_source_sha256": {
+    "0HCj.smali": "71b08cd6ad93a777c6b252e1945833154f52249aef387cfa5144340878ac61e1",
+    "BaseCommentCell.smali": "fe99f04861dd246e0271f0fa244e2745f146c69f954a31dc271addbcc8d92d7b"
+  },
+  "rewrite_counts": {
+    "ImageView->setImageDrawable (in the class marked LX/0HCj;)": 2,
+    "TuxIconView->setIconRes (in the class marked LX/0HCj;)": 2,
+    "TuxIconView->setTintColor (in the class marked LX/0HCj;)": 2,
+    "View->setOnLongClickListener (in the class marked Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;)": 1,
+    "View->findViewById (in the class marked Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;)": 49,
+    "native comment cell protection": 127
+  },
+  "native_classes_reassembled": true,
+  "injected_targets_verified": true,
+  "phone_tested": false
+}

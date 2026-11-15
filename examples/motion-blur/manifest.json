@@ -1,0 +1,13 @@
+{
+  "id": "com.example.motion",
+  "name": "Motion blur",
+  "name_ru": "Motion blur",
+  "version": "1.0",
+  "author": "ttcuz",
+  "description": "Blurs videos along the way they move while the feed scrolls; the strength is set right in the mod's settings.",
+  "description_ru": "Размывает видео по направлению движения, пока листается лента; сила настраивается прямо в настройках мода.",
+  "entry": "com.example.motion.Main",
+  "api": 3,
+  "tiktok": "47.2.41",
+  "permissions": ["interface", "effects", "mod"]
+}

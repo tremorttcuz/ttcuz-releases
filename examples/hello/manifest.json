@@ -1,0 +1,11 @@
+{
+  "id": "ttcuz.hello",
+  "name": "Привет",
+  "version": "1.1",
+  "author": "ttcuz",
+  "description": "Пишет строку в журнал мода при каждом запуске TikTok.",
+  "entry": "cat.ttcuz.hello.Hello",
+  "api": 2,
+  "permissions": ["colours"],
+  "tiktok": "47.2.41"
+}

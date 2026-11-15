@@ -1,0 +1,70 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Редактор плагина — демо</title>
+<style>
+:root{--page:#fff;--card:#f2f2f4;--t:#121212;--m:#85878d;--a:#fe2c55;--oa:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#000;--card:#1b1b1d;--t:#f1f1f2;--m:#8a8b91}}
+:root[data-theme="dark"]{--page:#000;--card:#1b1b1d;--t:#f1f1f2;--m:#8a8b91}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{height:100%;margin:0;background:var(--page);color:var(--t);font:15px/1.35 system-ui,sans-serif;display:flex;flex-direction:column;max-width:460px;margin:auto}
+header{display:flex;align-items:center;padding:6px 14px 4px}header b{font-size:24px;padding:6px 16px 6px 4px;cursor:pointer}h1{font-size:20px;margin:0;font-weight:600}
+main{flex:1;overflow:auto;padding:4px 14px 20px}
+.card{background:var(--card);border-radius:16px;padding:10px 10px 4px}
+input,select,textarea{font:inherit;color:var(--t);background:#88888822;border:0;border-radius:10px;padding:10px 12px;width:100%;min-width:0;outline:0;margin:0 0 6px;resize:none}
+input::placeholder,textarea::placeholder{color:var(--m)}select{padding:10px 6px}option{color:#111}
+.top{display:flex;gap:10px}.col{flex:1;min-width:0}.two,.ln{display:flex;gap:6px;align-items:center}.two input{margin-bottom:6px}.ln{margin-bottom:6px}.ln input,.ln select{margin:0}
+.ico{width:92px;height:92px;flex:none;border-radius:20px;background:#88888833;position:relative;display:grid;place-items:center;cursor:pointer;overflow:hidden}
+.ico span{font-size:42px;color:var(--m);line-height:1;font-weight:300}.ico img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:10px}
+.sh{display:flex;align-items:center;padding:16px 4px 4px}.sh div{flex:1}.sh b{font-size:17px;font-weight:600;display:block}.sh small,.empty{color:var(--m);font-size:12px}
+.plus{border:0;background:var(--card);color:var(--a);font:22px/1 system-ui;border-radius:22px;width:56px;height:40px;cursor:pointer}
+.empty{padding:4px 4px 10px}.item{padding-bottom:6px}.x{color:var(--m);padding:8px 4px 8px 8px;cursor:pointer;font-style:normal}
+.ln select{width:130px;flex:none}.ln s{width:22px;height:22px;border-radius:6px;flex:none;background:#8883;border:1px solid #8884}.ln b{color:var(--m);font-weight:400}
+.js{color:var(--m);padding:16px 4px 8px;cursor:pointer;display:inline-block}.note{color:var(--m);font-size:12px;padding:8px 4px}
+.bar{display:flex;gap:10px;padding:8px 12px 12px;background:var(--page)}.bar button{flex:1;border:0;border-radius:24px;min-height:48px;font:600 15px system-ui;cursor:pointer;background:var(--card);color:var(--a)}.bar .p{background:var(--a);color:var(--oa)}
+#sh{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;justify-content:center;z-index:5}#sh.on{display:flex}
+#sh div{background:var(--card);width:100%;max-width:460px;border-radius:22px 22px 0 0;padding:16px 14px calc(14px + env(safe-area-inset-bottom,0px))}#sh h2{margin:0 0 10px;font-size:18px}#sh button{display:block;width:100%;min-height:48px;margin-top:6px;border:0;border-radius:24px;font:600 15px system-ui;background:#88888822;color:var(--a);cursor:pointer}#sh button.p{background:var(--a);color:var(--oa)}
+#sh pre{margin:0;max-height:46vh;overflow:auto;font:12px ui-monospace,monospace;white-space:pre-wrap;word-break:break-all}
+#t{position:fixed;left:50%;transform:translateX(-50%);bottom:80px;background:#222;color:#fff;border-radius:12px;padding:10px 16px;display:none;z-index:9;max-width:90%}#t.er{background:#c4203f}
+</style>
+<header><b id="back">←</b><h1>Новый плагин</h1></header>
+<main>
+<section class="card"><div class="top"><div class="ico" id="ico"><span>+</span><img hidden alt=""></div>
+<div class="col"><input id="name" placeholder="Название" value="Мои команды" maxlength="80"><div class="two"><input id="ver" placeholder="Версия" value="1.0" maxlength="32"><input id="auth" placeholder="Автор" value="Автор" maxlength="80"></div></div></div>
+<input id="pid" placeholder="ID: латиница, например my.plugin" value="my.commands" maxlength="80"></section>
+<div id="rows"></div><div id="names"></div><div id="colours"></div>
+<span class="js" id="js">Показать JSON</span><div class="note">Публикация в магазине доступна только аккаунту создателя.</div>
+</main>
+<div class="bar"><button id="save">Сохранить</button><button class="p" id="pub">В магазин</button></div>
+<div id="sh"><div id="shb"></div></div><div id="t"></div><input type="file" id="file" accept="image/*" hidden>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const S={rows:[{title:'Привет',action:'window',value:'Мой плагин работает без сборки'}],names:[],colours:[]};let icon=null;
+const SEC={rows:['Кнопки','Сообщение, копирование текста или окно. До 16.'],names:['Имена','Другое имя у аккаунта. UID — число из ссылки на профиль.'],colours:['Цвета','Один цвет заменяется другим по всему приложению.']};
+const NEW={rows:()=>({title:'',action:'message',value:''}),names:()=>({uid:'',value:''}),colours:()=>({from:'#',to:'#'})};
+const ACT=[['message','Сообщение'],['copy','Копировать'],['window','Окно']];
+function item(k,x,i){const d=`data-k="${k}" data-i="${i}"`,del=`<i class="x" data-del="${k}:${i}">✕</i>`;
+if(k==='rows')return`<div class="item"><div class="ln"><input ${d} data-f="title" placeholder="Название кнопки" value="${esc(x.title)}" maxlength="80"><select ${d} data-f="action">${ACT.map(a=>`<option value="${a[0]}"${a[0]===x.action?' selected':''}>${a[1]}</option>`).join('')}</select>${del}</div><textarea ${d} data-f="value" rows="2" placeholder="Текст" maxlength="1024">${esc(x.value)}</textarea></div>`;
+if(k==='names')return`<div class="ln"><input ${d} data-f="uid" inputmode="numeric" placeholder="UID аккаунта" value="${esc(x.uid)}" maxlength="32"><input ${d} data-f="value" placeholder="Показывать как" value="${esc(x.value)}" maxlength="80">${del}</div>`;
+return`<div class="ln"><s data-s="from" style="background:${esc(x.from)}"></s><input ${d} data-f="from" placeholder="#RRGGBB" value="${esc(x.from)}" maxlength="7"><b>→</b><s data-s="to" style="background:${esc(x.to)}"></s><input ${d} data-f="to" placeholder="#RRGGBB" value="${esc(x.to)}" maxlength="7">${del}</div>`}
+function draw(k){$('#'+k).innerHTML=`<div class="sh"><div><b>${SEC[k][0]}</b><small>${SEC[k][1]}</small></div><button class="plus" data-add="${k}">+</button></div><section class="card">${S[k].length?S[k].map((x,i)=>item(k,x,i)).join(''):'<div class="empty">Пока пусто — нажмите +</div>'}</section>`}
+['rows','names','colours'].forEach(draw);
+function toast(m,bad){const t=$('#t');t.textContent=m;t.className=bad?'er':'';t.style.display='block';clearTimeout(toast.k);toast.k=setTimeout(()=>t.style.display='none',2400)}
+function sheet(h,html,on){$('#shb').innerHTML=`<h2>${h}</h2>${html}`;$('#sh').classList.add('on');$('#shb').onclick=e=>{const a=e.target.dataset.a;if(a==null)return;$('#sh').classList.remove('on');on&&on(a)}}
+$('#sh').onclick=e=>{if(e.target.id==='sh')$('#sh').classList.remove('on')};
+document.addEventListener('input',e=>{const d=e.target.dataset;if(!d.k)return;S[d.k][d.i][d.f]=e.target.value;
+if(d.k==='colours'){const s=e.target.parentNode.querySelector(`[data-s=${d.f}]`);let v=e.target.value.trim();s.style.background=/^#[0-9a-f]{6}$/i.test(v)?v:'#8883'}});
+document.addEventListener('click',e=>{const d=e.target.dataset;
+if(d.add){if(S[d.add].length>=16)return toast('Не больше 16',1);S[d.add].push(NEW[d.add]());draw(d.add)}
+if(d.del){const[k,i]=d.del.split(':');S[k].splice(i,1);draw(k)}});
+// icon: grey square with a plus
+function paint(){const im=$('#ico img');im.hidden=!icon;if(icon)im.src=icon;$('#ico span').hidden=!!icon}
+$('#ico').onclick=()=>{if(!icon)return $('#file').click();sheet('Иконка','<button class="p" data-a="pick">Выбрать другую</button><button data-a="rm">Убрать</button><button data-a="x">Закрыть</button>',a=>{if(a==='pick')$('#file').click();if(a==='rm'){icon=null;paint()}})};
+$('#file').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=64/Math.max(im.width,im.height),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);icon=c.toDataURL('image/png');paint()};im.onerror=()=>toast('Не удалось прочитать иконку',1);im.src=r.result};r.readAsDataURL(f)};
+function value(){const v={schema:1,id:$('#pid').value.trim(),name:$('#name').value.trim(),version:$('#ver').value.trim(),author:$('#auth').value.trim()};
+v.rows=S.rows.filter(x=>x.title||x.value);v.names=S.names.filter(x=>x.uid||x.value);v.colours=S.colours.filter(x=>x.from.length>1||x.to.length>1);return v}
+function check(v){if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/.test(v.id))return'ID: латиница, цифры, точка, дефис';if(!v.name||!v.version||!v.author)return'Заполните название, версию и автора';
+for(const r of v.rows)if(!r.title||!r.value)return'У каждой кнопки нужны название и текст';for(const n of v.names)if(!/^[0-9]{1,32}$/.test(n.uid)||!n.value)return'Имя: нужны UID (цифры) и новое имя';
+for(const c of v.colours)if(!/^#[0-9a-f]{6}$/i.test(c.from)||!/^#[0-9a-f]{6}$/i.test(c.to))return'Цвет: формат #RRGGBB'}
+$('#save').onclick=()=>{const e=check(value());e?toast(e,1):toast('Сохранено')};
+$('#pub').onclick=()=>{const e=check(value());e?toast(e,1):toast('Опубликовано в магазине')};
+$('#js').onclick=()=>sheet('Исходник',`<pre>${esc(JSON.stringify(value(),null,1))}</pre><button class="p" data-a="x">Закрыть</button>`);
+$('#back').onclick=()=>toast('В приложении здесь закроется экран');
+</script></html>

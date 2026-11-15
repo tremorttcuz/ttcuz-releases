@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "twemoji",
+      "name": "Twemoji",
+      "version": "17.0.3",
+      "asset": "twemoji.ttf",
+      "minAndroid": 29
+    },
+    {
+      "id": "noto",
+      "name": "Noto",
+      "version": "bundled",
+      "minAndroid": 29,
+      "url": "https://github.com/tremorttcuz/ttcuz-releases/releases/download/emoji-1/noto.ttf",
+      "sha256": "72a635cb3d2f3524c51620cdde406b217204e8a6a06c6a096ff8ed4b5fd6e27b",
+      "size": 10673480
+    },
+    {
+      "id": "blobmoji",
+      "name": "Blobmoji",
+      "version": "bundled",
+      "minAndroid": 29,
+      "url": "https://github.com/tremorttcuz/ttcuz-releases/releases/download/emoji-1/blobmoji.ttf",
+      "sha256": "61b588efe9960443a89de442feeab863744dea9dd169cba08c66762eb4d6952b",
+      "size": 13201264
+    },
+    {
+      "id": "fluent",
+      "name": "Fluent",
+      "version": "0.8.5",
+      "minAndroid": 29,
+      "url": "https://github.com/tremorttcuz/ttcuz-releases/releases/download/emoji-1/fluent.ttf",
+      "sha256": "6292f3ff969d800d55486e01b293248ccd9ee71a17e4f9770b4abea13d9cad25",
+      "size": 87758820
+    },
+    {
+      "id": "fluent_flat",
+      "name": "Fluent Flat",
+      "version": "0.8.5",
+      "minAndroid": 29,
+      "url": "https://github.com/tremorttcuz/ttcuz-releases/releases/download/emoji-1/fluent-flat.ttf",
+      "sha256": "951da552e63bd9e6b4ee375fe711a0cf523553568dd9c203888a43f872ab0dbb",
+      "size": 26888932
+    }
+  ]
+}

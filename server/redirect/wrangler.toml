@@ -1,0 +1,7 @@
+# Deployed on the second Cloudflare account whose workers.dev subdomain is the old one,
+# so that https://ttcuz.<old subdomain>.workers.dev/... answers with a redirect to the new address.
+name = "ttcuz"
+main = "worker.mjs"
+compatibility_date = "2025-01-01"
+workers_dev = true
+preview_urls = false

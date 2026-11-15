@@ -1,0 +1,9 @@
+{
+  "apk": "TikTok 47.2.41",
+  "rewritten_calls": {
+    "com/ss/android/ugc/aweme/im/contacts/api/model/IMUser": 4,
+    "com/ss/android/ugc/aweme/im/service/impl/player/AwemeOpenHelper": 1
+  },
+  "assembled": true,
+  "device_tested": false
+}

@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Навигационный островок MD3</title>
+<style>
+:root{--bg:#f4f2f7;--panel:#ffffff;--ink:#1b1b1f;--muted:#5f5d66;--line:#e2dfe8;--chip:#efecf4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121115;--panel:#1d1c21;--ink:#ecebf0;--muted:#a19fa8;--line:#2e2d33;--chip:#26252b}}
+:root[data-theme="dark"]{--bg:#121115;--panel:#1d1c21;--ink:#ecebf0;--muted:#a19fa8;--line:#2e2d33;--chip:#26252b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{min-width:0;max-width:1040px;margin:0 auto;padding:24px 16px 48px;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:860px){main{grid-template-columns:minmax(0,1fr)}}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+.phone{position:relative;width:100%;max-width:412px;aspect-ratio:412/860;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 0 0 10px #0b0b0d,0 18px 40px rgba(0,0,0,.35);margin:10px auto 0;touch-action:none;user-select:none}
+.phone canvas{position:absolute;inset:0;width:100%;height:100%}
+.toast{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);background:rgba(30,30,34,.92);color:#fff;padding:8px 14px;border-radius:16px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px}
+.card h2{font-size:15px;margin:0 0 12px}
+.row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:8px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row label{flex:1}
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.sw{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{border-color:var(--ink)}
+input[type=color]{width:44px;height:34px;border:0;background:none;padding:0;cursor:pointer}
+input[type=range]{width:140px;max-width:100%}
+.seg{display:inline-flex;background:var(--chip);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font:inherit;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.tokens{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:8px}
+.tok{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.tok i{width:22px;height:22px;border-radius:6px;border:1px solid var(--line);flex:none}
+.note{font-size:13px;color:var(--muted);margin:0}
+.gl-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gl-tile{border:1px solid var(--line);background:none;border-radius:22px;padding:6px 6px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:14px;font-weight:600;display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
+.gl-tile canvas{width:100%;height:auto;border-radius:16px;display:block}
+.gl-tile[aria-pressed="true"]{border:2px solid var(--accent,#fe2c55);background:color-mix(in srgb,var(--accent,#fe2c55) 16%,transparent)}
+.gl-tile[aria-pressed="true"] span::before{content:"✓ "}
+ul.how{margin:0;padding-left:18px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<section>
+  <h1>Нижний островок ttcuz</h1>
+  <p class="sub">Тот же расчёт, что в NavigationIsland.java: Google Material Symbols, подпись справа от выбранной иконки, «+» в форме Sunny, все цвета от акцента.</p>
+  <div class="phone" id="phone"><canvas id="screen"></canvas><div class="toast" id="toast"></div></div>
+</section>
+<section>
+  <div class="card">
+    <h2>Акцент</h2>
+    <div class="swatches" id="swatches"></div>
+    <div class="row" style="margin-top:10px"><label for="custom">Свой цвет</label><input type="color" id="custom" value="#fe2c55"></div>
+  </div>
+  <div class="card">
+    <h2>Режимы</h2>
+    <div class="row"><span>Стекло</span><span class="seg" id="glass"><button data-v="liquid" aria-pressed="true">Жидкое</button><button data-v="frosted" aria-pressed="false">Матовое</button><button data-v="off" aria-pressed="false">Выкл</button></span></div>
+    <div class="row"><span>Оттенок стекла</span><span class="seg" id="tint"><button data-v="auto" aria-pressed="true">Авто</button><button data-v="dark" aria-pressed="false">Тёмное</button><button data-v="light" aria-pressed="false">Светлое</button></span></div>
+    <div class="row"><span>Фон под панелью</span><span class="seg" id="backdrop"><button data-v="feed" aria-pressed="true">Лента</button><button data-v="grid" aria-pressed="false">Сетка</button><button data-v="blobs" aria-pressed="false">Пятна</button></span></div>
+    <div class="row"><label for="corners">Скруглять видео (MD3, 28 dp)</label><input type="checkbox" id="corners" checked></div>
+    <div class="row"><label for="dim">Антивыгорание</label><input type="checkbox" id="dim"></div>
+    <div class="row"><label for="strength">Сила затемнения: <span id="strengthOut">35</span>%</label><input type="range" id="strength" min="0" max="90" value="35"></div>
+    <div class="row"><label for="motion">Анимации</label><input type="checkbox" id="motion" checked></div>
+    <div class="row"><label for="badge">Непрочитанные во «Входящих»</label><input type="range" id="badge" min="0" max="120" value="51"></div>
+    <div class="row"><span>Язык подписей</span><span class="seg" id="lang"><button data-v="ru" aria-pressed="true">RU</button><button data-v="en" aria-pressed="false">EN</button></span></div>
+  </div>
+  <div class="card">
+    <h2>Настройки → Стекло и формы</h2>
+    <p class="note" style="margin-bottom:10px">Так раздел выглядит в настройках мода: иллюстрации те же, что рисует GlassPreview.java. Нажмите на карточку.</p>
+    <div class="gl-tiles"><button class="gl-tile" data-v="liquid"><canvas width="300" height="236"></canvas><span>Жидкое стекло</span></button><button class="gl-tile" data-v="frosted"><canvas width="300" height="236"></canvas><span>Матовое стекло</span></button></div>
+  </div>
+  <div class="card">
+    <h2>Цвета этого акцента</h2>
+    <div class="tokens" id="tokens"></div>
+  </div>
+  <div class="card">
+    <h2>Как трогать</h2>
+    <ul class="how">
+      <li>Нажмите на вкладку: пилюля переезжает за 220 мс, подпись выезжает справа от иконки.</li>
+      <li>Удерживайте пилюлю 0,3 с и тяните: она сжимается к иконке, едет на пружине, при отпускании встаёт на ближайшую вкладку.</li>
+      <li>«+» стоит на месте всегда: подписи и соседние иконки раскладываются в своей половине и не заходят на него. При нажатии Sunny пружинисто сжимается, после тапа поворачивается на один лепесток.</li>
+      <li>Нажатая вкладка показывает слой состояния MD3 (10% цвета текста).</li>
+    </ul>
+    <p class="note" style="margin-top:10px">Демо в браузере: размеры в dp = CSS-пиксели, шрифт системный. На телефоне не проверялось.</p>
+  </div>
+</section>
+</main>
+<script>
+const DATA={"sunny": [0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895, 0.5, 0.49895, 0.4962, 0.49129, 0.48418, 0.47584, 0.46807, 0.46085, 0.45416, 0.44796, 0.44223, 0.43694, 0.43207, 0.42765, 0.42474, 0.42378, 0.42474, 0.42765, 0.43207, 0.43694, 0.44223, 0.44796, 0.45416, 0.46085, 0.46807, 0.47584, 0.48418, 0.49129, 0.4962, 0.49895], "icons": {"home": "M 6 19 L 9 19 L 9 14 C 9 13.72 9.1 13.48 9.29 13.29 C 9.48 13.1 9.72 13 10 13 L 14 13 C 14.28 13 14.52 13.1 14.71 13.29 C 14.9 13.48 15 13.72 15 14 L 15 19 L 18 19 L 18 10 L 12 5.5 L 6 10 L 6 19 Z M 4 19 L 4 10 C 4 9.68 4.07 9.38 4.21 9.1 C 4.35 8.82 4.55 8.58 4.8 8.4 L 10.8 3.9 C 11.15 3.63 11.55 3.5 12 3.5 C 12.45 3.5 12.85 3.63 13.2 3.9 L 19.2 8.4 C 19.45 8.58 19.65 8.82 19.79 9.1 C 19.93 9.38 20 9.68 20 10 L 20 19 C 20 19.55 19.8 20.02 19.41 20.41 C 19.02 20.8 18.55 21 18 21 L 14 21 C 13.72 21 13.48 20.9 13.29 20.71 C 13.1 20.52 13 20.28 13 20 L 13 15 L 11 15 L 11 20 C 11 20.28 10.9 20.52 10.71 20.71 C 10.52 20.9 10.28 21 10 21 L 6 21 C 5.45 21 4.98 20.8 4.59 20.41 C 4.2 20.02 4 19.55 4 19 Z M 12 12.25 Z", "home_fill1": "M 4 19 L 4 10 C 4 9.68 4.07 9.38 4.21 9.1 C 4.35 8.82 4.55 8.58 4.8 8.4 L 10.8 3.9 C 11.15 3.63 11.55 3.5 12 3.5 C 12.45 3.5 12.85 3.63 13.2 3.9 L 19.2 8.4 C 19.45 8.58 19.65 8.82 19.79 9.1 C 19.93 9.38 20 9.68 20 10 L 20 19 C 20 19.55 19.8 20.02 19.41 20.41 C 19.02 20.8 18.55 21 18 21 L 15 21 C 14.72 21 14.48 20.9 14.29 20.71 C 14.1 20.52 14 20.28 14 20 L 14 15 C 14 14.72 13.9 14.48 13.71 14.29 C 13.52 14.1 13.28 14 13 14 L 11 14 C 10.72 14 10.48 14.1 10.29 14.29 C 10.1 14.48 10 14.72 10 15 L 10 20 C 10 20.28 9.9 20.52 9.71 20.71 C 9.52 20.9 9.28 21 9 21 L 6 21 C 5.45 21 4.98 20.8 4.59 20.41 C 4.2 20.02 4 19.55 4 19 Z", "group": "M 1 17.2 C 1 16.63 1.15 16.11 1.44 15.64 C 1.73 15.16 2.12 14.8 2.6 14.55 C 3.63 14.03 4.68 13.65 5.75 13.39 C 6.82 13.13 7.9 13 9 13 C 10.1 13 11.18 13.13 12.25 13.39 C 13.32 13.65 14.37 14.03 15.4 14.55 C 15.88 14.8 16.27 15.16 16.56 15.64 C 16.85 16.11 17 16.63 17 17.2 L 17 18 C 17 18.55 16.8 19.02 16.41 19.41 C 16.02 19.8 15.55 20 15 20 L 3 20 C 2.45 20 1.98 19.8 1.59 19.41 C 1.2 19.02 1 18.55 1 18 L 1 17.2 Z M 21 20 L 18.45 20 C 18.63 19.7 18.77 19.38 18.86 19.04 C 18.95 18.7 19 18.35 19 18 L 19 17 C 19 16.27 18.8 15.56 18.39 14.89 C 17.98 14.21 17.4 13.63 16.65 13.15 C 17.5 13.25 18.3 13.42 19.05 13.66 C 19.8 13.9 20.5 14.2 21.15 14.55 C 21.75 14.88 22.21 15.25 22.52 15.66 C 22.84 16.07 23 16.52 23 17 L 23 18 C 23 18.55 22.8 19.02 22.41 19.41 C 22.02 19.8 21.55 20 21 20 Z M 9 12 C 7.9 12 6.96 11.61 6.17 10.82 C 5.39 10.04 5 9.1 5 8 C 5 6.9 5.39 5.96 6.17 5.17 C 6.96 4.39 7.9 4 9 4 C 10.1 4 11.04 4.39 11.82 5.17 C 12.61 5.96 13 6.9 13 8 C 13 9.1 12.61 10.04 11.82 10.82 C 11.04 11.61 10.1 12 9 12 Z M 19 8 C 19 9.1 18.61 10.04 17.82 10.82 C 17.04 11.61 16.1 12 15 12 C 14.82 12 14.58 11.98 14.3 11.94 C 14.02 11.9 13.78 11.85 13.6 11.8 C 14.05 11.27 14.4 10.68 14.64 10.03 C 14.88 9.38 15 8.7 15 8 C 15 7.3 14.88 6.62 14.64 5.97 C 14.4 5.33 14.05 4.73 13.6 4.2 C 13.83 4.12 14.07 4.06 14.3 4.04 C 14.53 4.01 14.77 4 15 4 C 16.1 4 17.04 4.39 17.82 5.17 C 18.61 5.96 19 6.9 19 8 Z M 3 18 L 15 18 L 15 17.2 C 15 17.02 14.95 16.85 14.86 16.7 C 14.77 16.55 14.65 16.43 14.5 16.35 C 13.6 15.9 12.69 15.56 11.78 15.34 C 10.86 15.11 9.93 15 9 15 C 8.07 15 7.14 15.11 6.22 15.34 C 5.31 15.56 4.4 15.9 3.5 16.35 C 3.35 16.43 3.23 16.55 3.14 16.7 C 3.05 16.85 3 17.02 3 17.2 L 3 18 Z M 9 10 C 9.55 10 10.02 9.8 10.41 9.41 C 10.8 9.02 11 8.55 11 8 C 11 7.45 10.8 6.98 10.41 6.59 C 10.02 6.2 9.55 6 9 6 C 8.45 6 7.98 6.2 7.59 6.59 C 7.2 6.98 7 7.45 7 8 C 7 8.55 7.2 9.02 7.59 9.41 C 7.98 9.8 8.45 10 9 10 Z M 9 18 Z M 9 8 Z", "group_fill1": "M 1 17.2 C 1 16.63 1.15 16.11 1.44 15.64 C 1.73 15.16 2.12 14.8 2.6 14.55 C 3.63 14.03 4.68 13.65 5.75 13.39 C 6.82 13.13 7.9 13 9 13 C 10.1 13 11.18 13.13 12.25 13.39 C 13.32 13.65 14.37 14.03 15.4 14.55 C 15.88 14.8 16.27 15.16 16.56 15.64 C 16.85 16.11 17 16.63 17 17.2 L 17 18 C 17 18.55 16.8 19.02 16.41 19.41 C 16.02 19.8 15.55 20 15 20 L 3 20 C 2.45 20 1.98 19.8 1.59 19.41 C 1.2 19.02 1 18.55 1 18 L 1 17.2 Z M 18.45 20 C 18.63 19.7 18.77 19.38 18.86 19.04 C 18.95 18.7 19 18.35 19 18 L 19 17 C 19 16.27 18.8 15.56 18.39 14.89 C 17.98 14.21 17.4 13.63 16.65 13.15 C 17.5 13.25 18.3 13.42 19.05 13.66 C 19.8 13.9 20.5 14.2 21.15 14.55 C 21.75 14.88 22.21 15.25 22.52 15.66 C 22.84 16.07 23 16.52 23 17 L 23 18 C 23 18.55 22.8 19.02 22.41 19.41 C 22.02 19.8 21.55 20 21 20 L 18.45 20 Z M 9 12 C 7.9 12 6.96 11.61 6.17 10.82 C 5.39 10.04 5 9.1 5 8 C 5 6.9 5.39 5.96 6.17 5.17 C 6.96 4.39 7.9 4 9 4 C 10.1 4 11.04 4.39 11.82 5.17 C 12.61 5.96 13 6.9 13 8 C 13 9.1 12.61 10.04 11.82 10.82 C 11.04 11.61 10.1 12 9 12 Z M 19 8 C 19 9.1 18.61 10.04 17.82 10.82 C 17.04 11.61 16.1 12 15 12 C 14.82 12 14.58 11.98 14.3 11.94 C 14.02 11.9 13.78 11.85 13.6 11.8 C 14.05 11.27 14.4 10.68 14.64 10.03 C 14.88 9.38 15 8.7 15 8 C 15 7.3 14.88 6.62 14.64 5.97 C 14.4 5.33 14.05 4.73 13.6 4.2 C 13.83 4.12 14.07 4.06 14.3 4.04 C 14.53 4.01 14.77 4 15 4 C 16.1 4 17.04 4.39 17.82 5.17 C 18.61 5.96 19 6.9 19 8 Z", "chat_bubble": "M 6 18 L 3.7 20.3 C 3.38 20.62 3.02 20.69 2.61 20.51 C 2.2 20.34 2 20.02 2 19.57 L 2 4 C 2 3.45 2.2 2.98 2.59 2.59 C 2.98 2.2 3.45 2 4 2 L 20 2 C 20.55 2 21.02 2.2 21.41 2.59 C 21.8 2.98 22 3.45 22 4 L 22 16 C 22 16.55 21.8 17.02 21.41 17.41 C 21.02 17.8 20.55 18 20 18 L 6 18 Z M 5.15 16 L 20 16 L 20 4 L 4 4 L 4 17.12 L 5.15 16 Z M 4 16 L 4 4 L 4 16 Z", "chat_bubble_fill1": "M 6 18 L 3.7 20.3 C 3.38 20.62 3.02 20.69 2.61 20.51 C 2.2 20.34 2 20.02 2 19.57 L 2 4 C 2 3.45 2.2 2.98 2.59 2.59 C 2.98 2.2 3.45 2 4 2 L 20 2 C 20.55 2 21.02 2.2 21.41 2.59 C 21.8 2.98 22 3.45 22 4 L 22 16 C 22 16.55 21.8 17.02 21.41 17.41 C 21.02 17.8 20.55 18 20 18 L 6 18 Z", "person": "M 12 12 C 10.9 12 9.96 11.61 9.18 10.82 C 8.39 10.04 8 9.1 8 8 C 8 6.9 8.39 5.96 9.18 5.17 C 9.96 4.39 10.9 4 12 4 C 13.1 4 14.04 4.39 14.82 5.17 C 15.61 5.96 16 6.9 16 8 C 16 9.1 15.61 10.04 14.82 10.82 C 14.04 11.61 13.1 12 12 12 Z M 4 18 L 4 17.2 C 4 16.63 4.15 16.11 4.44 15.64 C 4.73 15.16 5.12 14.8 5.6 14.55 C 6.63 14.03 7.68 13.65 8.75 13.39 C 9.82 13.13 10.9 13 12 13 C 13.1 13 14.18 13.13 15.25 13.39 C 16.32 13.65 17.37 14.03 18.4 14.55 C 18.88 14.8 19.27 15.16 19.56 15.64 C 19.85 16.11 20 16.63 20 17.2 L 20 18 C 20 18.55 19.8 19.02 19.41 19.41 C 19.02 19.8 18.55 20 18 20 L 6 20 C 5.45 20 4.98 19.8 4.59 19.41 C 4.2 19.02 4 18.55 4 18 Z M 6 18 L 18 18 L 18 17.2 C 18 17.02 17.95 16.85 17.86 16.7 C 17.77 16.55 17.65 16.43 17.5 16.35 C 16.6 15.9 15.69 15.56 14.78 15.34 C 13.86 15.11 12.93 15 12 15 C 11.07 15 10.14 15.11 9.22 15.34 C 8.31 15.56 7.4 15.9 6.5 16.35 C 6.35 16.43 6.23 16.55 6.14 16.7 C 6.05 16.85 6 17.02 6 17.2 L 6 18 Z M 12 10 C 12.55 10 13.02 9.8 13.41 9.41 C 13.8 9.02 14 8.55 14 8 C 14 7.45 13.8 6.98 13.41 6.59 C 13.02 6.2 12.55 6 12 6 C 11.45 6 10.98 6.2 10.59 6.59 C 10.2 6.98 10 7.45 10 8 C 10 8.55 10.2 9.02 10.59 9.41 C 10.98 9.8 11.45 10 12 10 Z M 12 8 Z M 12 18 Z", "person_fill1": "M 12 12 C 10.9 12 9.96 11.61 9.18 10.82 C 8.39 10.04 8 9.1 8 8 C 8 6.9 8.39 5.96 9.18 5.17 C 9.96 4.39 10.9 4 12 4 C 13.1 4 14.04 4.39 14.82 5.17 C 15.61 5.96 16 6.9 16 8 C 16 9.1 15.61 10.04 14.82 10.82 C 14.04 11.61 13.1 12 12 12 Z M 4 18 L 4 17.2 C 4 16.63 4.15 16.11 4.44 15.64 C 4.73 15.16 5.12 14.8 5.6 14.55 C 6.63 14.03 7.68 13.65 8.75 13.39 C 9.82 13.13 10.9 13 12 13 C 13.1 13 14.18 13.13 15.25 13.39 C 16.32 13.65 17.37 14.03 18.4 14.55 C 18.88 14.8 19.27 15.16 19.56 15.64 C 19.85 16.11 20 16.63 20 17.2 L 20 18 C 20 18.55 19.8 19.02 19.41 19.41 C 19.02 19.8 18.55 20 18 20 L 6 20 C 5.45 20 4.98 19.8 4.59 19.41 C 4.2 19.02 4 18.55 4 18 Z", "add": "M 11 13 L 6 13 C 5.72 13 5.48 12.9 5.29 12.71 C 5.1 12.52 5 12.28 5 12 C 5 11.72 5.1 11.48 5.29 11.29 C 5.48 11.1 5.72 11 6 11 L 11 11 L 11 6 C 11 5.72 11.1 5.48 11.29 5.29 C 11.48 5.1 11.72 5 12 5 C 12.28 5 12.52 5.1 12.71 5.29 C 12.9 5.48 13 5.72 13 6 L 13 11 L 18 11 C 18.28 11 18.52 11.1 18.71 11.29 C 18.9 11.48 19 11.72 19 12 C 19 12.28 18.9 12.52 18.71 12.71 C 18.52 12.9 18.28 13 18 13 L 13 13 L 13 18 C 13 18.28 12.9 18.52 12.71 18.71 C 12.52 18.9 12.28 19 12 19 C 11.72 19 11.48 18.9 11.29 18.71 C 11.1 18.52 11 18.28 11 18 L 11 13 Z"}};
+const W=412,H=860,ROW_H=64,RAIL_Y=H-ROW_H-30; // rail above a 30 dp gesture area
+const LABELS={ru:["Главная","Друзья","+","Входящие","Профиль"],en:["Home","Friends","+","Inbox","Profile"]};
+const SYMBOLS=["home","group",null,"chat_bubble","person"];
+const PATHS={};for(const k in DATA.icons)PATHS[k]=new Path2D(DATA.icons[k]);
+const PLUS=PATHS.add;
+const ACCENTS=["#fe2c55","#25f4ee","#8dd1b0","#a4c9ff","#d0bcff","#ffb4ab","#ffd54f","#9e9e9e"];
+
+// ---------- colour maths, as in Skin.tonal and NavigationIsland.update ----------
+const hex2i=h=>parseInt(h.slice(1),16)|0xff000000;
+const R=c=>(c>>>16)&255,G=c=>(c>>>8)&255,B=c=>c&255;
+const rgb=(r,g,b)=>(0xff000000|r<<16|g<<8|b)>>>0;
+function blend(a,b,t){return rgb(Math.round(R(a)+(R(b)-R(a))*t),Math.round(G(a)+(G(b)-G(a))*t),Math.round(B(a)+(B(b)-B(a))*t));}
+function lum(c){return (.299*R(c)+.587*G(c)+.114*B(c))/255;}
+function toHsv(c){const r=R(c)/255,g=G(c)/255,b=B(c)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;let h=0;if(d){if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}return [h,mx?d/mx:0,mx];}
+function hsl(h,s,l){const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;switch(Math.floor(h/60)%6){case 0:r=c;g=x;b=0;break;case 1:r=x;g=c;b=0;break;case 2:r=0;g=c;b=x;break;case 3:r=0;g=x;b=c;break;case 4:r=x;g=0;b=c;break;default:r=c;g=0;b=x;}return rgb(Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255));}
+function skin(accent){const [h,s]=toHsv(accent),tint=s<.15?.04:.20;const card=hsl(h,tint,.15),text=hsl(h,Math.min(tint,.12),.90);return {card,text,muted:(text&0xffffff|0x99000000)>>>0};}
+const css=(c,a=1)=>`rgba(${R(c)},${G(c)},${B(c)},${((c>>>24)/255*a).toFixed(4)})`;
+const hexOf=c=>"#"+(c&0xffffff).toString(16).padStart(6,"0");
+
+// ---------- state ----------
+const S={accent:hex2i("#fe2c55"),tint:"auto",glass:"liquid",backdrop:"feed",corners:true,dim:false,strength:35,motion:true,badge:51,lang:"ru"};
+let colours;
+var recolour=function(){const k=skin(S.accent),a=S.accent,onAccent=lum(a)>.55?0xff1b1b1f:0xffffffff;
+  // as NavigationIsland.update: auto (tonal from the accent), dark (smoked) or light (white) glass
+  if(S.tint==="light")colours={body:0xfff2f2f7,muted:0x993c3c43,text:0xff1c1c1e,glass:0x59ffffff,pill:blend(0xffffffff,a,.24),onPill:blend(a,0xff000000,.38),onAccent};
+  else if(S.tint==="dark")colours={body:0xff1c1c1e,muted:0x99ebebf5,text:0xffffffff,glass:0x66000000,pill:blend(0xff2c2c2e,a,.38),onPill:blend(a,0xffffffff,.82),onAccent};
+  else colours={body:k.card,muted:k.muted,text:k.text,glass:(k.card&0xffffff|0x40000000)>>>0,pill:blend(k.card,a,.38),onPill:blend(a,0xffffffff,.82),onAccent};
+  const t=[["Поверхность",colours.body],["Пилюля",colours.pill],["На пилюле",colours.onPill],["Иконки покоя",colours.muted],["Акцент (Sunny)",S.accent],["Плюс",colours.onAccent]];
+  document.getElementById("tokens").innerHTML=t.map(([n,c])=>`<div class="tok"><i style="background:${css(c)}"></i>${n} ${hexOf(c)}</div>`).join("");}
+
+// ---------- geometry, as in IslandDrawable.update ----------
+const centres=[0,0,0,0,0],wide=[0,0,0,0,0],labelW=[0,0,0,0,0],shown=[null,null,null,null,null],shift=[0,0,0,0,0],glyphX=[0,0,0,0,0];
+const body={l:0,t:0,r:0,b:0},pill={l:0,t:0,r:0,b:0};
+let pillWidth=56,pillHeight=40,pillTop=0,radius=29,sunnySize=48,narrow=W/5;
+const LEAD=12,GAP=6,TRAIL=14,PADDING=LEAD+24+GAP+TRAIL,PARTNER=32;
+const half={lf:0,lt:0,rf:0,rt:0}; // each half's free span, either side of the fixed create button
+const cv=document.getElementById("screen"),ctx=cv.getContext("2d");
+function measure(){ctx.font="600 13px system-ui,-apple-system,Roboto,sans-serif";let max=Math.max(0,Math.min(half.lt-half.lf,half.rt-half.rf)-PARTNER-PADDING);if(max<20)max=0;
+  for(let i=0;i<5;i++){if(i===2||max<=0){shown[i]=null;labelW[i]=0;continue;}let t=LABELS[S.lang][i],w=ctx.measureText(t).width;
+    if(w>max){while(t.length&&ctx.measureText(t+"…").width>max)t=t.slice(0,-1);t=t.trim()+"…";w=ctx.measureText(t).width;}shown[i]=t;labelW[i]=w;}}
+function geometry(){
+  for(let i=0;i<5;i++)centres[i]=i*narrow+narrow/2;
+  let top=0,bottom=ROW_H;bottom-=Math.min(6,Math.max(0,bottom-top-56));const side=Math.min(12,narrow/8);
+  body.l=side;body.t=top;body.r=W-side;body.b=bottom;radius=Math.min((bottom-top)/2,40);
+  let room=body.r-body.l-12;for(let i=0;i<5;i++)if(i!==2)room=Math.min(room,2*Math.min(centres[i]-body.l-6,body.r-6-centres[i]));
+  pillWidth=Math.max(0,Math.min(56,Math.min(narrow-12,room)));pillHeight=Math.max(0,Math.min(40,body.b-body.t-12));pillTop=(body.t+body.b)/2-pillHeight/2;
+  sunnySize=Math.max(0,Math.min(48,body.b-body.t-10));const keep=sunnySize/2+6;
+  half.lf=body.l+6;half.lt=centres[2]-keep;half.rf=centres[2]+keep;half.rt=body.r-6;
+  measure();for(let i=0;i<5;i++){if(i===2||!shown[i]){wide[i]=pillWidth;continue;}const span=(i<2?half.lt-half.lf:half.rt-half.rf)-PARTNER;wide[i]=Math.max(pillWidth,Math.min(span,PADDING+labelW[i]));}}
+function itemCentre(i){const w=wide[i]||pillWidth,left=i<2,from=left?half.lf:half.rf,to=left?half.lt:half.rt,partner=left?1-i:7-i;
+  const lo=from+(partner<i?PARTNER:0)+w/2,hi=to-(partner>i?PARTNER:0)-w/2;return lo>hi?(lo+hi)/2:Math.max(lo,Math.min(hi,centres[i]));}
+function targetFor(i){const w=wide[i]||pillWidth,c=itemCentre(i);return {l:c-w/2,t:pillTop,r:c+w/2,b:pillTop+pillHeight};}
+const setR=(a,b)=>{a.l=b.l;a.t=b.t;a.r=b.r;a.b=b.b;};
+
+// ---------- motion: the 220 ms switch and the held-pill springs ----------
+class Spring{constructor(k,c,eps){this.k=k;this.c=c;this.eps=eps;this.v=0;this.t=0;this.vel=0;}set(x){this.v=this.t=x;this.vel=0;}
+  step(dt){let n=Math.max(1,Math.ceil(dt/.008)),h=dt/n;for(let i=0;i<n;i++){this.vel+=(this.k*(this.t-this.v)-this.c*this.vel)*h;this.v+=this.vel*h;}
+    if(Math.abs(this.t-this.v)>this.eps||Math.abs(this.vel)>this.eps*10)return true;this.v=this.t;this.vel=0;return false;}}
+const px=new Spring(520,30,.05),grow=new Spring(520,26,.002),pw=new Spring(520,30,.05);
+const squeeze=new Spring(700,28,.002),turn=new Spring(180,18,.05),layer=new Spring(900,60,.004);let pressedTab=-1,springT=0;
+let selected=0,previous=-1,progress=1,from=null,to=null,animStart=0,manual=false,dragging=false,near=0,offset=0,looping=false,lastT=0;
+const ease=t=>{const u=1-t;return 1-u*u*u*u;};
+function weight(i){if(manual)return Math.max(0,1-Math.abs(centres[i]-px.v)/64);if(progress>=1)return i===selected?1:0;return i===selected?progress:i===previous?1-progress:0;}
+function reveal(i){const w=weight(i);if(!manual)return w;const span=wide[i]-pillWidth;return span<=1?0:w*Math.max(0,Math.min(1,((pill.r-pill.l)-pillWidth)/span));}
+function select(i){if(i===selected||i===2)return;previous=selected;selected=i;const t=targetFor(i);
+  if(!S.motion){setR(pill,t);previous=-1;progress=1;return;}from={...pill};to=t;progress=0;animStart=performance.now();}
+function nearest(x){let best=0,gap=1e9;for(let i=0;i<5;i++){if(i===2)continue;const d=Math.abs(centres[i]-x);if(d<gap){gap=d;best=i;}}return best;}
+function beginDrag(x){progress=1;previous=-1;manual=true;dragging=true;const icon=glyphX[selected];
+  px.set((pill.l+pill.r)/2);px.t=icon;pw.set(pill.r-pill.l);pw.t=pillWidth;grow.t=1;near=selected;offset=x-icon;looping=true;lastT=performance.now();}
+function dragTo(x){px.t=Math.max(centres[0],Math.min(centres[4],x-offset));const n=nearest(px.t);if(n!==near){near=n;if(navigator.vibrate)navigator.vibrate(5);}}
+function drop(commit){dragging=false;const n=commit?near:selected;selected=n;const t=targetFor(n);px.t=(t.l+t.r)/2;pw.t=t.r-t.l;grow.t=0;}
+function frame(now){
+  if(progress<1){progress=S.motion?Math.min(1,(now-animStart)/220):1;const m=ease(progress);
+    pill.l=from.l+(to.l-from.l)*m;pill.t=from.t+(to.t-from.t)*m;pill.r=from.r+(to.r-from.r)*m;pill.b=from.b+(to.b-from.b)*m;if(progress>=1){previous=-1;setR(pill,to);}}
+  if(looping){const dt=Math.min(.032,(now-lastT)/1000);lastT=now;let busy=px.step(dt);busy=grow.step(dt)||busy;busy=pw.step(dt)||busy;
+    const g=Math.max(0,grow.v),e=Math.min(g,1.1),w=Math.min(Math.max(0,body.r-body.l-12),Math.max(0,pw.v)+18*e+Math.min(26,Math.abs(px.vel)*.035));
+    const room=Math.max(0,2*Math.min(pillTop-body.t-3,body.b-pillTop-pillHeight-3)),extra=Math.min(7*e,room),h=pillHeight+extra,top=pillTop-extra/2;
+    let cx=Math.max(body.l+6+w/2,Math.min(body.r-6-w/2,px.v));pill.l=cx-w/2;pill.r=cx+w/2;pill.t=top;pill.b=top+h;
+    if(!busy){looping=false;if(!dragging){manual=false;setR(pill,targetFor(selected));}}}
+  {const dt=springT?Math.min(.032,(now-springT)/1000):0;springT=now;if(S.motion){squeeze.step(dt);turn.step(dt);layer.step(dt);}else{squeeze.set(squeeze.t);turn.set(turn.t);layer.set(layer.t);}}
+  layout();draw(now);requestAnimationFrame(frame);}
+function layout(){const hf=12;shift[2]=0; // the create button never moves
+  for(let j=0;j<5;j++){if(j===2)continue;let push=0;
+    for(let i=0;i<5;i++){if(i===j||i===2||(!manual&&(i<2)!==(j<2)))continue;const w=weight(i);if(w<=0)continue;
+      const c=manual?(pill.l+pill.r)/2:itemCentre(i),reach=(manual?pill.r-pill.l:wide[i])/2+4+hf,d=centres[j]-c,need=reach-Math.abs(d);if(need>0)push+=w*need*(d<0?-1:1);}
+    const from=j<2?half.lf:half.rf,to=j<2?half.lt:half.rt,rest=Math.max(from+hf,Math.min(to-hf,centres[j]+push));shift[j]=rest-centres[j];
+    const out=itemCentre(j)-wide[j]/2+LEAD+hf,w=reveal(j);glyphX[j]=rest+(out-rest)*w;}}
+
+// ---------- the picture behind (a moving "video") ----------
+const video=document.createElement("canvas");video.width=W;video.height=H;const vx=video.getContext("2d");
+/** What lies behind the panel. "feed" scrolls like a real screen, "grid" shows the refraction plainest, "blobs" is soft colour. */
+function paintVideo(t){const s=t/1000;
+  if(S.backdrop==="grid"){
+    vx.fillStyle="#0e1016";vx.fillRect(0,0,W,H);const step=16,ox=(s*14)%step,oy=(s*9)%step;
+    vx.lineWidth=1.5;
+    for(let x=-step+ox;x<W+step;x+=step){vx.strokeStyle=(Math.round((x-ox)/step)%4===0)?"rgba(255,214,10,.95)":"rgba(255,255,255,.55)";vx.beginPath();vx.moveTo(x,0);vx.lineTo(x,H);vx.stroke();}
+    for(let y=-step+oy;y<H+step;y+=step){vx.strokeStyle=(Math.round((y-oy)/step)%4===0)?"rgba(10,132,255,.95)":"rgba(255,255,255,.55)";vx.beginPath();vx.moveTo(0,y);vx.lineTo(W,y);vx.stroke();}
+    vx.fillStyle="#fff";vx.font="800 44px system-ui,sans-serif";vx.fillText("LIQUID GLASS",(W-330)/2+Math.sin(s)*40,H-50);
+    return;}
+  if(S.backdrop==="blobs"){
+    const g=vx.createLinearGradient(0,0,W,H);g.addColorStop(0,"#1d2b53");g.addColorStop(1,"#3a1240");vx.fillStyle=g;vx.fillRect(0,0,W,H);
+    for(const [c,x,y,r,sp] of [["#ff6b6b",.3,.55,160,.7],["#ffd166",.75,.7,140,.5],["#06d6a0",.5,.9,150,.9],["#4cc9f0",.2,.95,120,.6]]){const cx=W*x+Math.sin(s*sp)*70,cy=H*y+Math.cos(s*sp*1.3)*50;const rg=vx.createRadialGradient(cx,cy,0,cx,cy,r);rg.addColorStop(0,c);rg.addColorStop(1,"rgba(0,0,0,0)");vx.fillStyle=rg;vx.fillRect(0,0,W,H);}
+    return;}
+  // "feed": a light list scrolling up under the panel -- avatars, two lines of text, a cover -- as on a real screen
+  vx.fillStyle="#f4f3f7";vx.fillRect(0,0,W,H);
+  const row=92,scroll=(s*38)%row,covers=["#ffd60a","#ff375f","#0a84ff","#30d158","#bf5af2","#ff9f0a","#64d2ff"];
+  for(let i=-1;i<H/row+2;i++){const y=i*row-scroll,n=i+Math.floor(s*38/row)+100,c=covers[n%covers.length];
+    vx.fillStyle=c;vx.beginPath();vx.arc(40,y+46,22,0,7);vx.fill();
+    vx.fillStyle="#1b1b1f";vx.font="700 16px system-ui,sans-serif";vx.fillText(["Рекомендации","Мой плейлист","Новинки недели","Подкасты","Друзья слушают","Радио ttcuz","Для тебя"][n%7],76,y+40);
+    vx.fillStyle="#6b6a73";vx.font="14px system-ui,sans-serif";vx.fillText(["12 треков · обновлено сегодня","Обложка, текст и полосы","Слушайте прямо сейчас","Новый выпуск","5 друзей","В эфире","Подборка дня"][n%7],76,y+62);
+    vx.fillStyle=c;vx.fillRect(W-92,y+14,72,64);vx.fillStyle="rgba(0,0,0,.35)";for(let k=0;k<3;k++)vx.fillRect(W-84+k*22,y+22,12,48);
+    vx.fillStyle="#dddce3";vx.fillRect(76,y+row-1,W-76,1);}
+}
+
+// ---------- Liquid Glass: the same lens shader as Blur.LIQUID_SHADER, converted to WebGL ----------
+const glc=document.createElement("canvas"),gl=glc.getContext("webgl",{premultipliedAlpha:true,alpha:true});
+const soft=document.createElement("canvas");soft.width=W;soft.height=H;const sx=soft.getContext("2d");
+let glOK=false,prog,uni={},tex;
+(function setupGL(){if(!gl)return;
+  const vs="attribute vec2 p;varying vec2 vUv;void main(){vUv=p*0.5+0.5;vUv.y=1.0-vUv.y;gl_Position=vec4(p,0.0,1.0);}";
+  const fs="precision highp float;uniform sampler2D tex;uniform vec2 texSize;uniform vec2 origin;uniform vec2 size;uniform float inset;uniform float radius;uniform float bezel;uniform float thickness;uniform float zoom;uniform vec4 tint;varying vec2 vUv;"
+   +"vec4 samp(vec2 xy){return texture2D(tex,(origin+xy)/texSize);}"+"float box(vec2 p,vec2 b,float r){vec2 q=abs(p)-b+r;return length(max(q,0.0))+min(max(q.x,q.y),0.0)-r;}vec4 lens(vec2 xy){ vec2 c=size*0.5;vec2 b=c-inset;vec2 p=xy-c;float inside=-box(p,b,radius); if(inside<-0.5)return vec4(0); vec2 n=vec2(box(p+vec2(1,0),b,radius)-box(p-vec2(1,0),b,radius),box(p+vec2(0,1),b,radius)-box(p-vec2(0,1),b,radius)); n=n/max(length(n),1e-4); float x=clamp(inside/bezel,0.0,1.0);float k=1.0-x;float q=max(1.0-k*k*k*k,1e-4); float slope=k*k*k*pow(q,-0.75)*thickness/bezel; float theta=atan(slope);float refracted=asin(sin(theta)/1.5); float shift=thickness*tan(theta-refracted); vec2 uv=clamp(c+(xy-n*shift-c)*zoom,vec2(0.5),size-0.5);vec2 split=n*shift*0.03; vec4 col=samp(uv); col.r=samp(clamp(uv-split,vec2(0.5),size-0.5)).r; col.b=samp(clamp(uv+split,vec2(0.5),size-0.5)).b; col.rgb=mix(col.rgb,tint.rgb,tint.a); float facing=abs(dot(n,vec2(-0.28,-0.96))); col.rgb+=vec3(k*k*0.10*facing); return vec4(col.rgb,1.0)*float(clamp(inside+0.5,0.0,1.0));}"+"void main(){gl_FragColor=lens(vUv*size);}";
+  const sh=(t,src)=>{const o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(o));return o;};
+  try{prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,vs));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog));gl.useProgram(prog);
+    const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(prog,"p");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    for(const n of ["tex","texSize","origin","size","inset","radius","bezel","thickness","zoom","tint"])uni[n]=gl.getUniformLocation(prog,n);
+    tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);
+    for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+    glOK=true;}catch(e){console.error("liquid glass:",e);}})();
+/** Renders the island's lens at device resolution: light pre-blur (as on Android), then the shader. */
+const BEVEL=.42,THICKNESS=.75,LENS_BEVEL=.45,LENS_THICKNESS=.80,ZOOM=.88,LENS_ZOOM=.80; // as Blur.Backdrop
+/** One pass of the lens over `source` (a canvas in phone units): rect in phone units, result left in glc (with a 2 px margin). */
+function lensPass(source,srcW,srcH,x,y,w,h,r,bevelShare,thickShare,tint,preblur,dpr,zoom){const m=2,cw=w+2*m,ch=h+2*m,pw=Math.round(cw*dpr),ph=Math.round(ch*dpr);
+  if(glc.width!==pw||glc.height!==ph){glc.width=pw;glc.height=ph;}
+  let src=source;if(preblur){sx.clearRect(0,0,W,H);sx.filter=`blur(${preblur}px)`;sx.drawImage(source,0,0);sx.filter="none";src=soft;}
+  gl.viewport(0,0,pw,ph);gl.bindTexture(gl.TEXTURE_2D,tex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,src);
+  const short=Math.min(w,h),bz=Math.max(2,short*bevelShare);
+  gl.uniform1i(uni.tex,0);gl.uniform2f(uni.texSize,srcW,srcH);gl.uniform2f(uni.origin,x-m,y-m);gl.uniform2f(uni.size,cw,ch);gl.uniform1f(uni.inset,m);
+  gl.uniform1f(uni.radius,Math.min(r,short/2));gl.uniform1f(uni.bezel,bz);gl.uniform1f(uni.thickness,bz*thickShare);gl.uniform1f(uni.zoom,zoom);
+  gl.uniform4f(uni.tint,R(tint)/255,G(tint)/255,B(tint)/255,(tint>>>24)/255);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);return m;}
+function hairline(l,t,r,b,rad,a){const lg=ctx.createLinearGradient(0,t,0,b);lg.addColorStop(0,`rgba(255,255,255,${.70*a})`);lg.addColorStop(.32,`rgba(255,255,255,${.15*a})`);lg.addColorStop(.62,`rgba(255,255,255,${.08*a})`);lg.addColorStop(1,`rgba(255,255,255,${.35*a})`);
+  ctx.strokeStyle=lg;ctx.lineWidth=1;rr(ctx,l+.5,t+.5,r-.5,b-.5,rad-.5);ctx.stroke();}
+const island=document.createElement("canvas"),ix=island.getContext("2d");
+
+// ---------- drawing, as in IslandDrawable.draw ----------
+const sunnyPath=(()=>{const p=new Path2D(),n=DATA.sunny.length;for(let i=0;i<n;i++){const a=i*Math.PI*2/n,r=DATA.sunny[i],x=Math.cos(a)*r,y=Math.sin(a)*r;i?p.lineTo(x,y):p.moveTo(x,y);}p.closePath();return p;})();
+function rr(c,l,t,r,b,rad){c.beginPath();c.roundRect(l,t,r-l,b-t,rad);}
+function draw(now){
+  const dpr=window.devicePixelRatio||1,cw=Math.round(cv.clientWidth*dpr),ch=Math.round(cv.clientHeight*dpr);if(cv.width!==cw||cv.height!==ch){cv.width=cw;cv.height=ch;}
+  ctx.setTransform(cw/W,0,0,ch/H,0,0);paintVideo(now);ctx.fillStyle="#000";ctx.fillRect(0,0,W,H);
+  // the video page as an MD3 container: Extra Large shape (28 dp), what is inside is clipped to it
+  ctx.save();if(S.corners){rr(ctx,6,6,W-6,H-30,28);ctx.clip();}ctx.drawImage(video,0,0);ctx.restore();
+  ctx.fillStyle="rgba(0,0,0,.25)";ctx.fillRect(0,H-30,W,30);ctx.fillStyle="rgba(255,255,255,.7)";rr(ctx,W/2-67,H-16,W/2+67,H-11,3);ctx.fill();
+  const dim=S.dim?Math.max(.1,1-S.strength/100):1;
+  ctx.save();ctx.translate(0,RAIL_Y);
+  // frosted body: blurred backdrop under a translucent tonal surface
+  rr(ctx,body.l,body.t,body.r,body.b,radius);
+  const liquid=S.glass==="liquid"&&glOK;
+  if(liquid){
+    // lift shadow, the island lens (physical squircle bevel, Snell), then the 1 dp specular hairline
+    ctx.save();ctx.shadowColor="rgba(0,0,0,.22)";ctx.shadowBlur=14;ctx.shadowOffsetY=4;ctx.fillStyle=css(colours.body);rr(ctx,body.l,body.t,body.r,body.b,radius);ctx.fill();ctx.restore();
+    const dpr=window.devicePixelRatio||1,t=colours.glass>>>0; // clear glass: light tint, 1 dp pre-blur, as on Android
+    const m=lensPass(video,W,H,body.l,RAIL_Y+body.t,body.r-body.l,body.b-body.t,radius,BEVEL,THICKNESS,t,1,dpr,ZOOM);
+    ctx.save();rr(ctx,body.l,body.t,body.r,body.b,radius);ctx.clip();ctx.drawImage(glc,body.l-m,body.t-m,body.r-body.l+2*m,body.b-body.t+2*m);ctx.restore();
+    hairline(body.l,body.t,body.r,body.b,radius,1);}
+  else{if(S.glass==="frosted"){ctx.save();ctx.clip();ctx.filter="blur(12px)";ctx.drawImage(video,0,RAIL_Y,W,ROW_H,0,0,W,ROW_H);ctx.filter="none";ctx.restore();}
+    ctx.fillStyle=css(colours.body,S.glass==="frosted"?184/255:1);rr(ctx,body.l,body.t,body.r,body.b,radius);ctx.fill();}
+  ctx.save();rr(ctx,body.l,body.t,body.r,body.b,radius);ctx.clip();
+  const pc=blend(colours.pill,S.accent,.35*Math.min(1,Math.max(0,grow.v))),ph=pill.b-pill.t;
+  if(liquid){
+    // the selected tab as a drop of glass of its own, tinted by the accent, refracting the island under it (Blur.drawDrop)
+    const dpr=window.devicePixelRatio||1;if(island.width!==cv.width||island.height!==cv.height){island.width=cv.width;island.height=cv.height;}
+    ix.setTransform(1,0,0,1,0,0);ix.clearRect(0,0,island.width,island.height);ix.drawImage(cv,0,0);
+    const sxp=cv.width/W,syp=cv.height/H;const t=(pc&0xffffff|(Math.round(.42*dim*255)<<24))>>>0;
+    const m=lensPass(island,W,H,pill.l,RAIL_Y+pill.t,pill.r-pill.l,ph,ph/2,LENS_BEVEL,LENS_THICKNESS,t,0,dpr,LENS_ZOOM);
+    ctx.save();rr(ctx,pill.l,pill.t,pill.r,pill.b,ph/2);ctx.clip();ctx.drawImage(glc,pill.l-m,pill.t-m,pill.r-pill.l+2*m,ph+2*m);ctx.restore();
+    const lg=ctx.createLinearGradient(0,pill.t,0,pill.b);lg.addColorStop(0,"rgba(255,255,255,.6)");lg.addColorStop(.35,"rgba(255,255,255,.12)");lg.addColorStop(.65,"rgba(255,255,255,.06)");lg.addColorStop(1,"rgba(255,255,255,.28)");
+    ctx.strokeStyle=lg;ctx.lineWidth=1;rr(ctx,pill.l+.5,pill.t+.5,pill.r-.5,pill.b-.5,ph/2-.5);ctx.stroke();
+  }else{ctx.fillStyle=css(pc,dim);rr(ctx,pill.l,pill.t,pill.r,pill.b,ph/2);ctx.fill();}
+  // MD3 pressed state layer: 10% on-surface over the pressed tab
+  if(pressedTab>=0&&layer.v>.01){ctx.fillStyle=css(colours.text,.10*Math.min(1,layer.v)*dim);if(weight(pressedTab)>.5)rr(ctx,pill.l,pill.t,pill.r,pill.b,ph/2);else{const x=glyphX[pressedTab];rr(ctx,x-pillWidth/2,pillTop,x+pillWidth/2,pillTop+pillHeight,pillHeight/2);}ctx.fill();}
+  ctx.restore();
+  const cy=(body.t+body.b)/2;ctx.font="600 13px system-ui,-apple-system,Roboto,sans-serif";ctx.textBaseline="middle";
+  for(let i=0;i<5;i++){if(i===2)continue;const w=weight(i),gx=glyphX[i];
+    ctx.save();ctx.translate(gx-12,cy-12);
+    if(w<1){ctx.fillStyle=css(colours.muted,(1-w)*dim);ctx.fill(PATHS[SYMBOLS[i]]);}
+    if(w>0){ctx.fillStyle=css(colours.onPill,w*dim);ctx.fill(PATHS[SYMBOLS[i]+"_fill1"]);}
+    ctx.restore();
+    const r=reveal(i);if(r>.01&&shown[i]){ctx.save();ctx.beginPath();ctx.rect(pill.l,pill.t,pill.r-pill.l,pill.b-pill.t);ctx.clip();ctx.fillStyle=css(colours.onPill,r*dim);ctx.fillText(shown[i],gx+12+GAP-(1-r)*10,cy+.5);ctx.restore();}
+    if(i===3&&S.badge>0){const t=S.badge>99?"99+":String(S.badge);ctx.font="700 11px system-ui,sans-serif";const bw=Math.max(18,ctx.measureText(t).width+10),bx=gx+6,by=cy-21;
+      ctx.fillStyle=css(0xfffe2c55,dim);rr(ctx,bx,by,bx+bw,by+18,9);ctx.fill();ctx.fillStyle=css(0xffffffff,dim);ctx.textAlign="center";ctx.fillText(t,bx+bw/2,by+9.5);ctx.textAlign="left";ctx.font="600 13px system-ui,-apple-system,Roboto,sans-serif";}}
+  // Sunny + plus
+  const sc=1-.1*squeeze.v;ctx.save();ctx.translate(centres[2],cy);ctx.scale(sc,sc);ctx.save();ctx.rotate(turn.v*Math.PI/180);ctx.scale(sunnySize,sunnySize);ctx.fillStyle=css(S.accent,dim);ctx.fill(sunnyPath);ctx.restore();
+  const k=sunnySize*.5/24;ctx.scale(k,k);ctx.translate(-12,-12);ctx.fillStyle=css(colours.onAccent,dim);ctx.fill(PLUS);ctx.restore();
+  ctx.restore();}
+
+// ---------- input: taps, the 300 ms hold and the drag ----------
+const phone=document.getElementById("phone");let down=null,holdTimer=0;
+function local(e){const r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height-RAIL_Y};}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("on"),1200);}
+phone.addEventListener("pointerdown",e=>{const p=local(e);if(p.y<body.t-8||p.y>body.b+8)return;phone.setPointerCapture(e.pointerId);down={x:p.x,y:p.y,held:false};
+  const tab=Math.max(0,Math.min(4,Math.floor(p.x/narrow)));if(tab===2){squeeze.t=1;return;}pressedTab=tab;layer.t=1;
+  if(p.x>=pill.l-6&&p.x<=pill.r+6&&p.y>=pill.t-6&&p.y<=pill.b+6)holdTimer=setTimeout(()=>{if(down){down.held=true;beginDrag(down.x);}},300);});
+phone.addEventListener("pointermove",e=>{if(!down)return;const p=local(e);if(down.held){dragTo(p.x);return;}if(Math.hypot(p.x-down.x,p.y-down.y)>8)clearTimeout(holdTimer);});
+function release(e,commit){clearTimeout(holdTimer);layer.t=0;if(!down)return;const d=down;down=null;
+  if(d.held){layer.t=0;drop(commit);if(commit&&selected!==-1)toast(LABELS[S.lang][selected]);return;}
+  const tab=Math.max(0,Math.min(4,Math.floor(d.x/narrow)));if(tab===2){squeeze.t=0;if(commit){turn.t+=45;toast(S.lang==="ru"?"Создать":"Create");}return;}if(commit)select(tab);}
+phone.addEventListener("pointerup",e=>release(e,true));phone.addEventListener("pointercancel",e=>{squeeze.t=0;release(e,false);});
+
+// ---------- controls ----------
+const sw=document.getElementById("swatches");
+function markSwatch(){for(const b of sw.children)b.setAttribute("aria-pressed",String(hex2i(b.dataset.c)===S.accent));}
+for(const c of ACCENTS){const b=document.createElement("button");b.className="sw";b.style.background=c;b.dataset.c=c;b.title=c;b.setAttribute("aria-label","Акцент "+c);b.onclick=()=>{S.accent=hex2i(c);document.getElementById("custom").value=c;recolour();markSwatch();};sw.appendChild(b);}
+document.getElementById("custom").oninput=e=>{S.accent=hex2i(e.target.value);recolour();markSwatch();};
+for(const b of document.querySelectorAll("#glass button"))b.onclick=()=>{S.glass=b.dataset.v;for(const o of document.querySelectorAll("#glass button"))o.setAttribute("aria-pressed",String(o===b));};
+document.getElementById("corners").onchange=e=>S.corners=e.target.checked;
+for(const b of document.querySelectorAll("#tint button"))b.onclick=()=>{S.tint=b.dataset.v;for(const o of document.querySelectorAll("#tint button"))o.setAttribute("aria-pressed",String(o===b));recolour();};
+for(const b of document.querySelectorAll("#backdrop button"))b.onclick=()=>{S.backdrop=b.dataset.v;for(const o of document.querySelectorAll("#backdrop button"))o.setAttribute("aria-pressed",String(o===b));};
+document.getElementById("dim").onchange=e=>S.dim=e.target.checked;
+document.getElementById("strength").oninput=e=>{S.strength=+e.target.value;document.getElementById("strengthOut").textContent=e.target.value;};
+document.getElementById("motion").onchange=e=>S.motion=e.target.checked;
+document.getElementById("badge").oninput=e=>S.badge=+e.target.value;
+for(const b of document.querySelectorAll("#lang button"))b.onclick=()=>{S.lang=b.dataset.v;for(const o of document.querySelectorAll("#lang button"))o.setAttribute("aria-pressed",String(o===b));geometry();if(progress>=1&&!manual)setR(pill,targetFor(selected));};
+
+// ---------- settings illustrations: a port of GlassPreview.onDraw ----------
+function glassPreview(cnv,liquid){const c=cnv.getContext("2d"),w=cnv.width,h=cnv.height,d=2,a=S.accent;
+  const b=blend(a,0xffffc857,.7),cc=blend(a,0xff4cc9f0,.75);
+  function scene(blur){const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,"#141824");g.addColorStop(1,"#2a1638");c.fillStyle=g;c.fillRect(0,0,w,h);
+    const spread=1+blur;for(const [x,y,r,col] of [[w*.28,h*.45,w*.42*spread,a],[w*.78,h*.62,w*.36*spread,b],[w*.52,h*.95,w*.34*spread,cc]]){const rg=c.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,css(col,1-.35*Math.min(1,blur)));rg.addColorStop(1,css(col,0));c.fillStyle=rg;c.beginPath();c.arc(x,y,r,0,7);c.fill();}
+    const al=140*(1-Math.min(1,blur))/255;if(al>0)for(let i=0;i<9;i++){c.fillStyle=css(i%3===0?a:i%3===1?b:cc,al);c.fillRect(w*(i+.3)/9,h*.5,w*.25/9,h*.5);}}
+  c.save();rr(c,0,0,w,h,16*d);c.clip();scene(0);
+  const side=12*d,ih=Math.min(44*d,h*.3),isl={l:side,t:h-side-ih,r:w-side,b:h-side};
+  c.save();rr(c,isl.l,isl.t,isl.r,isl.b,ih/2);c.clip();
+  if(liquid){c.save();const cx=(isl.l+isl.r)/2,cy=(isl.t+isl.b)/2;c.translate(cx,cy);c.scale(1.12,1.35);c.translate(-cx,-cy);scene(0);c.restore();
+    c.fillStyle="rgba(16,18,24,.2)";c.fillRect(isl.l,isl.t,isl.r-isl.l,ih);const lg=c.createLinearGradient(0,isl.t,0,isl.b);lg.addColorStop(0,"rgba(255,255,255,.55)");lg.addColorStop(.35,"rgba(255,255,255,0)");lg.addColorStop(.7,"rgba(0,0,0,0)");lg.addColorStop(1,"rgba(0,0,0,.25)");c.fillStyle=lg;c.fillRect(isl.l,isl.t,isl.r-isl.l,ih);}
+  else{c.filter="blur(10px)";scene(1.2);c.filter="none";c.fillStyle="rgba(36,38,43,.72)";c.fillRect(isl.l,isl.t,isl.r-isl.l,ih);}
+  c.restore();c.lineWidth=Math.max(1,d*.8);c.strokeStyle=liquid?"rgba(255,255,255,.4)":"rgba(255,255,255,.13)";rr(c,isl.l,isl.t,isl.r,isl.b,ih/2);c.stroke();
+  const pw=Math.min((isl.r-isl.l)*.38,64*d),ph=ih-10*d,pl=isl.l+5*d,pc=(isl.t+isl.b)/2;c.fillStyle=css(blend(0xff24262b,a,.45),.9);rr(c,pl,pc-ph/2,pl+pw,pc+ph/2,ph/2);c.fill();
+  c.fillStyle="#f2f0f5";c.beginPath();c.arc(pl+ph/2+2*d,pc,5*d,0,7);c.fill();const step=(isl.r-(pl+pw))/4;
+  for(let i=0;i<3;i++){const x=pl+pw+step*(i+.7);c.fillStyle=i===1?css(a):"rgba(242,240,245,.6)";c.beginPath();c.arc(x,pc,(i===1?9:5)*d,0,7);c.fill();}
+  c.restore();}
+function paintTiles(){document.documentElement.style.setProperty("--accent",hexOf(S.accent));for(const t of document.querySelectorAll(".gl-tile")){t.setAttribute("aria-pressed",String(S.glass===t.dataset.v));glassPreview(t.querySelector("canvas"),t.dataset.v==="liquid");}}
+for(const t of document.querySelectorAll(".gl-tile"))t.onclick=()=>{S.glass=t.dataset.v;for(const o of document.querySelectorAll("#glass button"))o.setAttribute("aria-pressed",String(o.dataset.v===S.glass));paintTiles();};
+const _recolour=recolour;recolour=function(){_recolour();if(document.querySelector(".gl-tile"))paintTiles();};
+for(const b of document.querySelectorAll("#glass button"))b.addEventListener("click",paintTiles);
+recolour();markSwatch();geometry();setR(pill,targetFor(selected));requestAnimationFrame(frame);
+</script>
+</body>
+</html>
